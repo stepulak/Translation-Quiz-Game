@@ -38,9 +38,7 @@ function class:new(...)
     c.__baseclass = self
     setmetatable(c, getmetatable(self))
     if c.init then
-        if not c:init(...) then
-			return nil
-		end
+        c:init(...)
     end
     return c
 end
