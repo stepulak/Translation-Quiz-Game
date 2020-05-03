@@ -174,7 +174,7 @@ function keyboard:draw(cam, font)
 	local center_x = offset_w + self.key_width / 2
 	local center_y = offset_h + self.key_height / 2
 	
-	love.graphics.setColor(0, 0, 0)
+	love.graphics.setColor(0, 0, 0, 1)
 	
 	for x = 1, KEYS_PER_WIDTH-1 do
 		love.graphics.line(x * self.key_width, 0, x * self.key_width, self.keyboard_height)

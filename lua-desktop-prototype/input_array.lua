@@ -5,6 +5,7 @@ input_array = class:new()
 
 local INPUT_ARRAY_WIDTH_Q = 0.8
 local INPUT_ARRAY_HEIGHT_Q = 0.225
+local KEY_OFFSET_WIDTH_Q = 0.03
 local MAX_KEYS_PER_WIDTH = 8
 local MAX_LINES_PER_HEIGHT = 3
 
@@ -20,6 +21,14 @@ function input_array:setup_key_proportions(cam)
 	self.key_height = self.array_height / MAX_LINES_PER_HEIGHT
 end
 
+function input_array:get_max_width()
+	return self.array_width
+end
+
+function input_array:get_max_height()
+	return self.array_height
+end
+
 function input_array:setup_lines(word)
 	self.lines = {}
 	self.line_offsets = {}
@@ -31,7 +40,7 @@ function input_array:setup_lines(word)
 		local subword_len = utf8.len(subword.str)
 		
 		self.lines[i - 1] = {}
-		self.line_offsets[i] = (self.array_width - self.key_width * subword_len) / 2
+		self.line_offsets[i - 1] = (self.array_width - self.key_width * subword_len) / 2
 		
 		for j = 1, utf8.len(subword.str) do
 			self.lines[i - 1][j - 1] = {
@@ -76,15 +85,20 @@ end
 
 function input_array:draw(cam, font)
 	local font_h = font:getHeight()
+	local width_offset = self.key_width * KEY_OFFSET_WIDTH_Q
+	
+	love.graphics.setColor(0, 0, 0, 1)
 	
 	for i = 0, #self.lines - 1 do
 		local line = self.lines[i]
-		local offset = self.line_offsets[i]
+		local line_offset = self.line_offsets[i]
 		
 		for j = 0, #line - 1 do
 			local key = line[j]
+			local x = line_offset + j * self.key_width + width_offset / 2
+			local y = (i + 1) * self.key_height
 			
-			
+			love.graphics.line(x, y, x + self.key_width, y)
 		end
 	end
 end

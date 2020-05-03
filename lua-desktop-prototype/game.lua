@@ -4,6 +4,7 @@ require "dictionary"
 require "input_array"
 
 local KEYBOARD_OFFSET_BOTTOM_Q = 0.02
+local INPUT_ARRAY_OFFSET_TOP_Q = 0.3
 
 game = class:new()
 
@@ -23,6 +24,14 @@ function game:keyboard_position(cam)
 		cam.virtual_h - keyboard_h - offset_bottom
 end
 
+function game:input_array_position(cam)
+	local input_array_w = self.input_array:get_max_width()
+	local input_array_h = self.input_array:get_max_height()
+	
+	return (cam.virtual_w - input_array_w) / 2,
+		cam.virtual_h * INPUT_ARRAY_OFFSET_TOP_Q
+end
+
 function game:mouse_released(cam, x, y)
 	local kx, ky = self:keyboard_position(cam)
 	kx = x - kx
@@ -32,6 +41,7 @@ end
 
 function game:update(dt)
 	self.keyboard:update(dt)
+	self.input_array:update(dt)
 end
 
 function game:draw(cam, font)
@@ -42,5 +52,12 @@ function game:draw(cam, font)
 	love.graphics.push()
 	love.graphics.translate(keyboard_x, keyboard_y)
 	self.keyboard:draw(cam, font)
+	love.graphics.pop()
+	
+	-- Draw input array
+	local input_array_x, input_array_y = self:input_array_position(cam)
+	love.graphics.push()
+	love.graphics.translate(input_array_x, input_array_y)
+	self.input_array:draw(cam, font)
 	love.graphics.pop()
 end
