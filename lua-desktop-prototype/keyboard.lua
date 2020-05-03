@@ -6,13 +6,13 @@ keyboard = class:new()
 
 local KEYBOARD_WIDTH_Q = 0.8
 local KEYBOARD_HEIGHT_Q = 0.45
-local KEY_OFFSET_WIDTH_Q = 0.01
-local KEY_OFFSET_HEIGHT_Q = 0.0056
-local KEYS_PER_WIDTH = 5
-local KEYS_PER_HEIGHT = 5
+local KEY_OFFSET_WIDTH_Q = 0.03
+local KEY_OFFSET_HEIGHT_Q = 0.02
+local KEYS_PER_WIDTH = 6
+local KEYS_PER_HEIGHT = 6
 local SHUFFLE_TIME = 3
 local SHUFFLE_MAX = 3
-local ANIMATION_TIME = 0.15
+local ANIMATION_TIME = 0.2
 
 function keyboard:init(cam, keyset)
 	self.keyset = keyset
@@ -29,6 +29,7 @@ function keyboard:init_keys()
 		for j=0, KEYS_PER_HEIGHT-1 do
 			self.keys[i][j] = {
 				letter = self:get_random_key(),
+				clicked = false,
 				animation_timer = 0,
 				animation_type = nil
 			}
@@ -65,30 +66,28 @@ function keyboard:get_key(x, y)
 	return nil
 end
 
--- @returns:
--- 		false, false if out of area
---		true, false if in area but found bad letter
---		true, true if in area and found correct letter
-function keyboard:click(relative_x, relative_y, expected_letter)
+function keyboard:unclick_first(letter)
+	self.foreach_key(function(x, y)
+		local key = self.keys[x][y]
+		if key.letter == letter and key.clicked then
+			key.clicked = false
+			return true
+		end
+	end)
+end
+
+function keyboard:click(relative_x, relative_y)
 	local key = self:get_key(
 		math.floor(relative_x / self.key_width),
 		math.floor(relative_y / self.key_height))
 	
 	if key == nil then
-		return false, false
-	end
-
-	if key.animation_type ~= nil then
-		return true, false
-	end
-
-	if key.letter ~= expected_letter then
-		key.animation_type = "go_red"
-		return true, false
+		return nil
 	end
 	
-	key.animation_type = "fade_out"
-	return true, true
+	key.animation_type = "click"
+	
+	return key.clicked and "" or key.letter
 end
 
 function keyboard:update_key_animation(key, dt)
@@ -100,16 +99,23 @@ function keyboard:update_key_animation(key, dt)
 		if key.animation_type == "fade_out" then
 			key.letter = self:get_random_key()
 			key.animation_type = "fade_in"
-		else
-			key.animation_type = nil
+			return
 		end
+		
+		if key.animation_type == "click" then
+			key.clicked = true
+		end
+		
+		key.animation_type = nil
 	end
 end
 
 function keyboard:foreach_key(fn)
 	for i=0, KEYS_PER_WIDTH-1 do
 		for j=0, KEYS_PER_HEIGHT-1 do
-			fn(i, j)
+			if fn(i, j) then
+				return
+			end
 		end
 	end
 end
@@ -128,7 +134,11 @@ function keyboard:key_animation_alpha(key)
 end
 
 function keyboard:get_key_color(key)
-	local r, g, b = 115/255, 129/255, 241/255
+	local r, g, b = 221/255, 219/255, 222/255
+
+	if key.clicked then
+		r, g, b = r * 0.8, g * 0.8, b * 0.8
+	end
 	
 	if key.animation_type == nil then
 		return r, g, b, 1
@@ -136,17 +146,17 @@ function keyboard:get_key_color(key)
 	
 	local a = self:key_animation_alpha(key)
 	
-	if key.animation_type == "go_red" then
-		return r, g * (1 - a), b * (1 - a), 1
+	if key.animation_type == "click" then
+		r, g, b = r * 0.8 + (1-a) * 0.2 * r, g * 0.8 + (1-a) * 0.2 * g, b * 0.8 + (1-a) * 0.2 * b
 	end
 	
 	return r, g, b, key.animation_type == "fade_out" and (1 - a) or a
 end
 
 function keyboard:get_text_color(key)
-	local r, g, b = 1, 1, 1
+	local r, g, b = 0, 0, 0
 	
-	if key.animation_type == nil or key.animation_type == "go_red" then
+	if key.animation_type == nil or key.animation_type == "click" then
 		return r, g, b, 1
 	end
 	
@@ -163,6 +173,15 @@ function keyboard:draw(cam, font)
 	local offset_h = KEY_OFFSET_HEIGHT_Q * self.key_height
 	local center_x = offset_w + self.key_width / 2
 	local center_y = offset_h + self.key_height / 2
+	
+	love.graphics.setColor(0, 0, 0)
+	
+	for x = 1, KEYS_PER_WIDTH-1 do
+		love.graphics.line(x * self.key_width, 0, x * self.key_width, self.keyboard_height)
+	end
+	for y = 1, KEYS_PER_HEIGHT-1 do
+		love.graphics.line(0, y * self.key_height, self.keyboard_width, y * self.key_height)
+	end
 	
 	self:foreach_key(function(x, y)
 		local key = self.keys[x][y]

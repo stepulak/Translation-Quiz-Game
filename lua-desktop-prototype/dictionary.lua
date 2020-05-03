@@ -13,7 +13,7 @@ function load_dictionary(filename, name, input_language, output_language)
 	local lines = file_read(filename)
 	local words = {}
 	
-	for i=1, #lines do
+	for i=2, #lines do
 		local line = lines[i]
 		local sep = string.find(line, ",")
 		
