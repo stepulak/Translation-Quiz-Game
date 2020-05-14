@@ -7,14 +7,22 @@ import android.graphics.Picture;
 import android.graphics.RectF;
 
 public class Button {
+    private final float SIZE_RATIO = 0.96f;
+
     private Bitmap bitmap;
-    private RectF rect;
     private String text;
+    private RectF rect;
 
     public Button(Bitmap b, float x, float y, float width, float height) {
         bitmap = b;
-        rect = new RectF(x, y, x + width, y + height);
         text = "?";
+
+        float newWidth = width * SIZE_RATIO;
+        float newHeight = height * SIZE_RATIO;
+        float offsetX = (width - newWidth) / 2;
+        float offsetY = (height - newHeight) / 2;
+
+        rect = new RectF(x + offsetX, y + offsetY, x + offsetX + newWidth, y + offsetY + newHeight);
     }
 
     public void setText(String txt) {
