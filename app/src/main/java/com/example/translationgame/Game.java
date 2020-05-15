@@ -9,14 +9,18 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 public class Game {
+    // TODO MOVE COLORS TO SEPARATE CLASS
+    // TODO CHECK FINAL STATIC
+    public static final int BACKGROUNDC_COLOR = Color.rgb(86, 81, 128);
+    public static final int BUTTON_COLOR = Color.WHITE;
+    public static final int BUTTON_TEXT_COLOR = BACKGROUNDC_COLOR;
+
     private Paint paint;
-    private int backgroundColor;
     private Keyboard keyboard;
     private InputForm inputForm;
 
     public Game(Resources resources, float scrWidth, float scrHeight) {
         paint = new Paint();
-        backgroundColor = Color.rgb(86, 81, 128);
         createUI(resources, scrWidth, scrHeight);
     }
 
@@ -34,23 +38,27 @@ public class Game {
 
         keyboard = new Keyboard(button, keyboardX, keyboardY, buttonWidth, buttonHeight);
 
-        float inputFormX = scrWidth * 0.8f;
+        float inputFormWidth = scrWidth * 0.8f;
+        float inputFormX = (scrWidth - inputFormWidth) / 2f;
         float inputFormY = scrHeight * 0.15f;
 
-        Word testWord = new Word("Das Auto");
+        Word testWord = new Word("Das Volks~wagen");
 
         inputForm = new InputForm(testWord, button, dash, inputFormX, inputFormY, buttonWidth, buttonHeight);
+        inputForm.startEnterAnimation(scrWidth);
     }
 
     public void update(float deltaTime) {
         keyboard.update(deltaTime);
-
+        inputForm.update(deltaTime);
+        if (!inputForm.isAnimating()) {
+            inputForm.startExitAnimation(1000);
+        }
     }
 
     public void draw(Canvas canvas) {
-        paint.setColor(backgroundColor);
+        paint.setColor(BACKGROUNDC_COLOR);
         canvas.drawRect(new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), paint);
-        paint.setColor(Color.WHITE);
         keyboard.draw(canvas, paint);
         inputForm.draw(canvas, paint);
     }

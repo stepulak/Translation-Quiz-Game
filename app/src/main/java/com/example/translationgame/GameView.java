@@ -15,7 +15,7 @@ import android.widget.ImageView;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Game game;
-    long lastUpdateTime = 0;
+    long lastUpdateTime = -1;
 
     public GameView(Context context) {
         super(context);
@@ -59,9 +59,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-        long time = System.nanoTime();
-        int deltaTime = (lastUpdateTime > 0) ? (int) ((time - lastUpdateTime) / 1000000) : 0;
-        game.update(deltaTime);
+        long time = System.currentTimeMillis();
+        if (lastUpdateTime > 0) {
+            float deltaTime = (time - lastUpdateTime) / 1000.0f;
+            game.update(deltaTime);
+        }
         lastUpdateTime = time;
     }
 

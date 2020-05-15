@@ -32,7 +32,13 @@ public class Word {
 
             if (c == ' ' || c == '~') {
                 result.add(new Pair<>(str.substring(start, i), c == '~'));
+                start = i + 1;
             }
+        }
+
+        // Rest
+        if (start < str.length()) {
+            result.add(new Pair<>(str.substring(start), false));
         }
 
         return result;

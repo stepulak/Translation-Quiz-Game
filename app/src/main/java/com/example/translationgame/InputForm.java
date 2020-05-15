@@ -7,91 +7,69 @@ import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class InputForm {
-    private enum AnimationStatus {
-        IDLE,
-        ENTERING,
-        EXITING
-    };
+    public static final int BUTTONS_PER_WIDTH = 6;
+    public static final int BUTTONS_PER_HEIGHT = 3;
 
-    private class FormLine {
-        private boolean drawDash;
-        private float offsetX;
-        private Button[] buttons;
-
-        FormLine(String word, boolean endingWithDash, Bitmap button, float x, float y, float buttonWidth, float buttonHeight) {
-            drawDash = endingWithDash;
-            offsetX = 0;
-            buttons = new Button[word.length()];
-
-            for (int i = 0; i < buttons.length; i++) {
-                buttons[i] = new Button(button, x + i * buttonWidth, y, buttonWidth, buttonHeight);
-            }
-        }
-
-        public boolean click(float x, float y) {
-            return false;
-        }
-
-        public void update(float deltaTime) {
-
-        }
-
-        public void draw(Canvas canvas, Paint paint, Bitmap dash) {
-            //canvas.save();
-            //canvas.translate(offsetX, 0);
-            for (Button button : buttons) {
-                button.draw(canvas, paint);
-            }
-           // canvas.restore();
-        }
-    };
-
-    public static int BUTTONS_PER_WIDTH = 6;
-    public static int BUTTONS_PER_HEIGHT = 3;
-
-    private AnimationStatus animationStatus;
     private Word word;
-    private Bitmap dash;
-    private List<FormLine> formLines;
+    private List<InputFormLine> lines;
 
     public InputForm(Word word, Bitmap button, Bitmap dash, float x, float y, float buttonWidth, float buttonHeight) {
         this.word = word;
-        this.dash = dash;
 
         float maxWidth = BUTTONS_PER_WIDTH * buttonWidth;
         List<Pair<String, Boolean>> components = word.getComponents();
 
-        formLines = new ArrayList<>(components.size());
+        lines = new ArrayList<>(components.size());
 
         for(Pair<String, Boolean> component : components) {
             String str = component.first;
             boolean endingWithDash = component.second;
             float startX = x + (maxWidth - str.length() * buttonWidth) / 2;
 
-            formLines.add(new FormLine(str, endingWithDash, button, startX, y, buttonWidth, buttonHeight));
+            lines.add(new InputFormLine(str, endingWithDash, button, dash, startX, y, buttonWidth, buttonHeight));
 
             y += buttonHeight;
         }
     }
 
-    public void startEnterAnimation() {
-
+    public boolean isAnimating() {
+        for (InputFormLine line : lines) {
+            if (line.isAnimating()) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void startExitAnimation() {
+    public void startEnterAnimation(float scrWidth) {
+        float acceleration = InputFormLine.ACCELERATION_BASE;
 
+        for (InputFormLine line : lines) {
+            line.startEnterAnimation(-scrWidth, acceleration);
+            acceleration += InputFormLine.ACCELERATION_INCREASE;
+        }
+    }
+
+    public void startExitAnimation(float scrWidth) {
+        float acceleration = InputFormLine.ACCELERATION_BASE;
+
+        for (InputFormLine line : lines) {
+            line.startExitAnimation(scrWidth, acceleration);
+            acceleration += InputFormLine.ACCELERATION_INCREASE;
+        }
     }
 
     public void update(float deltaTime) {
-
+        for (InputFormLine line : lines) {
+            line.update(deltaTime);
+        }
     }
 
     public void draw(Canvas canvas, Paint paint) {
-        for (FormLine formLine : formLines) {
-            formLine.draw(canvas, paint, dash);
+        for (InputFormLine line : lines) {
+            line.draw(canvas, paint);
         }
     }
 }

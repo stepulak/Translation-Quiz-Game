@@ -5,8 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 class Keyboard {
-    public static int BUTTONS_PER_WIDTH = 6;
-    public static int BUTTONS_PER_HEIGHT = 6;
+    public static final int BUTTONS_PER_WIDTH = 6;
+    public static final int BUTTONS_PER_HEIGHT = 6;
 
     private Button[][] buttons;
 
