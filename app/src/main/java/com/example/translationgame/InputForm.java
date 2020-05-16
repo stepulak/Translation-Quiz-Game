@@ -10,7 +10,7 @@ import java.util.List;
 
 public class InputForm {
     public static final int BUTTONS_PER_WIDTH = 6;
-    public static final int BUTTONS_PER_HEIGHT = 3;
+    public static final int BUTTONS_PER_HEIGHT = 4;
 
     private Word word;
     private List<InputFormLine> lines;
@@ -59,6 +59,10 @@ public class InputForm {
             line.startExitAnimation(scrWidth, acceleration);
             acceleration += InputFormLine.ACCELERATION_INCREASE;
         }
+    }
+
+    public boolean click(float x, float y) {
+        return false;
     }
 
     public void update(float deltaTime) {

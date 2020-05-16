@@ -7,12 +7,14 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnClickListener {
     private MainThread thread;
     private Game game;
     long lastUpdateTime = -1;
@@ -26,6 +28,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         Point screenSize = getScreenSize();
         game = new Game(context.getResources(), screenSize.x, screenSize.y);
+    }
+
+    @Override
+    public void onClick(View w) {
+        int x;
+
     }
 
     @Override
