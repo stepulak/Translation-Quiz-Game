@@ -4,21 +4,22 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 
 public class Button {
     private enum AnimationType {
         NONE,
         CLICK,
-    };
+    }
 
     private static final float SIZE_RATIO = 0.96f;
-    private static final float CLICK_ANIMATION_TIME = 0.2f;
+    private static final float CLICK_ANIMATION_TIME = 0.1f;
 
     private Bitmap bitmap;
-    private String text;
     private RectF rect;
-
+    // Use String, not Character for single letter text because of canvas.drawText
+    private String text;
     private AnimationType animationType = AnimationType.NONE;
     private float animationTimer = 0f;
 
@@ -33,24 +34,12 @@ public class Button {
         rect = new RectF(x + offsetX, y + offsetY, x + offsetX + newWidth, y + offsetY + newHeight);
     }
 
-    public float getX() {
-        return rect.left;
+    public void setCharacter(Character c) {
+        text = c != null ? Character.toString(c) : null;
     }
 
-    public float getY() {
-        return rect.top;
-    }
-
-    public float getWidth() {
-        return rect.right - rect.left;
-    }
-
-    public float getHeight() {
-        return rect.bottom - rect.top;
-    }
-
-    public void setText(String txt) {
-        text = txt;
+    public Character getCharacter() {
+        return text != null && text.length() > 0 ? text.charAt(0) : null;
     }
 
     public void update(float deltaTime) {
@@ -76,7 +65,7 @@ public class Button {
         // TODO MOVE COLORS TO SEPARATE CLASS
         paint.setColor(Game.BUTTON_COLOR);
         if (animationType == AnimationType.CLICK) {
-            paint.setAlpha(128 + (int) (128 * animationTimer/CLICK_ANIMATION_TIME));
+            paint.setAlpha(55 + (int) (200 * animationTimer/CLICK_ANIMATION_TIME));
         }
         canvas.drawBitmap(bitmap, null, rect, paint);
         paint.setAlpha(255);

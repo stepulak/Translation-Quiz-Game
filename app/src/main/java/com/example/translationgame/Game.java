@@ -59,18 +59,21 @@ public class Game {
         skipButton = new Button(skipBitmap, skipButtonX, doneSkipButtonY, doneSkipButtonWidth, doneSkipButtonHeight);
         doneButton = new Button(doneBitmap, doneButtonX, doneSkipButtonY, doneSkipButtonWidth, doneSkipButtonHeight);
 
-        float inputFormWidth = scrWidth * 0.9f;
+        float inputFormWidth = InputForm.WIDTH_IN_BUTTONS * buttonWidth;
         float inputFormX = (scrWidth - inputFormWidth) / 2f;
-        float inputFormY = doneSkipButtonY - InputForm.BUTTONS_PER_HEIGHT * buttonHeight - doneSkipButtonHeight * 0.2f;
+        float inputFormY = doneSkipButtonY - InputForm.HEIGHT_IN_BUTTONS * buttonHeight - doneSkipButtonHeight * 0.2f;
 
-        Word testWord = new Word("Das Volks~wagen");
+        Word testWord = new Word("Das Volks wagenz AUTOO");
 
         inputForm = new InputForm(testWord, buttonBitmap, dashBitmap, inputFormX, inputFormY, buttonWidth, buttonHeight);
-        inputForm.startEnterAnimation(scrWidth);
     }
 
     public void click(float x, float y) {
-        keyboard.click(x, y);
+        Character c = keyboard.click(x, y);
+        if (c != null) {
+            inputForm.insertCharacter(c);
+            return;
+        }
         if (!inputForm.isAnimating()) {
             inputForm.click(x, y);
         }
@@ -82,9 +85,6 @@ public class Game {
     public void update(float deltaTime) {
         keyboard.update(deltaTime);
         inputForm.update(deltaTime);
-        if (!inputForm.isAnimating()) {
-            inputForm.startExitAnimation(1000);
-        }
         quitButton.update(deltaTime);
         doneButton.update(deltaTime);
         skipButton.update(deltaTime);

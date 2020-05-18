@@ -15,7 +15,7 @@ public class InputFormLine {
         EXITING
     };
 
-    private AnimationStatus animationStatus;
+    private AnimationStatus animationStatus = AnimationStatus.IDLE;
     private float offsetX;
     private float maxOffsetX;
     private float velocity;
@@ -25,7 +25,6 @@ public class InputFormLine {
     private Dash dash = null;
 
     InputFormLine(String word, boolean endingWithDash, Bitmap buttonBitmap, Bitmap dashBitmap, float x, float y, float buttonWidth, float buttonHeight) {
-        offsetX = 0;
         buttons = new Button[word.length()];
 
         for (int i = 0; i < buttons.length; i++) {
@@ -55,6 +54,26 @@ public class InputFormLine {
         offsetX = 0;
         velocity = VELOCITY_BASE;
         animationStatus = AnimationStatus.EXITING;
+    }
+
+    public boolean insertCharacter(char c) {
+        for (int i = 0; i < buttons.length; i++) {
+            if (buttons[i].getCharacter() == null) {
+                buttons[i].setCharacter(c);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean removeCharacter(float x, float y) {
+        for (int i = 0; i < buttons.length; i++) {
+            if (buttons[i].click(x, y)) {
+                buttons[i].setCharacter(null);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean click(float x, float y) {

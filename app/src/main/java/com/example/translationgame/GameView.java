@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnClickListener {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Game game;
     long lastUpdateTime = -1;
+    float clickX = -1;
+    float clickY = -1;
 
     public GameView(Context context) {
         super(context);
@@ -28,12 +30,26 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
         Point screenSize = getScreenSize();
         game = new Game(context.getResources(), screenSize.x, screenSize.y);
-    }
 
-    @Override
-    public void onClick(View w) {
-        int x;
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (clickX >= 0f && clickY >= 0f) {
+                    game.click(clickX, clickY);
+                }
+            }
+        });
 
+        this.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    clickX = motionEvent.getX();
+                    clickY = motionEvent.getY();
+                }
+                return false;
+            }
+        });
     }
 
     @Override

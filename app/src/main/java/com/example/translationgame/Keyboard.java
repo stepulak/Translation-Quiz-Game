@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.Random;
+
 class Keyboard {
     public static final int BUTTONS_PER_WIDTH = 7;
     public static final int BUTTONS_PER_HEIGHT = 5;
@@ -16,11 +18,19 @@ class Keyboard {
         for (int i = 0; i < BUTTONS_PER_WIDTH; i++) {
             for (int j = 0; j < BUTTONS_PER_HEIGHT; j++) {
                 buttons[i][j] = new Button(button, x + i * buttonWidth, y + j * buttonHeight, buttonWidth, buttonHeight);
+                buttons[i][j].setCharacter("ABCDEFGH".charAt(new Random().nextInt(8)));
             }
         }
     }
 
     public Character click(float x, float y) {
+        for (int i = 0; i < BUTTONS_PER_WIDTH; i++) {
+            for (int j = 0; j < BUTTONS_PER_HEIGHT; j++) {
+                if (buttons[i][j].click(x, y)) {
+                    return buttons[i][j].getCharacter();
+                }
+            }
+        }
         return null;
     }
 

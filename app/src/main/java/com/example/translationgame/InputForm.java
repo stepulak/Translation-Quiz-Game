@@ -9,28 +9,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InputForm {
-    public static final int BUTTONS_PER_WIDTH = 6;
-    public static final int BUTTONS_PER_HEIGHT = 4;
+    public static final float WIDTH_IN_BUTTONS = 6f;
+    public static final float HEIGHT_IN_BUTTONS = 4.6f;
+    private static final float SPACE_HEIGHT_IN_BUTTONS = 0.2f;
 
     private Word word;
-    private List<InputFormLine> lines;
+    private InputFormLine[] lines;
 
     public InputForm(Word word, Bitmap button, Bitmap dash, float x, float y, float buttonWidth, float buttonHeight) {
         this.word = word;
 
-        float maxWidth = BUTTONS_PER_WIDTH * buttonWidth;
         List<Pair<String, Boolean>> components = word.getComponents();
 
-        lines = new ArrayList<>(components.size());
+        float maxWidth = WIDTH_IN_BUTTONS * buttonWidth;
+        float maxHeight = HEIGHT_IN_BUTTONS * buttonHeight;
+        float actualHeight = 0f;
 
-        for(Pair<String, Boolean> component : components) {
-            String str = component.first;
-            boolean endingWithDash = component.second;
-            float startX = x + (maxWidth - str.length() * buttonWidth) / 2;
+        for(Pair<String, Boolean> c : components) {
+            actualHeight += buttonHeight;
+            if (!c.second) {
+                actualHeight += SPACE_HEIGHT_IN_BUTTONS * buttonHeight;
+            }
+        }
+        y += (maxHeight - actualHeight) / 2;
 
-            lines.add(new InputFormLine(str, endingWithDash, button, dash, startX, y, buttonWidth, buttonHeight));
+        lines = new InputFormLine[components.size()];
 
+        for(int i = 0; i < components.size(); i++) {
+            Pair<String, Boolean> c = components.get(i);
+            float startX = x + (maxWidth - c.first.length() * buttonWidth) / 2;
+
+            lines[i] = new InputFormLine(c.first, c.second, button, dash, startX, y, buttonWidth, buttonHeight);
             y += buttonHeight;
+
+            if (!c.second) {
+                y += SPACE_HEIGHT_IN_BUTTONS * buttonHeight;
+            }
         }
     }
 
@@ -61,7 +75,20 @@ public class InputForm {
         }
     }
 
+    public void insertCharacter(char c) {
+        for (InputFormLine line : lines) {
+            if (line.insertCharacter(c)) {
+                return;
+            }
+        }
+    }
+
     public boolean click(float x, float y) {
+        for (InputFormLine line : lines) {
+            if (line.removeCharacter(x, y)) {
+                return true;
+            }
+        }
         return false;
     }
 
