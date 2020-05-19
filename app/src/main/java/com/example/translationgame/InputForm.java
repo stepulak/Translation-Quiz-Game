@@ -5,33 +5,40 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InputForm {
     public static final float WIDTH_IN_BUTTONS = 6f;
     public static final float HEIGHT_IN_BUTTONS = 4.6f;
+
     private static final float SPACE_HEIGHT_IN_BUTTONS = 0.2f;
+    private static final float SHAKE_ROTATION_VELOCITY = 360.f;
+    private static final float SHAKE_ROTATION_TURN_TIME = 0.1f;
+    private static final int SHAKE_ROTATIONS = 5;
 
     private Word word;
     private InputFormLine[] lines;
 
-    public InputForm(Word word, Bitmap button, Bitmap dash, float x, float y, float buttonWidth, float buttonHeight) {
-        this.word = word;
+    private float centerX;
+    private float centerY;
+
+    private boolean shakeRotationEnabled;
+    private int shakeRotations;
+    private float shakeRotationTimer;
+    private float shakeRotationDirection;
+    private float shakeRotationAngle;
+
+    public InputForm(Word w, Bitmap button, Bitmap dash, float x, float y, float buttonWidth, float buttonHeight) {
+        word = w;
 
         List<Pair<String, Boolean>> components = word.getComponents();
-
         float maxWidth = WIDTH_IN_BUTTONS * buttonWidth;
         float maxHeight = HEIGHT_IN_BUTTONS * buttonHeight;
-        float actualHeight = 0f;
 
-        for(Pair<String, Boolean> c : components) {
-            actualHeight += buttonHeight;
-            if (!c.second) {
-                actualHeight += SPACE_HEIGHT_IN_BUTTONS * buttonHeight;
-            }
-        }
-        y += (maxHeight - actualHeight) / 2;
+        centerX = x + maxWidth / 2f;
+        centerY = y + maxHeight / 2f;
+
+        y += (maxHeight - getHeight(buttonHeight)) / 2;
 
         lines = new InputFormLine[components.size()];
 
@@ -48,7 +55,23 @@ public class InputForm {
         }
     }
 
+    private float getHeight(float buttonHeight) {
+        float actualHeight = 0.f;
+
+        for(Pair<String, Boolean> c :  word.getComponents()) {
+            actualHeight += buttonHeight;
+            if (!c.second) {
+                actualHeight += SPACE_HEIGHT_IN_BUTTONS * buttonHeight;
+            }
+        }
+
+        return actualHeight;
+    }
+
     public boolean isAnimating() {
+        if (shakeRotationEnabled) {
+            return true;
+        }
         for (InputFormLine line : lines) {
             if (line.isAnimating()) {
                 return true;
@@ -58,8 +81,10 @@ public class InputForm {
     }
 
     public void startEnterAnimation(float scrWidth) {
+        if (isAnimating()) {
+            return;
+        }
         float acceleration = InputFormLine.ACCELERATION_BASE;
-
         for (InputFormLine line : lines) {
             line.startEnterAnimation(-scrWidth, acceleration);
             acceleration += InputFormLine.ACCELERATION_INCREASE;
@@ -67,12 +92,38 @@ public class InputForm {
     }
 
     public void startExitAnimation(float scrWidth) {
+        if (isAnimating()) {
+            return;
+        }
         float acceleration = InputFormLine.ACCELERATION_BASE;
-
         for (InputFormLine line : lines) {
             line.startExitAnimation(scrWidth, acceleration);
             acceleration += InputFormLine.ACCELERATION_INCREASE;
         }
+    }
+
+    public void startShakeAnimation() {
+        if (isAnimating()) {
+            return;
+        }
+        shakeRotationEnabled = true;
+        shakeRotationTimer = 0.f;
+        shakeRotationAngle = 0.f;
+        shakeRotationDirection = 1.f;
+        shakeRotations = SHAKE_ROTATIONS;
+    }
+
+    public boolean isFilled() {
+        for (InputFormLine line : lines) {
+            if (!line.isFilled()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean wordMatch(String word) {
+
     }
 
     public void insertCharacter(char c) {
@@ -84,6 +135,9 @@ public class InputForm {
     }
 
     public boolean click(float x, float y) {
+        if (isAnimating()) {
+            return false;
+        }
         for (InputFormLine line : lines) {
             if (line.removeCharacter(x, y)) {
                 return true;
@@ -96,11 +150,30 @@ public class InputForm {
         for (InputFormLine line : lines) {
             line.update(deltaTime);
         }
+        if (shakeRotationEnabled) {
+            shakeRotationAngle += shakeRotationDirection * SHAKE_ROTATION_VELOCITY * deltaTime;
+            shakeRotationTimer += deltaTime;
+            float turnTime = (shakeRotations == 1 || shakeRotations == SHAKE_ROTATIONS) ? SHAKE_ROTATION_TURN_TIME / 2 : SHAKE_ROTATION_TURN_TIME;
+
+            if (shakeRotationTimer > turnTime) {
+                shakeRotationTimer = 0.f;
+                shakeRotationDirection *= -1.f;
+                shakeRotations--;
+                if (shakeRotations <= 0) {
+                    shakeRotationEnabled = false;
+                }
+            }
+        }
     }
 
     public void draw(Canvas canvas, Paint paint) {
+        canvas.save();
+        if (shakeRotationEnabled) {
+            canvas.rotate(shakeRotationAngle, centerX, centerY);
+        }
         for (InputFormLine line : lines) {
             line.draw(canvas, paint);
         }
+        canvas.restore();
     }
 }

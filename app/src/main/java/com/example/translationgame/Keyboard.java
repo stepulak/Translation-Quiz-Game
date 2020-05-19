@@ -8,7 +8,7 @@ import java.util.Random;
 
 class Keyboard {
     public static final int BUTTONS_PER_WIDTH = 7;
-    public static final int BUTTONS_PER_HEIGHT = 5;
+    public static final int BUTTONS_PER_HEIGHT = 4;
 
     private Button[][] buttons;
 

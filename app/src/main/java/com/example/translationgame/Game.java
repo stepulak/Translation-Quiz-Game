@@ -1,6 +1,7 @@
 package com.example.translationgame;
 
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -34,8 +35,10 @@ public class Game {
         Bitmap quitBitmap = BitmapFactory.decodeResource(resources, R.drawable.quit);
         Bitmap skipBitmap = BitmapFactory.decodeResource(resources, R.drawable.skip);
 
+        Dictionary dictionary = new Dictionary(resources.obtainTypedArray(R.array.czech_german));
+
         float keyboardWidth = scrWidth * 0.9f;
-        float keyboardHeight = scrHeight * 0.3616f;
+        float keyboardHeight = scrHeight * 0.2892f;
         float keyboardX = (scrWidth - keyboardWidth) / 2f;
         float keyboardY = scrHeight - keyboardHeight - scrHeight * 0.025f;
 
@@ -63,9 +66,10 @@ public class Game {
         float inputFormX = (scrWidth - inputFormWidth) / 2f;
         float inputFormY = doneSkipButtonY - InputForm.HEIGHT_IN_BUTTONS * buttonHeight - doneSkipButtonHeight * 0.2f;
 
-        Word testWord = new Word("Das Volks wagenz AUTOO");
+        Word testWord = new Word("Das Volks~wagenz AUTOO");
 
         inputForm = new InputForm(testWord, buttonBitmap, dashBitmap, inputFormX, inputFormY, buttonWidth, buttonHeight);
+        inputForm.startShakeAnimation();
     }
 
     public void click(float x, float y) {

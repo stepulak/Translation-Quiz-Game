@@ -76,10 +76,6 @@ public class InputFormLine {
         return false;
     }
 
-    public boolean click(float x, float y) {
-        return false;
-    }
-
     public void update(float deltaTime) {
         if (animationStatus != AnimationStatus.IDLE) {
             offsetX += velocity * deltaTime;
@@ -89,6 +85,10 @@ public class InputFormLine {
                 offsetX = maxOffsetX;
                 animationStatus = AnimationStatus.IDLE;
             }
+        }
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].update(deltaTime);
         }
     }
 
