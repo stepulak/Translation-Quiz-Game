@@ -7,31 +7,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Dictionary {
-    public class Word {
-        private String original;
-        private String translated;
-        private String translatedWithoutFormatting;
+    public class Translation {
+        private String originalWord;
+        private String translatedWord;
+        private String translatedWordWithoutFormatting;
 
-        public Word(String original, String translated) {
-            this.original = original;
-            this.translated = translated;
-            translatedWithoutFormatting = translated.replace("~", "");
+        public Translation(String original, String translated) {
+            originalWord = original;
+            translatedWord = translated;
+            translatedWordWithoutFormatting = translated.replace("~", "").replace(" ", "");
         }
 
-        public String getOriginal() {
-            return original;
+        public String getOriginalWord() {
+            return originalWord;
         }
 
-        public String getTranslated() {
-            return translated;
+        public String getTranslatedWord() {
+            return translatedWord;
         }
 
-        public String getTranslatedWithoutFormatting() {
-            return translatedWithoutFormatting;
+        public String getTranslatedWordWithoutFormatting() {
+            return translatedWordWithoutFormatting;
         }
     }
 
-    private ArrayList<Word> dict;
+    private ArrayList<Translation> dict;
     private int index = 0;
 
     public Dictionary(TypedArray resource) {
@@ -45,11 +45,11 @@ public class Dictionary {
 
             assert(parts.length == 2);
 
-            dict.add(new Word(parts[0], parts[1]));
+            dict.add(new Translation(parts[0], parts[1]));
         }
     }
 
-    public Word getWord() {
+    public Translation getTranslation() {
         return dict.get(index);
     }
 

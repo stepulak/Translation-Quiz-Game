@@ -22,10 +22,6 @@ public class Dash {
         rect = new RectF(x + offsetX, y + offsetY, x + offsetX + newWidth, y + offsetY + newHeight);
     }
 
-    public void update(float deltaTime) {
-
-    }
-
     public void draw(Canvas canvas, Paint paint) {
         canvas.drawBitmap(bitmap, null, rect, paint);
     }

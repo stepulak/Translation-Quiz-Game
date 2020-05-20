@@ -19,10 +19,6 @@ public class Word {
         return Collections.unmodifiableList(components);
     }
 
-    public boolean match(String str) {
-        return word.equals(str);
-    }
-
     private static List<Pair<String, Boolean>> decompose(String str) {
         List<Pair<String, Boolean>> result = new ArrayList<>();
         int start = 0;

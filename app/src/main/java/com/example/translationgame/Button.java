@@ -73,8 +73,8 @@ public class Button {
         if (text != null) {
             paint.setTextSize(50);
 
-            float textX = rect.centerX() - (paint.measureText(text) / 2);
-            float textY = rect.centerY() - (paint.descent() + paint.ascent() / 2);
+            float textX = rect.centerX() - paint.measureText(text) / 2.f;
+            float textY = rect.centerY() - (paint.descent() + paint.ascent()) / 2.f;
 
             paint.setColor(Game.BUTTON_TEXT_COLOR);
             canvas.drawText(text, textX, textY, paint);

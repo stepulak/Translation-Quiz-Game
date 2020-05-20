@@ -16,7 +16,7 @@ public class InputForm {
     private static final float SHAKE_ROTATION_TURN_TIME = 0.1f;
     private static final int SHAKE_ROTATIONS = 5;
 
-    private Word word;
+    private String translatedWord;
     private InputFormLine[] lines;
 
     private float centerX;
@@ -28,17 +28,19 @@ public class InputForm {
     private float shakeRotationDirection;
     private float shakeRotationAngle;
 
-    public InputForm(Word w, Bitmap button, Bitmap dash, float x, float y, float buttonWidth, float buttonHeight) {
-        word = w;
+    public InputForm(Dictionary.Translation trans, Bitmap button, Bitmap dash, float x, float y, float buttonWidth, float buttonHeight) {
+        translatedWord = trans.getTranslatedWordWithoutFormatting();
 
-        List<Pair<String, Boolean>> components = word.getComponents();
+        Word translatedWord = new Word(trans.getTranslatedWord());
+        List<Pair<String, Boolean>> components = translatedWord.getComponents();
+
         float maxWidth = WIDTH_IN_BUTTONS * buttonWidth;
         float maxHeight = HEIGHT_IN_BUTTONS * buttonHeight;
 
         centerX = x + maxWidth / 2f;
         centerY = y + maxHeight / 2f;
 
-        y += (maxHeight - getHeight(buttonHeight)) / 2;
+        y += (maxHeight - getHeight(translatedWord, buttonHeight)) / 2;
 
         lines = new InputFormLine[components.size()];
 
@@ -55,7 +57,7 @@ public class InputForm {
         }
     }
 
-    private float getHeight(float buttonHeight) {
+    private static float getHeight(Word word, float buttonHeight) {
         float actualHeight = 0.f;
 
         for(Pair<String, Boolean> c :  word.getComponents()) {
@@ -122,8 +124,12 @@ public class InputForm {
         return true;
     }
 
-    public boolean wordMatch(String word) {
-
+    public boolean isFilledCorrectly() {
+        StringBuilder builder = new StringBuilder();
+        for (InputFormLine line : lines) {
+            builder.append(line.getStringContent());
+        }
+        return builder.toString().equals(translatedWord);
     }
 
     public void insertCharacter(char c) {

@@ -76,6 +76,27 @@ public class InputFormLine {
         return false;
     }
 
+    public boolean isFilled() {
+        for (int i = 0; i < buttons.length; i++) {
+            if (buttons[i].getCharacter() == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String getStringContent() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < buttons.length; i++) {
+            Character c = buttons[i].getCharacter();
+            if (c == null) {
+                break;
+            }
+            builder.append(c);
+        }
+        return builder.toString();
+    }
+
     public void update(float deltaTime) {
         if (animationStatus != AnimationStatus.IDLE) {
             offsetX += velocity * deltaTime;

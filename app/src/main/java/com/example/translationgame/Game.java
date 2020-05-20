@@ -19,6 +19,7 @@ public class Game {
     private Paint paint;
     private Keyboard keyboard;
     private InputForm inputForm;
+    private Label label;
     private Button quitButton;
     private Button skipButton;
     private Button doneButton;
@@ -66,10 +67,15 @@ public class Game {
         float inputFormX = (scrWidth - inputFormWidth) / 2f;
         float inputFormY = doneSkipButtonY - InputForm.HEIGHT_IN_BUTTONS * buttonHeight - doneSkipButtonHeight * 0.2f;
 
-        Word testWord = new Word("Das Volks~wagenz AUTOO");
+        dictionary.shuffle();
+        inputForm = new InputForm(dictionary.getTranslation(), buttonBitmap, dashBitmap, inputFormX, inputFormY, buttonWidth, buttonHeight);
 
-        inputForm = new InputForm(testWord, buttonBitmap, dashBitmap, inputFormX, inputFormY, buttonWidth, buttonHeight);
-        inputForm.startShakeAnimation();
+        float labelWidth = scrWidth * 0.9f;
+        float labelHeight = buttonHeight * 1.5f;
+        float labelX = (scrWidth - labelWidth) / 2.f;
+        float labelY = inputFormY - labelHeight - buttonHeight * 0.2f;
+
+        label = new Label(dictionary.getTranslation().getOriginalWord(), paint, labelX, labelY, labelWidth, labelHeight);
     }
 
     public void click(float x, float y) {
@@ -102,5 +108,6 @@ public class Game {
         quitButton.draw(canvas, paint);
         doneButton.draw(canvas, paint);
         skipButton.draw(canvas, paint);
+        label.draw(canvas, paint);
     }
 }
