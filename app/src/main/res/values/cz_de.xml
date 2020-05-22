@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="czech_german">
-        <item>Auto;Das Auto</item>
-        <item>Podvodník;Der Unter~wasser Mann</item>
-        <item>Palačinka;Die Pfann~kuchen</item>
+        <item>AUTO;DAS AUTO</item>
+        <item>PODVODNÍK;DER UNTER~WASSER MANN</item>
+        <item>PALAČINKA;DIE PFANN~KUCHEN</item>
     </string-array>
 </resources>

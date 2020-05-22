@@ -61,12 +61,13 @@ public class Button {
         return true;
     }
 
-    public void draw(Canvas canvas, Paint paint) {
+    public void draw(Canvas canvas, Paint paint, float globalAlpha) {
         // TODO MOVE COLORS TO SEPARATE CLASS
         paint.setColor(Game.BUTTON_COLOR);
-        if (animationType == AnimationType.CLICK) {
-            paint.setAlpha(55 + (int) (200 * animationTimer/CLICK_ANIMATION_TIME));
-        }
+
+        float localAlpha = (animationType == AnimationType.CLICK) ? 0.2f + 0.8f * animationTimer/CLICK_ANIMATION_TIME : 1.f;
+        paint.setAlpha((int) (255 * globalAlpha * localAlpha));
+
         canvas.drawBitmap(bitmap, null, rect, paint);
         paint.setAlpha(255);
 

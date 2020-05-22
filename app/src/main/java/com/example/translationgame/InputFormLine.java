@@ -117,7 +117,7 @@ public class InputFormLine {
         canvas.save();
         canvas.translate(offsetX, 0);
         for (Button button : buttons) {
-            button.draw(canvas, paint);
+            button.draw(canvas, paint, 1.f);
         }
         if (dash != null) {
             paint.setColor(Game.BUTTON_COLOR);

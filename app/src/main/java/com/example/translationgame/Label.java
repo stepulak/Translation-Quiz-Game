@@ -9,8 +9,8 @@ public class Label {
     private String label;
     private RectF rect;
     private float fontSize;
-    private float textWidth;
-    private float textHeight;
+    private float textOffsetX;
+    private float textOffsetY;
 
     public Label(String lbl, Paint paint, float x, float y, float width, float height) {
         label = lbl;
@@ -18,9 +18,11 @@ public class Label {
 
         for (fontSize = 10.f; fontSize < 400f; fontSize++) {
             paint.setTextSize(fontSize);
-            textWidth = paint.measureText(label);
-            textHeight = paint.descent() - paint.ascent();
+            float textWidth = paint.measureText(label);
+            float textHeight = paint.descent() - paint.ascent();
             if (textWidth >= width || textHeight >= height) {
+                textOffsetX = -.5f * textWidth;
+                textOffsetY = -.5f * (paint.descent() + paint.ascent());
                 break;
             }
         }
@@ -29,8 +31,8 @@ public class Label {
     public void draw(Canvas canvas, Paint paint) {
         paint.setTextSize(fontSize);
 
-        float textX = rect.centerX() - textWidth / 2.f;
-        float textY = rect.centerY() - textHeight / 2.f;
+        float textX = rect.centerX() + textOffsetX;
+        float textY = rect.centerY() + textOffsetY;
 
         paint.setColor(Color.WHITE);
         canvas.drawText(label, textX, textY, paint);

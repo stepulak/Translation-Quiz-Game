@@ -47,6 +47,7 @@ public class Game {
         float buttonHeight = keyboardHeight / Keyboard.BUTTONS_PER_HEIGHT;
 
         keyboard = new Keyboard(buttonBitmap, keyboardX, keyboardY, buttonWidth, buttonHeight);
+        //keyboard.generateButtonLabels(dictionary.getTranslation());
 
         float quitButtonWidth = scrWidth * 0.07f;
         float quitButtonHeight = scrHeight * 0.0392f;
@@ -67,7 +68,7 @@ public class Game {
         float inputFormX = (scrWidth - inputFormWidth) / 2f;
         float inputFormY = doneSkipButtonY - InputForm.HEIGHT_IN_BUTTONS * buttonHeight - doneSkipButtonHeight * 0.2f;
 
-        dictionary.shuffle();
+        //dictionary.shuffle();
         inputForm = new InputForm(dictionary.getTranslation(), buttonBitmap, dashBitmap, inputFormX, inputFormY, buttonWidth, buttonHeight);
 
         float labelWidth = scrWidth * 0.9f;
@@ -105,9 +106,9 @@ public class Game {
         canvas.drawRect(new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), paint);
         keyboard.draw(canvas, paint);
         inputForm.draw(canvas, paint);
-        quitButton.draw(canvas, paint);
-        doneButton.draw(canvas, paint);
-        skipButton.draw(canvas, paint);
+        quitButton.draw(canvas, paint, 1.f);
+        doneButton.draw(canvas, paint, 1.f);
+        skipButton.draw(canvas, paint, 1.f);
         label.draw(canvas, paint);
     }
 }
