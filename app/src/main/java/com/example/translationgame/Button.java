@@ -63,7 +63,7 @@ public class Button {
 
     public void draw(Canvas canvas, Paint paint, float globalAlpha) {
         // TODO MOVE COLORS TO SEPARATE CLASS
-        paint.setColor(Game.BUTTON_COLOR);
+        paint.setColor(MyColors.LABEL_COLOR);
 
         float localAlpha = (animationType == AnimationType.CLICK) ? 0.2f + 0.8f * animationTimer/CLICK_ANIMATION_TIME : 1.f;
         paint.setAlpha((int) (255 * globalAlpha * localAlpha));
@@ -77,7 +77,7 @@ public class Button {
             float textX = rect.centerX() - paint.measureText(text) / 2.f;
             float textY = rect.centerY() - (paint.descent() + paint.ascent()) / 2.f;
 
-            paint.setColor(Game.BUTTON_TEXT_COLOR);
+            paint.setColor(MyColors.BUTTON_LABEL_COLOR);
             canvas.drawText(text, textX, textY, paint);
         }
     }

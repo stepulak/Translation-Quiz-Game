@@ -1,18 +1,14 @@
 package com.example.translationgame;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
@@ -29,7 +25,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
 
         Point screenSize = getScreenSize();
-        game = new Game(context.getResources(), screenSize.x, screenSize.y);
+        game = new Game(context.getResources(), R.array.czech_german, screenSize.x, screenSize.y);
 
         this.setOnClickListener(new OnClickListener() {
             @Override

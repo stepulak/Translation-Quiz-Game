@@ -19,7 +19,7 @@ public class Label {
         label = lbl;
         rect = new RectF(x, y, x + width, y + height);
 
-        setup(paint);
+        setupProportions(paint, width, height);
     }
 
     public void draw(Canvas canvas, Paint paint) {
@@ -30,7 +30,7 @@ public class Label {
         canvas.drawText(label, textX, textY, paint);
     }
 
-    private void setup(Paint paint) {
+    private void setupProportions(Paint paint, float width, float height) {
         // Find out good fontSize, textOffsetX, textOffsetY
         for (fontSize = LABEL_MIN_FONT_SIZE; fontSize < LABEL_MAX_FONT_SIZE; fontSize++) {
             paint.setTextSize(fontSize);

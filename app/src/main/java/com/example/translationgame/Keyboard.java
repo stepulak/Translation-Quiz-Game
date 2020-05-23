@@ -41,7 +41,7 @@ class Keyboard {
         animationType = AnimationType.BUTTON_LABELS_FADE_IN;
         animationTimer = 0.f;
 
-        // Generate button labels
+        // Generate labels for buttons
         ArrayList<Character> chars = new ArrayList<>();
         for (Character c : translation.getTranslatedWordWithoutFormatting().toCharArray()) {
             chars.add(c);

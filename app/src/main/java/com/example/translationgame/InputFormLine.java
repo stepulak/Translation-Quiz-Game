@@ -120,7 +120,7 @@ public class InputFormLine {
             button.draw(canvas, paint, 1.f);
         }
         if (dash != null) {
-            paint.setColor(Game.BUTTON_COLOR);
+            paint.setColor(MyColors.BUTTON_COLOR);
             dash.draw(canvas, paint);
         }
         canvas.restore();
