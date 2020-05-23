@@ -6,6 +6,9 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 public class Label {
+    private final float LABEL_MAX_FONT_SIZE = 400.f;
+    private final float LABEL_MIN_FONT_SIZE = 10.f;
+
     private String label;
     private RectF rect;
     private float fontSize;
@@ -16,7 +19,20 @@ public class Label {
         label = lbl;
         rect = new RectF(x, y, x + width, y + height);
 
-        for (fontSize = 10.f; fontSize < 400f; fontSize++) {
+        setup(paint);
+    }
+
+    public void draw(Canvas canvas, Paint paint) {
+        float textX = rect.centerX() + textOffsetX;
+        float textY = rect.centerY() + textOffsetY;
+        paint.setTextSize(fontSize);
+        paint.setColor(MyColors.LABEL_COLOR);
+        canvas.drawText(label, textX, textY, paint);
+    }
+
+    private void setup(Paint paint) {
+        // Find out good fontSize, textOffsetX, textOffsetY
+        for (fontSize = LABEL_MIN_FONT_SIZE; fontSize < LABEL_MAX_FONT_SIZE; fontSize++) {
             paint.setTextSize(fontSize);
             float textWidth = paint.measureText(label);
             float textHeight = paint.descent() - paint.ascent();
@@ -26,15 +42,5 @@ public class Label {
                 break;
             }
         }
-    }
-
-    public void draw(Canvas canvas, Paint paint) {
-        paint.setTextSize(fontSize);
-
-        float textX = rect.centerX() + textOffsetX;
-        float textY = rect.centerY() + textOffsetY;
-
-        paint.setColor(Color.WHITE);
-        canvas.drawText(label, textX, textY, paint);
     }
 }

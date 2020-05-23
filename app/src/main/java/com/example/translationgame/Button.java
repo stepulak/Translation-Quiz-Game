@@ -72,7 +72,7 @@ public class Button {
         paint.setAlpha(255);
 
         if (text != null) {
-            paint.setTextSize(50);
+            paint.setTextSize(rect.height() * 0.7f);
 
             float textX = rect.centerX() - paint.measureText(text) / 2.f;
             float textY = rect.centerY() - (paint.descent() + paint.ascent()) / 2.f;

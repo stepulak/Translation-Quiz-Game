@@ -28,6 +28,7 @@ public class InputForm {
     private float shakeRotationDirection;
     private float shakeRotationAngle;
 
+
     public InputForm(Dictionary.Translation trans, Bitmap button, Bitmap dash, float x, float y, float buttonWidth, float buttonHeight) {
         translatedWord = trans.getTranslatedWordWithoutFormatting();
 

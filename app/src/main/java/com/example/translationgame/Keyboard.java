@@ -4,9 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 class Keyboard {
     private enum AnimationType {
@@ -18,7 +19,8 @@ class Keyboard {
     public static final int BUTTONS_PER_WIDTH = 7;
     public static final int BUTTONS_PER_HEIGHT = 4;
 
-    private static final float ANIMATION_TIME = 3.f;
+    private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß";
+    private static final float ANIMATION_TIME = 0.3f;
 
     private Button[][] buttons;
     private AnimationType animationType = AnimationType.NONE;
@@ -39,19 +41,27 @@ class Keyboard {
         animationType = AnimationType.BUTTON_LABELS_FADE_IN;
         animationTimer = 0.f;
 
-        Set<Character> chars = new HashSet<>();
+        // Generate button labels
+        ArrayList<Character> chars = new ArrayList<>();
         for (Character c : translation.getTranslatedWordWithoutFormatting().toCharArray()) {
             chars.add(c);
         }
 
+        // Fill the rest with random stuff
         int totalChars = BUTTONS_PER_WIDTH * BUTTONS_PER_HEIGHT;
-        int A = (int)'A';
-        int Z = (int)'Z';
-        int alphabetLength = Z - A + 1;
         Random random = new Random();
 
         while (chars.size() < totalChars) {
-            chars.add((char)(A + random.nextInt(alphabetLength)));
+            chars.add(ALPHABET.charAt(random.nextInt(ALPHABET.length())));
+        }
+
+        // Shuffle it and fill buttons labels
+        Collections.shuffle(chars);
+
+        for (int i = 0; i < BUTTONS_PER_WIDTH; i++) {
+            for (int j = 0; j < BUTTONS_PER_HEIGHT; j++) {
+                buttons[i][j].setCharacter(chars.get(i * BUTTONS_PER_HEIGHT + j));
+            }
         }
     }
 
@@ -82,10 +92,10 @@ class Keyboard {
         if (animationType != AnimationType.NONE) {
             animationTimer += deltaTime;
             if (animationTimer >= ANIMATION_TIME) {
-                animationType = AnimationType.NONE;
                 if (animationType == AnimationType.BUTTON_LABELS_FADE_OUT) {
                     labelsDestroyed = true;
                 }
+                animationType = AnimationType.NONE;
             }
         }
 
