@@ -1,12 +1,12 @@
-package com.example.translationgame;
+package com.stepulak.translationgame;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 class Keyboard {
@@ -27,12 +27,20 @@ class Keyboard {
     private float animationTimer;
     private boolean labelsDestroyed;
 
-    public Keyboard(Bitmap button, float x, float y, float buttonWidth, float buttonHeight) {
+    public Keyboard(Bitmap button, RectF position) {
         buttons = new Button[BUTTONS_PER_WIDTH][BUTTONS_PER_HEIGHT];
+
+        float buttonWidth = position.width() / BUTTONS_PER_WIDTH;
+        float buttonHeight = position.height() / BUTTONS_PER_HEIGHT;
 
         for (int i = 0; i < BUTTONS_PER_WIDTH; i++) {
             for (int j = 0; j < BUTTONS_PER_HEIGHT; j++) {
-                buttons[i][j] = new Button(button, x + i * buttonWidth, y + j * buttonHeight, buttonWidth, buttonHeight);
+                buttons[i][j] = new Button(button,
+                        position.left + i * buttonWidth,
+                        position.right + j * buttonHeight,
+                        buttonWidth,
+                        buttonHeight
+                );
             }
         }
     }

@@ -1,18 +1,13 @@
-package com.example.translationgame;
+package com.stepulak.translationgame;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.RectF;
+
+import static com.stepulak.translationgame.MyUIConstants.*;
 
 public class Game {
-    // UI proportions ratios
-    private static final float KEYBOARD_WIDTH_RATIO = 0.9f;
-    private static final float KEYBOARD_HEIGHT_RATIO = 0.2892f;
-    private static final float KEYBOARD_BOTTOM_OFFSET_RATIO = 0.025f;
-
     // UI proportions and positions
 
     // UI elements
@@ -105,46 +100,60 @@ public class Game {
         wordLabel.draw(canvas, paint);
     }
 
-    private void createKeyboard() {
+    private RectF getKeyboardPosition() {
+        float width = screenWidth * KEYBOARD_WIDTH_RATIO;
+        float height = screenHeight * KEYBOARD_HEIGHT_RATIO;
+        float x = (screenWidth - width) / 2f;
+        float y = screenHeight - height - screenHeight * KEYBOARD_BOTTOM_OFFSET_RATIO;
+
+        return new RectF(x, y, x + width, y + height);
     }
 
-    private void setupUIPositionsAndProportions() {
-        keyboardWidth = screenWidth * KEYBOARD_WIDTH_RATIO;
-        keyboardHeight = screenHeight * KEYBOARD_HEIGHT_RATIO;
-        keyboardX = (screenWidth - keyboardWidth) / 2f;
-        keyboardY = screenHeight - keyboardHeight - screenHeight * KEYBOARD_BOTTOM_OFFSET_RATIO;
+    private RectF getQuitButtonPosition() {
+        float width = screenWidth * QUIT_BUTTON_WIDTH_RATIO;
+        float height = screenHeight * QUIT_BUTTON_HEIGHT_RATIO;
+        float x = screenWidth - width;
 
+        return new RectF(x, 0.f, x + width, height);
+    }
+
+    private RectF getSkipButtonPosition(float keyboardY) {
+        float width = screenWidth * ACTION_BUTTON_WIDTH_RATIO;
+        float height = screenHeight * ACTION_BUTTON_HEIGHT_RATIO;
+        float x = screenWidth * SKIP_BUTTON_X_POSITION_RATIO - width / 2.f;
+        float y = keyboardY - height * ACTION_BUTTON_BOTTOM_OFFSET_RATIO;
+
+        return new RectF(x, y, x + width, y + height);
+    }
+
+    private RectF getClearButtonPosition(float keyboardY) {
+        float width = screenWidth * ACTION_BUTTON_WIDTH_RATIO;
+        float height = screenHeight * ACTION_BUTTON_HEIGHT_RATIO;
+        float x = screenWidth * CLEAR_BUTTON_X_POSITION_RATIO - width / 2.f;
+        float y = keyboardY - height * ACTION_BUTTON_BOTTOM_OFFSET_RATIO;
+
+        return new RectF(x, y, x + width, y + height);
+    }
+
+    private RectF getInputFormPosition() {
 
     }
+
 
     private void createUI() {
+        RectF keyboardPosition = getKeyboardPosition();
+        RectF quitButtonPosition = getQuitButtonPosition();
+        RectF clearButtonPosition = getClearButtonPosition(keyboardPosition.top);
+        RectF skipButtonPosition = getSkipButtonPosition(keyboardPosition.top);
+
         background = new Background(screenWidth, screenHeight);
 
-        float keyboardWidth = screenWidth * 0.9f;
-        float keyboardHeight = screenHeight * 0.2892f;
-        float keyboardX = (screenWidth - keyboardWidth) / 2f;
-        float keyboardY = screenHeight - keyboardHeight - screenHeight * 0.025f;
-
-        float buttonWidth = keyboardWidth / Keyboard.BUTTONS_PER_WIDTH;
-        float buttonHeight = keyboardHeight / Keyboard.BUTTONS_PER_HEIGHT;
-
-        keyboard = new Keyboard(bitmaps.get(MyBitmaps.BitmapType.LABEL_BUTTON), keyboardX, keyboardY, buttonWidth, buttonHeight);
+        keyboard = new Keyboard(bitmaps.get(MyBitmaps.BitmapType.LABEL_BUTTON), keyboardPosition);
         keyboard.generateButtonLabels(dictionary.getTranslation());
 
-        float quitButtonWidth = screenWidth * 0.07f;
-        float quitButtonHeight = screenHeight * 0.0392f;
-        float quitButtonX = screenWidth - quitButtonWidth;
-
-        quitButton = new Button(bitmaps.get(MyBitmaps.BitmapType.QUIT_BUTTON), quitButtonX, 0, quitButtonWidth, quitButtonHeight);
-
-        float doneSkipButtonWidth = buttonWidth * 1.2f;
-        float doneSkipButtonHeight = buttonHeight * 1.2f;
-        float doneSkipButtonY = keyboardY - doneSkipButtonHeight * 1.2f;
-        float skipButtonX = screenWidth * 0.35f - doneSkipButtonWidth / 2.f;
-        float doneButtonX = screenWidth * 0.65f - doneSkipButtonWidth / 2.f;
-
-        skipButton = new Button(bitmaps.get(MyBitmaps.BitmapType.SKIP_BUTTON), skipButtonX, doneSkipButtonY, doneSkipButtonWidth, doneSkipButtonHeight);
-        clearButton = new Button(bitmaps.get(MyBitmaps.BitmapType.CLEAR_BUTTON), doneButtonX, doneSkipButtonY, doneSkipButtonWidth, doneSkipButtonHeight);
+        quitButton = new Button(bitmaps.get(MyBitmaps.BitmapType.QUIT_BUTTON), quitButtonPosition);
+        skipButton = new Button(bitmaps.get(MyBitmaps.BitmapType.SKIP_BUTTON), skipButtonPosition);
+        clearButton = new Button(bitmaps.get(MyBitmaps.BitmapType.CLEAR_BUTTON), clearButtonPosition);
 
         float inputFormWidth = InputForm.WIDTH_IN_BUTTONS * buttonWidth;
         float inputFormX = (screenWidth - inputFormWidth) / 2f;

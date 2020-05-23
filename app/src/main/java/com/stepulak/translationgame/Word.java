@@ -1,4 +1,4 @@
-package com.example.translationgame;
+package com.stepulak.translationgame;
 
 import android.util.Pair;
 

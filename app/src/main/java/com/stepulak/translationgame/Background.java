@@ -1,8 +1,7 @@
-package com.example.translationgame;
+package com.stepulak.translationgame;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class Background {

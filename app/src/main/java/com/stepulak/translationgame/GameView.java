@@ -1,4 +1,4 @@
-package com.example.translationgame;
+package com.stepulak.translationgame;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,6 +9,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+
+import com.example.translationgame.R;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;

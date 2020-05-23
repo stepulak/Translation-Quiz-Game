@@ -1,7 +1,6 @@
-package com.example.translationgame;
+package com.stepulak.translationgame;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
