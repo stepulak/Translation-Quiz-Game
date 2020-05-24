@@ -10,22 +10,23 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Keyboard extends UIElement {
+    public static final int BUTTONS_PER_WIDTH = 6;
+    public static final int BUTTONS_PER_HEIGHT = 4;
+
     private enum AnimationType {
         NONE,
         BUTTON_LABELS_FADE_IN,
         BUTTON_LABELS_FADE_OUT
     }
 
-    public static final int BUTTONS_PER_WIDTH = 7;
-    public static final int BUTTONS_PER_HEIGHT = 4;
-
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß";
-    private static final float ANIMATION_TIME = 0.3f;
+    private static final float ANIMATION_TIME = 0.5f;
 
     private Button[][] buttons;
     private AnimationType animationType = AnimationType.NONE;
     private float animationTimer;
     private boolean labelsDestroyed;
+    private Character character;
 
     public Keyboard(Bitmap button, RectF position) {
         buttons = new Button[BUTTONS_PER_WIDTH][BUTTONS_PER_HEIGHT];
@@ -35,12 +36,10 @@ public class Keyboard extends UIElement {
 
         for (int i = 0; i < BUTTONS_PER_WIDTH; i++) {
             for (int j = 0; j < BUTTONS_PER_HEIGHT; j++) {
-                buttons[i][j] = new Button(button,
-                        position.left + i * buttonWidth,
-                        position.right + j * buttonHeight,
-                        buttonWidth,
-                        buttonHeight
-                );
+                float x = position.left + i * buttonWidth;
+                float y = position.top + j * buttonHeight;
+                RectF buttonBody = new RectF(x, y, x + buttonWidth, y + buttonHeight);
+                buttons[i][j] = new Button(button, buttonBody);
             }
         }
     }
@@ -48,6 +47,7 @@ public class Keyboard extends UIElement {
     public void generateButtonLabels(Translation translation) {
         animationType = AnimationType.BUTTON_LABELS_FADE_IN;
         animationTimer = 0.f;
+        labelsDestroyed = false;
 
         // Generate labels for buttons
         ArrayList<Character> chars = new ArrayList<>();
@@ -82,18 +82,25 @@ public class Keyboard extends UIElement {
         return labelsDestroyed;
     }
 
-    public Character click(float x, float y) {
+    public Character fetchClickedCharacter() {
+        Character c = character;
+        character = null;
+        return c;
+    }
+
+    public boolean click(float x, float y) {
         if (animationType != AnimationType.NONE) {
-            return null;
+            return false;
         }
         for (int i = 0; i < BUTTONS_PER_WIDTH; i++) {
             for (int j = 0; j < BUTTONS_PER_HEIGHT; j++) {
                 if (buttons[i][j].click(x, y)) {
-                    return buttons[i][j].getCharacter();
+                    character = buttons[i][j].getCharacter();
+                    return true;
                 }
             }
         }
-        return null;
+        return false;
     }
 
     public void update(float deltaTime) {

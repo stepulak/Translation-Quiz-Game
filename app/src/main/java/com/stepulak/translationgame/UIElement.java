@@ -4,6 +4,12 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 public abstract class UIElement {
-    abstract void update(float deltaTime);
+    boolean click(float x, float y) {
+        return false;
+    }
+
+    void update(float deltaTime) {
+    }
+
     abstract void draw(Canvas canvas, Paint paint);
 }

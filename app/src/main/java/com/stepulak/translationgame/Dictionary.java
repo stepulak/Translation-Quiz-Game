@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Dictionary {
-    private ArrayList<Translation> translations;
+    private List<Translation> translations;
     private int index = 0;
 
     public Dictionary(TypedArray resource) {
@@ -33,7 +33,7 @@ public class Dictionary {
         }
     }
 
-    private static ArrayList<Translation> parseTranslations(TypedArray resource) {
+    private static List<Translation> parseTranslations(TypedArray resource) {
         List<Translation> trans = new ArrayList<>();
         for (int i = 0; i < resource.length(); i++) {
             String str = resource.getString(i);

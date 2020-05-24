@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import androidx.core.util.Consumer;
+
 
 public class Button extends UIElement {
     private enum AnimationType {
@@ -12,7 +14,7 @@ public class Button extends UIElement {
         CLICK,
     }
 
-    private static final float SIZE_RATIO = 0.96f;
+    private static final float SIZE_RATIO = 0.9f;
     private static final float CLICK_ANIMATION_TIME = 0.1f;
 
     private Bitmap bitmap;
@@ -22,22 +24,28 @@ public class Button extends UIElement {
     private AnimationType animationType = AnimationType.NONE;
     private float animationTimer = 0f;
 
-    public Button(Bitmap b, RectF position) {
+    private Callback clickCallback;
+
+    public Button(Bitmap b, RectF body) {
         bitmap = b;
 
-        float oldWidth = position.width();
-        float oldHeight = position.height();
+        float oldWidth = body.width();
+        float oldHeight = body.height();
         float newWidth = oldWidth * SIZE_RATIO;
         float newHeight = oldHeight * SIZE_RATIO;
         float offsetX = (oldWidth - newWidth) / 2.f;
         float offsetY = (oldHeight - newHeight) / 2.f;
 
-        body = new RectF(
-                position.left + offsetX,
-                position.top + offsetY,
-                position.left + offsetX + newWidth,
-                position.top + offsetY + newHeight
+        this.body = new RectF(
+                body.left + offsetX,
+                body.top + offsetY,
+                body.left + offsetX + newWidth,
+                body.top + offsetY + newHeight
         );
+    }
+
+    public void setClickCallback(Callback callback) {
+        clickCallback = callback;
     }
 
     public void setCharacter(Character c) {
@@ -54,6 +62,9 @@ public class Button extends UIElement {
         }
         animationType = AnimationType.CLICK;
         animationTimer = CLICK_ANIMATION_TIME;
+        if (clickCallback != null) {
+            clickCallback.apply();
+        }
         return true;
     }
 

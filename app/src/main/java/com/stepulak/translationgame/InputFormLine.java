@@ -3,6 +3,7 @@ package com.stepulak.translationgame;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 
 public class InputFormLine {
     public static final float VELOCITY_BASE = 100.f;
@@ -28,7 +29,7 @@ public class InputFormLine {
         buttons = new Button[word.length()];
 
         for (int i = 0; i < buttons.length; i++) {
-            buttons[i] = new Button(buttonBitmap, x, y, buttonWidth, buttonHeight);
+            buttons[i] = new Button(buttonBitmap, new RectF(x, y, x + buttonWidth, y + buttonHeight));
             x += buttonWidth;
         }
         if (endingWithDash) {
@@ -74,6 +75,12 @@ public class InputFormLine {
             }
         }
         return false;
+    }
+
+    public void clear() {
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].setCharacter(null);
+        }
     }
 
     public boolean isFilled() {

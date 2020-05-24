@@ -2,87 +2,76 @@ package com.stepulak.translationgame;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.RectF;
+import android.util.Log;
 
-import static com.stepulak.translationgame.MyUIConstants.*;
+import java.security.Key;
 
 public class Game {
-    // UIManager proportions and positions
-
-    // UIManager elements
-    private Paint paint;
-    private MyBitmaps bitmaps;
     private Dictionary dictionary;
+    private UI ui;
 
-    private float screenWidth;
-    private float screenHeight;
-
-
+    // Game logic variables
+    private float gameLoadTime = 0.5f;
     private boolean inputFormFillHandled;
-    private boolean nextWord;
-
-
+    private boolean fetchNextWord;
 
     public Game(Resources resources, int dictionaryDescriptor, float scrWidth, float scrHeight) {
-        paint = new Paint();
-        bitmaps = new MyBitmaps(resources);
         dictionary = new Dictionary(resources.obtainTypedArray(dictionaryDescriptor));
-        screenWidth = scrWidth;
-        screenHeight = scrHeight;
-
-        createUI();
+        ui = new UI(resources, scrWidth, scrHeight);
+        ui.createUIForTranslation(dictionary.getTranslation());
     }
 
     public void click(float x, float y) {
-        Character c = keyboard.click(x, y);
-        if (c != null) {
-            inputForm.insertCharacter(c);
-            return;
-        }
-        if (!inputForm.isAnimating()) {
-            inputForm.click(x, y);
-        }
-        quitButton.click(x, y);
-        clearButton.click(x, y);
-        skipButton.click(x, y);
+        ui.getUIManager().clickFirst(x, y);
+        handleAfterClickLogic();
     }
 
     public void update(float deltaTime) {
-        keyboard.update(deltaTime);
-        inputForm.update(deltaTime);
-        quitButton.update(deltaTime);
-        clearButton.update(deltaTime);
-        skipButton.update(deltaTime);
-
-        boolean inputFormFilled = inputForm.isFilled();
-
-        if (inputFormFilled && !inputFormFillHandled) {
-            inputFormFillHandled = true;
-
-            if (inputForm.isFilledCorrectly()) {
-                nextWord = true;
-                dictionary.next();
-                keyboard.destroyButtonLabels();
-                inputForm.startExitAnimation(screenWidth);
-            } else {
-                inputForm.startShakeAnimation();
-            }
-        } else if (!inputFormFilled) {
-            inputFormFillHandled = false;
+        if (gameLoadTime > 0.f) {
+            gameLoadTime -= deltaTime;
+            return;
         }
-
-        if (nextWord) {
-            if (keyboard.areLabelsDestroyed() && !inputForm.isAnimating()) {
-                inputForm.startEnterAnimation(screenWidth);
-                keyboard.generateButtonLabels(dictionary.getTranslation());
-                //inputFormFillHandled = false;
-                nextWord = false;
-            }
-        }
+        ui.getUIManager().updateAll(deltaTime);
+        handleAfterUpdateLogic();
     }
 
     public void draw(Canvas canvas) {
+        ui.getUIManager().drawAll(canvas, ui.getPaint());
+    }
 
+    private void handleAfterClickLogic() {
+        UIManager manager = ui.getUIManager();
+        Character character = manager.<Keyboard>get(UIElementType.KEYBOARD).fetchClickedCharacter();
+        if (character != null) {
+            manager.<InputForm>get(UIElementType.INPUT_FORM).insertCharacter(character);
+        }
+    }
+
+    private void handleAfterUpdateLogic() {
+        UIManager manager = ui.getUIManager();
+        Keyboard keyboard = manager.get(UIElementType.KEYBOARD);
+        InputForm inputForm = manager.get(UIElementType.INPUT_FORM);
+
+        if (inputForm.isFilled()) {
+            if (!inputFormFillHandled) {
+                if (inputForm.isFilledCorrectly()) {
+                    keyboard.destroyButtonLabels();
+                    inputForm.startExitAnimation(ui.getScreenWidth());
+                    fetchNextWord = true;
+                } else {
+                    inputForm.startShakeAnimation();
+                }
+                inputFormFillHandled = true;
+            }
+        } else {
+            inputFormFillHandled = false;
+        }
+
+        if (fetchNextWord && keyboard.areLabelsDestroyed() && !inputForm.isAnimating()) {
+            dictionary.next();
+            ui.createUIForTranslation(dictionary.getTranslation());
+            inputFormFillHandled = false;
+            fetchNextWord = false;
+        }
     }
 }

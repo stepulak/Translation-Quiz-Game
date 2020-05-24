@@ -19,11 +19,16 @@ public class UIManager {
         return (T)element;
     }
 
-    public void add(UIElementType elementType, UIElement element) {
+    public void set(UIElementType elementType, UIElement element) {
         elements.put(elementType, element);
     }
 
     public void clickFirst(float x, float y) {
+        for (UIElement element : elements.values()) {
+            if (element.click(x, y)) {
+                return;
+            }
+        }
     }
 
     public void updateAll(float deltaTime) {
