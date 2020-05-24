@@ -11,4 +11,7 @@ public class MyUIConstants {
     public static final float ACTION_BUTTON_BOTTOM_OFFSET_RATIO = 1.2f;
     public static final float SKIP_BUTTON_X_POSITION_RATIO = 0.35f;
     public static final float CLEAR_BUTTON_X_POSITION_RATIO = 0.65f;
+    public static final float INPUT_SCREEN_WIDTH_RATIO = 0.7714f;
+    public static final float INPUT_SCREEN_HEIGHT_RATIO = 0.3326f;
+    public static final float INPUT_SCREEN_HEIGHT_OFFSET_RATIO = 0.0867f;
 }

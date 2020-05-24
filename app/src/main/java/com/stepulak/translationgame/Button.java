@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 
-public class Button {
+public class Button extends UIElement {
     private enum AnimationType {
         NONE,
         CLICK,
@@ -16,21 +16,28 @@ public class Button {
     private static final float CLICK_ANIMATION_TIME = 0.1f;
 
     private Bitmap bitmap;
-    private RectF rect;
+    private RectF body;
     // Use String, not Character for single letter text because of canvas.drawText
     private String text;
     private AnimationType animationType = AnimationType.NONE;
     private float animationTimer = 0f;
 
-    public Button(Bitmap b, float x, float y, float width, float height) {
+    public Button(Bitmap b, RectF position) {
         bitmap = b;
 
-        float newWidth = width * SIZE_RATIO;
-        float newHeight = height * SIZE_RATIO;
-        float offsetX = (width - newWidth) / 2;
-        float offsetY = (height - newHeight) / 2;
+        float oldWidth = position.width();
+        float oldHeight = position.height();
+        float newWidth = oldWidth * SIZE_RATIO;
+        float newHeight = oldHeight * SIZE_RATIO;
+        float offsetX = (oldWidth - newWidth) / 2.f;
+        float offsetY = (oldHeight - newHeight) / 2.f;
 
-        rect = new RectF(x + offsetX, y + offsetY, x + offsetX + newWidth, y + offsetY + newHeight);
+        body = new RectF(
+                position.left + offsetX,
+                position.top + offsetY,
+                position.left + offsetX + newWidth,
+                position.top + offsetY + newHeight
+        );
     }
 
     public void setCharacter(Character c) {
@@ -39,6 +46,15 @@ public class Button {
 
     public Character getCharacter() {
         return text != null && text.length() > 0 ? text.charAt(0) : null;
+    }
+
+    public boolean click(float x, float y) {
+        if(!body.contains(x, y)) {
+            return false;
+        }
+        animationType = AnimationType.CLICK;
+        animationTimer = CLICK_ANIMATION_TIME;
+        return true;
     }
 
     public void update(float deltaTime) {
@@ -51,13 +67,8 @@ public class Button {
         }
     }
 
-    public boolean click(float x, float y) {
-        if(!rect.contains(x, y)) {
-            return false;
-        }
-        animationType = AnimationType.CLICK;
-        animationTimer = CLICK_ANIMATION_TIME;
-        return true;
+    public void draw(Canvas canvas, Paint paint) {
+        draw(canvas, paint, 1.f);
     }
 
     public void draw(Canvas canvas, Paint paint, float globalAlpha) {
@@ -67,14 +78,14 @@ public class Button {
         float localAlpha = (animationType == AnimationType.CLICK) ? 0.2f + 0.8f * animationTimer/CLICK_ANIMATION_TIME : 1.f;
         paint.setAlpha((int) (255 * globalAlpha * localAlpha));
 
-        canvas.drawBitmap(bitmap, null, rect, paint);
+        canvas.drawBitmap(bitmap, null, body, paint);
         paint.setAlpha(255);
 
         if (text != null) {
-            paint.setTextSize(rect.height() * 0.7f);
+            paint.setTextSize(body.height() * 0.7f);
 
-            float textX = rect.centerX() - paint.measureText(text) / 2.f;
-            float textY = rect.centerY() - (paint.descent() + paint.ascent()) / 2.f;
+            float textX = body.centerX() - paint.measureText(text) / 2.f;
+            float textY = body.centerY() - (paint.descent() + paint.ascent()) / 2.f;
 
             paint.setColor(MyColors.BUTTON_LABEL_COLOR);
             canvas.drawText(text, textX, textY, paint);

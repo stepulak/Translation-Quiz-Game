@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-class Keyboard {
+public class Keyboard extends UIElement {
     private enum AnimationType {
         NONE,
         BUTTON_LABELS_FADE_IN,
@@ -45,7 +45,7 @@ class Keyboard {
         }
     }
 
-    public void generateButtonLabels(Dictionary.Translation translation) {
+    public void generateButtonLabels(Translation translation) {
         animationType = AnimationType.BUTTON_LABELS_FADE_IN;
         animationTimer = 0.f;
 

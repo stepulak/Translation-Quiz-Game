@@ -1,70 +1,49 @@
 package com.stepulak.translationgame;
 
 import android.content.res.TypedArray;
-import android.util.Pair;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Dictionary {
-    public class Translation {
-        private String originalWord;
-        private String translatedWord;
-        private String translatedWordWithoutFormatting;
-
-        public Translation(String original, String translated) {
-            originalWord = original;
-            translatedWord = translated;
-            translatedWordWithoutFormatting = translated.replace("~", "").replace(" ", "");
-        }
-
-        public String getOriginalWord() {
-            return originalWord;
-        }
-
-        public String getTranslatedWord() {
-            return translatedWord;
-        }
-
-        public String getTranslatedWordWithoutFormatting() {
-            return translatedWordWithoutFormatting;
-        }
-    }
-
-    private ArrayList<Translation> dict;
+    private ArrayList<Translation> translations;
     private int index = 0;
 
     public Dictionary(TypedArray resource) {
-        assert(resource.length() > 0);
-
-        dict = new ArrayList<>(resource.length());
-
-        for (int i = 0; i < resource.length(); i++) {
-            String str = resource.getString(i);
-            String[] parts = str.split(";");
-
-            assert(parts.length == 2);
-
-            dict.add(new Translation(parts[0], parts[1]));
+        if (resource.length() <= 0) {
+            throw new InvalidParameterException("Given resource is empty!");
         }
+        translations = parseTranslations(resource);
     }
 
     public Translation getTranslation() {
-        return dict.get(index);
+        return translations.get(index);
     }
 
     public void shuffle() {
-        Collections.shuffle(dict);
+        Collections.shuffle(translations);
     }
 
     public void next() {
         index++;
-        if (index >= dict.size()) {
+        if (index >= translations.size()) {
             index = 0;
         }
     }
 
-    public void reset() {
-        index = 0;
+    private static ArrayList<Translation> parseTranslations(TypedArray resource) {
+        List<Translation> trans = new ArrayList<>();
+        for (int i = 0; i < resource.length(); i++) {
+            String str = resource.getString(i);
+            String[] parts = str.split(";");
+
+            if (parts.length != 2) {
+                throw new InvalidParameterException("Given translation: " + str + " is in invalid format");
+            }
+            trans.add(new Translation(parts[0], parts[1]));
+        }
+        return trans;
     }
 }
