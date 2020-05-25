@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-public class Dash {
+public class Dash extends UIElement {
     private static final float SIZE_RATIO = 0.96f;
 
     private Bitmap bitmap;
@@ -22,6 +22,7 @@ public class Dash {
         rect = new RectF(x + offsetX, y + offsetY, x + offsetX + newWidth, y + offsetY + newHeight);
     }
 
+    @Override
     public void draw(Canvas canvas, Paint paint) {
         canvas.drawBitmap(bitmap, null, rect, paint);
     }

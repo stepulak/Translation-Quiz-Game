@@ -9,7 +9,7 @@ import android.util.Pair;
 import java.util.List;
 
 public class InputForm extends UIElement {
-    public static final float WIDTH_IN_BUTTONS = 6f;
+    public static final float WIDTH_IN_BUTTONS = 7f;
     public static final float HEIGHT_IN_BUTTONS = 4.6f;
 
     private static final float SPACE_HEIGHT_IN_BUTTONS = 0.2f;
@@ -26,7 +26,7 @@ public class InputForm extends UIElement {
     private float shakeRotationTimer;
     private float shakeRotationDirection;
     private float shakeRotationAngle;
-
+    private boolean skipped;
 
     public InputForm(Translation translation, Bitmap button, Bitmap dash, RectF body) {
         translatedWord = translation.getTranslatedWordWithoutFormatting();
@@ -119,6 +119,20 @@ public class InputForm extends UIElement {
         return builder.toString().equals(translatedWord);
     }
 
+    public void fillWithCorrectWord() {
+        for (InputFormLine line : lines) {
+            line.clear();
+        }
+        skipped = true;
+        for (char c : translatedWord.toCharArray()) {
+            insertCharacter(c);
+        }
+    }
+
+    public boolean isSkipped() {
+        return skipped;
+    }
+
     public void insertCharacter(char c) {
         for (InputFormLine line : lines) {
             if (line.insertCharacter(c)) {
@@ -128,10 +142,15 @@ public class InputForm extends UIElement {
     }
 
     public void clear() {
+        if (isAnimating() || isSkipped()) {
+            return;
+        }
         for (InputFormLine line : lines) {
             line.clear();
         }
     }
+
+    @Override
     public boolean click(float x, float y) {
         if (isAnimating()) {
             return false;
@@ -144,6 +163,7 @@ public class InputForm extends UIElement {
         return false;
     }
 
+    @Override
     public void update(float deltaTime) {
         for (InputFormLine line : lines) {
             line.update(deltaTime);
@@ -153,6 +173,7 @@ public class InputForm extends UIElement {
         }
     }
 
+    @Override
     public void draw(Canvas canvas, Paint paint) {
         canvas.save();
         if (shakeRotationEnabled) {

@@ -60,6 +60,13 @@ public class UI {
                 inputForm.clear();
             }
         });
+
+        uiManager.<Button>get(UIElementType.SKIP_BUTTON).setClickCallback(new Callback() {
+            @Override
+            public void apply() {
+                inputForm.fillWithCorrectWord();
+            }
+        });
     }
 
     private RectF getKeyboardPosition() {

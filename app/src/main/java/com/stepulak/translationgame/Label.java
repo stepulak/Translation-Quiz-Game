@@ -20,6 +20,7 @@ public class Label extends UIElement {
         setupProportions(paint, body.width(), body.height());
     }
 
+    @Override
     public void draw(Canvas canvas, Paint paint) {
         float textX = body.centerX() + textOffsetX;
         float textY = body.centerY() + textOffsetY;

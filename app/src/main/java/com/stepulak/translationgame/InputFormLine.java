@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-public class InputFormLine {
+public class InputFormLine extends UIElement {
     public static final float VELOCITY_BASE = 100.f;
     public static final float ACCELERATION_BASE = 7000.f;
     public static final float ACCELERATION_INCREASE = 5000.f;
@@ -104,6 +104,7 @@ public class InputFormLine {
         return builder.toString();
     }
 
+    @Override
     public void update(float deltaTime) {
         if (animationStatus != AnimationStatus.IDLE) {
             offsetX += velocity * deltaTime;
@@ -120,6 +121,7 @@ public class InputFormLine {
         }
     }
 
+    @Override
     public void draw(Canvas canvas, Paint paint) {
         canvas.save();
         canvas.translate(offsetX, 0);

@@ -88,6 +88,7 @@ public class Keyboard extends UIElement {
         return c;
     }
 
+    @Override
     public boolean click(float x, float y) {
         if (animationType != AnimationType.NONE) {
             return false;
@@ -103,6 +104,7 @@ public class Keyboard extends UIElement {
         return false;
     }
 
+    @Override
     public void update(float deltaTime) {
         if (animationType != AnimationType.NONE) {
             animationTimer += deltaTime;
@@ -121,6 +123,7 @@ public class Keyboard extends UIElement {
         }
     }
 
+    @Override
     public void draw(Canvas canvas, Paint paint) {
         float alpha = getAlpha();
 

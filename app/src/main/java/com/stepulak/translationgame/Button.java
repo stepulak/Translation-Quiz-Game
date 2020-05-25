@@ -56,6 +56,7 @@ public class Button extends UIElement {
         return text != null && text.length() > 0 ? text.charAt(0) : null;
     }
 
+    @Override
     public boolean click(float x, float y) {
         if(!body.contains(x, y)) {
             return false;
@@ -68,6 +69,7 @@ public class Button extends UIElement {
         return true;
     }
 
+    @Override
     public void update(float deltaTime) {
         if (animationType == AnimationType.CLICK) {
             animationTimer -= deltaTime;
@@ -78,6 +80,7 @@ public class Button extends UIElement {
         }
     }
 
+    @Override
     public void draw(Canvas canvas, Paint paint) {
         draw(canvas, paint, 1.f);
     }

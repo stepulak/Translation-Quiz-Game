@@ -7,6 +7,8 @@ import android.util.Log;
 import java.security.Key;
 
 public class Game {
+    private static final float FETCH_NEXT_WORD_TIME = 2.f;
+
     private Dictionary dictionary;
     private UI ui;
 
@@ -14,6 +16,7 @@ public class Game {
     private float gameLoadTime = 0.5f;
     private boolean inputFormFillHandled;
     private boolean fetchNextWord;
+    private float fetchNextWordTimer;
 
     public Game(Resources resources, int dictionaryDescriptor, float scrWidth, float scrHeight) {
         dictionary = new Dictionary(resources.obtainTypedArray(dictionaryDescriptor));
@@ -32,7 +35,7 @@ public class Game {
             return;
         }
         ui.getUIManager().updateAll(deltaTime);
-        handleAfterUpdateLogic();
+        handleAfterUpdateLogic(deltaTime);
     }
 
     public void draw(Canvas canvas) {
@@ -47,7 +50,7 @@ public class Game {
         }
     }
 
-    private void handleAfterUpdateLogic() {
+    private void handleAfterUpdateLogic(float deltaTime) {
         UIManager manager = ui.getUIManager();
         Keyboard keyboard = manager.get(UIElementType.KEYBOARD);
         InputForm inputForm = manager.get(UIElementType.INPUT_FORM);
@@ -55,9 +58,7 @@ public class Game {
         if (inputForm.isFilled()) {
             if (!inputFormFillHandled) {
                 if (inputForm.isFilledCorrectly()) {
-                    keyboard.destroyButtonLabels();
-                    inputForm.startExitAnimation(ui.getScreenWidth());
-                    fetchNextWord = true;
+                    fetchNextWordTimer = inputForm.isSkipped() ? FETCH_NEXT_WORD_TIME : .001f;
                 } else {
                     inputForm.startShakeAnimation();
                 }
@@ -65,6 +66,16 @@ public class Game {
             }
         } else {
             inputFormFillHandled = false;
+        }
+
+        if (fetchNextWordTimer > 0.f) {
+            fetchNextWordTimer -= deltaTime;
+
+            if (fetchNextWordTimer <= 0.f) {
+                keyboard.destroyButtonLabels();
+                inputForm.startExitAnimation(ui.getScreenWidth());
+                fetchNextWord = true;
+            }
         }
 
         if (fetchNextWord && keyboard.areLabelsDestroyed() && !inputForm.isAnimating()) {

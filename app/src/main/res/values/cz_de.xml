@@ -4,5 +4,19 @@
         <item>AUTO;DAS AUTO</item>
         <item>PODVODNÍK;DER UNTER~WASSER MANN</item>
         <item>PALAČINKA;DIE PFANN~KUCHEN</item>
+        <item>POUTA;DIE HANDSC~HELLEN</item>
+        <item>UČITELKA;DIE LEHRE~RIN</item>
+        <item>HUDBA;DIE MUSIK</item>
+        <item>KLÁVESNICE;DIE TAS~TATUR</item>
+        <item>ŘÍZEK;DAS SCHNI~TZEL</item>
+        <item>PSÁT;SCHRE~IBEN</item>
+        <item>MLUVIT;SPRE~CHEN</item>
+        <item>SLYŠET;HÖREN</item>
+        <item>RODINA;DIE FAMILIE</item>
+        <item>DŮM;DAS HAUS</item>
+        <item>JÍDLO;DAS ESSEN</item>
+        <item>ŠKOLA;DIE SCHULE</item>
+        <item>PRÁCE;DIE ARBEIT</item>
+        <item>KLOBÁSKA;DIE WURST</item>
     </string-array>
 </resources>
