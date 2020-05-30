@@ -44,7 +44,7 @@ public class Game {
 
     private void handleAfterClickLogic() {
         UIManager manager = ui.getUIManager();
-        Character character = manager.<Keyboard>get(UIElementType.KEYBOARD).fetchClickedCharacter();
+        Character character = manager.<Keyboard>get(UIElementType.KEYBOARD).getLastClickedCharacter();
         if (character != null) {
             manager.<InputForm>get(UIElementType.INPUT_FORM).insertCharacter(character);
         }
