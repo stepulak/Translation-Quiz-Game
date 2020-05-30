@@ -9,28 +9,21 @@ import android.util.Pair;
 import java.util.List;
 
 public class InputForm extends UIElement {
-    public static final float WIDTH_IN_BUTTONS = 7f;
-    public static final float HEIGHT_IN_BUTTONS = 4.6f;
-
+    private static final float WIDTH_IN_BUTTONS = 7f;
+    private static final float HEIGHT_IN_BUTTONS = 4.6f;
     private static final float SPACE_HEIGHT_IN_BUTTONS = 0.2f;
     private static final float SHAKE_ROTATION_VELOCITY = 360.f;
     private static final float SHAKE_ROTATION_TURN_TIME = 0.1f;
     private static final int SHAKE_ROTATIONS = 5;
 
+    private RectF body;
     private String translatedWord;
     private InputFormLine[] lines;
-    private RectF body;
-
-    private boolean shakeRotationEnabled;
-    private int shakeRotations;
-    private float shakeRotationTimer;
-    private float shakeRotationDirection;
-    private float shakeRotationAngle;
     private boolean skipped;
 
     public InputForm(Translation translation, Bitmap button, Bitmap dash, RectF body) {
-        translatedWord = translation.getTranslatedWordWithoutFormatting();
         this.body = body;
+        this.translatedWord = translation.getTranslatedWordWithoutFormatting();
 
         Word translatedWord = new Word(translation.getTranslatedWord());
         List<Pair<String, Boolean>> components = translatedWord.getComponents();
@@ -39,7 +32,6 @@ public class InputForm extends UIElement {
         float maxHeight = body.height();
         float buttonWidth = maxWidth / WIDTH_IN_BUTTONS;
         float buttonHeight = maxHeight / HEIGHT_IN_BUTTONS;
-
         float y = body.top + (maxHeight - getHeight(translatedWord, buttonHeight)) / 2;
 
         lines = new InputFormLine[components.size()];
@@ -69,25 +61,21 @@ public class InputForm extends UIElement {
         return false;
     }
 
-    public void startEnterAnimation(float scrWidth) {
+    public void startEnterAnimation(float screenWidth) {
         if (isAnimating()) {
             return;
         }
-        float acceleration = InputFormLine.ACCELERATION_BASE;
-        for (InputFormLine line : lines) {
-            line.startEnterAnimation(-scrWidth, acceleration);
-            acceleration += InputFormLine.ACCELERATION_INCREASE;
+        for (int i = 0; i < lines.length; i++) {
+            lines[i].startEnterAnimation(screenWidth, i);
         }
     }
 
-    public void startExitAnimation(float scrWidth) {
+    public void startExitAnimation(float screenWidth) {
         if (isAnimating()) {
             return;
         }
-        float acceleration = InputFormLine.ACCELERATION_BASE;
-        for (InputFormLine line : lines) {
-            line.startExitAnimation(scrWidth, acceleration);
-            acceleration += InputFormLine.ACCELERATION_INCREASE;
+        for (int i = 0; i < lines.length; i++) {
+            lines[i].startExitAnimation(screenWidth, i);
         }
     }
 
@@ -95,16 +83,12 @@ public class InputForm extends UIElement {
         if (isAnimating()) {
             return;
         }
-        shakeRotationEnabled = true;
-        shakeRotationTimer = 0.f;
-        shakeRotationAngle = 0.f;
-        shakeRotationDirection = 1.f;
-        shakeRotations = SHAKE_ROTATIONS;
+        shakeAnimation = new ShakeAnimation();
     }
 
     public boolean isFilled() {
         for (InputFormLine line : lines) {
-            if (!line.isFilled()) {
+            if (!line.isFilledWithCharacters()) {
                 return false;
             }
         }
@@ -114,15 +98,13 @@ public class InputForm extends UIElement {
     public boolean isFilledCorrectly() {
         StringBuilder builder = new StringBuilder();
         for (InputFormLine line : lines) {
-            builder.append(line.getStringContent());
+            builder.append(line.toString());
         }
         return builder.toString().equals(translatedWord);
     }
 
     public void fillWithCorrectWord() {
-        for (InputFormLine line : lines) {
-            line.clear();
-        }
+        clear();
         skipped = true;
         for (char c : translatedWord.toCharArray()) {
             insertCharacter(c);
@@ -146,7 +128,7 @@ public class InputForm extends UIElement {
             return;
         }
         for (InputFormLine line : lines) {
-            line.clear();
+            line.clearCharacters();
         }
     }
 
@@ -156,7 +138,7 @@ public class InputForm extends UIElement {
             return false;
         }
         for (InputFormLine line : lines) {
-            if (line.removeCharacter(x, y)) {
+            if (line.click(x, y)) {
                 return true;
             }
         }
@@ -183,21 +165,6 @@ public class InputForm extends UIElement {
             line.draw(canvas, paint);
         }
         canvas.restore();
-    }
-
-    private void updateShakeRotation(float deltaTime) {
-        shakeRotationAngle += shakeRotationDirection * SHAKE_ROTATION_VELOCITY * deltaTime;
-        shakeRotationTimer += deltaTime;
-        float turnTime = (shakeRotations == 1 || shakeRotations == SHAKE_ROTATIONS) ? SHAKE_ROTATION_TURN_TIME / 2 : SHAKE_ROTATION_TURN_TIME;
-
-        if (shakeRotationTimer > turnTime) {
-            shakeRotationTimer = 0.f;
-            shakeRotationDirection *= -1.f;
-            shakeRotations--;
-            if (shakeRotations <= 0) {
-                shakeRotationEnabled = false;
-            }
-        }
     }
 
     private static float getHeight(Word word, float buttonHeight) {

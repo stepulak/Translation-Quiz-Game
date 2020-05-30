@@ -6,26 +6,22 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 public class InputFormLine extends UIElement {
-    public static final float VELOCITY_BASE = 100.f;
-    public static final float ACCELERATION_BASE = 7000.f;
-    public static final float ACCELERATION_INCREASE = 5000.f;
+    private enum AnimationType {
+        ENTER_ANIMATION,
+        EXIT_ANIMATION
+    }
 
-    private enum AnimationStatus {
-        IDLE,
-        ENTERING,
-        EXITING
-    };
-
-    private AnimationStatus animationStatus = AnimationStatus.IDLE;
-    private float offsetX;
-    private float maxOffsetX;
-    private float velocity;
-    private float acceleration;
+    private static final float ANIMATION_VELOCITY_BASE = 100.f;
+    private static final float ANIMATION_ACCELERATION_BASE = 7000.f;
+    private static final float ANIMATION_ACCELERATION_INCREASE = 5000.f;
 
     private Button[] buttons;
-    private Dash dash = null;
+    private Dash dash;
+    private TranslationAnimation<AnimationType> animation;
+    private boolean hideButtons;
 
-    InputFormLine(String word, boolean endingWithDash, Bitmap buttonBitmap, Bitmap dashBitmap, float x, float y, float buttonWidth, float buttonHeight) {
+    InputFormLine(String word, boolean endingWithDash, Bitmap buttonBitmap, Bitmap dashBitmap,
+                  float x, float y, float buttonWidth, float buttonHeight) {
         buttons = new Button[word.length()];
 
         for (int i = 0; i < buttons.length; i++) {
@@ -37,100 +33,100 @@ public class InputFormLine extends UIElement {
         }
     }
 
-    public boolean isAnimating() {
-        return animationStatus != AnimationStatus.IDLE;
-    }
-
-    public void startEnterAnimation(float offset, float acc) {
-        offsetX = offset;
-        acceleration = acc;
-        maxOffsetX = 0;
-        velocity = VELOCITY_BASE;
-        animationStatus = AnimationStatus.ENTERING;
-    }
-
-    public void startExitAnimation(float maxOffset, float acc) {
-        maxOffsetX = maxOffset;
-        acceleration = acc;
-        offsetX = 0;
-        velocity = VELOCITY_BASE;
-        animationStatus = AnimationStatus.EXITING;
-    }
-
-    public boolean insertCharacter(char c) {
-        for (int i = 0; i < buttons.length; i++) {
-            if (buttons[i].getCharacter() == null) {
-                buttons[i].setCharacter(c);
+    public boolean insertCharacter(char character) {
+        // Insert new character at first free space
+        for (Button button : buttons) {
+            if (button.getCharacter() == null) {
+                button.setCharacter(character);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean removeCharacter(float x, float y) {
-        for (int i = 0; i < buttons.length; i++) {
-            if (buttons[i].click(x, y)) {
-                buttons[i].setCharacter(null);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void clear() {
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].setCharacter(null);
+    public void clearCharacters() {
+        for (Button button : buttons) {
+            button.setCharacter(null);
         }
     }
 
-    public boolean isFilled() {
-        for (int i = 0; i < buttons.length; i++) {
-            if (buttons[i].getCharacter() == null) {
+    public boolean isFilledWithCharacters() {
+        for (Button button : buttons) {
+            if (button.getCharacter() == null) {
                 return false;
             }
         }
         return true;
     }
 
-    public String getStringContent() {
+    public boolean isAnimating() {
+        return animation != null;
+    }
+
+    public void startEnterAnimation(float screenWidth, int rowIndex) {
+        float acceleration = ANIMATION_ACCELERATION_BASE + rowIndex * ANIMATION_ACCELERATION_INCREASE;
+        animation = new TranslationAnimation<>(
+                AnimationType.ENTER_ANIMATION, -screenWidth, 0.f, ANIMATION_VELOCITY_BASE, acceleration);
+    }
+
+    public void startExitAnimation(float screenWidth, int rowIndex) {
+        float acceleration = ANIMATION_ACCELERATION_BASE + rowIndex * ANIMATION_ACCELERATION_INCREASE;
+        animation = new TranslationAnimation(
+                AnimationType.EXIT_ANIMATION, 0.f, screenWidth, ANIMATION_VELOCITY_BASE, acceleration);
+    }
+
+    @Override
+    public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < buttons.length; i++) {
-            Character c = buttons[i].getCharacter();
-            if (c == null) {
+        for (Button button : buttons) {
+            if (button.getCharacter() == null) {
                 break;
             }
-            builder.append(c);
+            builder.append(button.getCharacter());
         }
         return builder.toString();
     }
 
     @Override
-    public void update(float deltaTime) {
-        if (animationStatus != AnimationStatus.IDLE) {
-            offsetX += velocity * deltaTime;
-            velocity += acceleration * deltaTime;
-
-            if (offsetX >= maxOffsetX) {
-                offsetX = maxOffsetX;
-                animationStatus = AnimationStatus.IDLE;
+    public boolean click(float x, float y) {
+        for (Button button : buttons) {
+            if (button.click(x, y)) {
+                button.setCharacter(null);
+                return true;
             }
         }
+        return false;
+    }
 
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].update(deltaTime);
+    @Override
+    public void update(float deltaTime) {
+        if (animation != null) {
+            animation.update(deltaTime);
+            if (animation.expired()) {
+                if (animation.getAnimationType() == AnimationType.EXIT_ANIMATION) {
+                    hideButtons = true;
+                }
+                animation = null;
+            }
+        }
+        for (Button button : buttons) {
+            button.update(deltaTime);
         }
     }
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
         canvas.save();
-        canvas.translate(offsetX, 0);
-        for (Button button : buttons) {
-            button.draw(canvas, paint, 1.f);
+        if (animation != null) {
+            canvas.translate(animation.getCurrentPosition(), 0.f);
         }
-        if (dash != null) {
-            paint.setColor(MyColors.BUTTON_COLOR);
-            dash.draw(canvas, paint);
+        if (!hideButtons) {
+            for (Button button : buttons) {
+                button.draw(canvas, paint);
+            }
+            if (dash != null) {
+                dash.draw(canvas, paint);
+            }
         }
         canvas.restore();
     }

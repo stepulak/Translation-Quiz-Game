@@ -24,6 +24,7 @@ public class Dash extends UIElement {
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
+        paint.setColor(MyColors.BUTTON_COLOR);
         canvas.drawBitmap(bitmap, null, rect, paint);
     }
 }

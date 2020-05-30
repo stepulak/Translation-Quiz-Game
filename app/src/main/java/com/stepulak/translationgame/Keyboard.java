@@ -23,7 +23,7 @@ public class Keyboard extends UIElement {
     private Button[][] buttons;
     private boolean labelsDestroyed;
     private Character lastClickedCharacter;
-    AnimationTimer<AnimationType> animation;
+    private TimerAnimation<AnimationType> animation;
 
     public Keyboard(Bitmap button, RectF position) {
         buttons = new Button[BUTTONS_PER_WIDTH][BUTTONS_PER_HEIGHT];
@@ -64,14 +64,14 @@ public class Keyboard extends UIElement {
         }
 
         // Prepare animation
-        animation = new AnimationTimer<>(AnimationType.BUTTON_LABELS_FADE_IN, ANIMATION_EXPIRE_TIME, null, null);
+        animation = new TimerAnimation<>(AnimationType.BUTTON_LABELS_FADE_IN, ANIMATION_EXPIRE_TIME);
     }
 
     public void destroyButtonLabels() {
-        animation = new AnimationTimer<>(AnimationType.BUTTON_LABELS_FADE_OUT,
-                ANIMATION_EXPIRE_TIME, null, new ParameterCallback<AnimationTimer>() {
+        animation = new TimerAnimation<>(AnimationType.BUTTON_LABELS_FADE_OUT, ANIMATION_EXPIRE_TIME,
+                new ParameterCallback<TimerAnimation>() {
                     @Override
-                    void apply(AnimationTimer animationTimer) {
+                    void apply(TimerAnimation animationTimer) {
                         labelsDestroyed = true;
                     }
                 });
@@ -108,6 +108,9 @@ public class Keyboard extends UIElement {
     public void update(float deltaTime) {
         if (animation != null) {
             animation.update(deltaTime);
+            if (animation.expired()) {
+                animation = null;
+            }
         }
         for (int i = 0; i < BUTTONS_PER_WIDTH; i++) {
             for (int j = 0; j < BUTTONS_PER_HEIGHT; j++) {
