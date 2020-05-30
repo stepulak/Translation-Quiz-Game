@@ -1,6 +1,6 @@
 package com.stepulak.translationgame;
 
-public class TranslationAnimation<AnimationType> extends Animation<AnimationType> {
+public class TranslationAnimation<AnimationType> extends AnimationWithType<AnimationType> {
     private float currentPosition;
     private float maximumPosition;
     private float velocity;

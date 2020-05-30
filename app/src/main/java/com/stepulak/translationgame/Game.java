@@ -55,18 +55,28 @@ public class Game {
         Keyboard keyboard = manager.get(UIElementType.KEYBOARD);
         InputForm inputForm = manager.get(UIElementType.INPUT_FORM);
 
-        if (inputForm.isFilled()) {
-            if (!inputFormFillHandled) {
-                if (inputForm.isFilledCorrectly()) {
-                    fetchNextWordTimer = inputForm.isSkipped() ? FETCH_NEXT_WORD_TIME : .001f;
-                } else {
-                    inputForm.startShakeAnimation();
-                }
+        if (inputForm.isFilledWithCharacters() && !inputForm.isAnimating()) {
+            if (inputForm.isFilledCorrectly()) {
+                fetchNextWordTimer = inputForm.isWordSkipped() ? FETCH_NEXT_WORD_TIME : .001f;
                 inputFormFillHandled = true;
+            } else {
+                inputForm.startShakeAnimation();
             }
         } else {
             inputFormFillHandled = false;
         }
+        /*
+        if (inputForm.isFilledWithCharacters()) {
+            if (!inputFormFillHandled || (inputForm.isWordSkipped()) {
+                if (inputForm.isFilledCorrectly()) {
+                    fetchNextWordTimer = inputForm.isWordSkipped() ? FETCH_NEXT_WORD_TIME : .001f;
+                } else {
+                    inputForm.startShakeAnimation();
+                }
+            }
+        } else {
+            inputFormFillHandled = false;
+        }*/
 
         if (fetchNextWordTimer > 0.f) {
             fetchNextWordTimer -= deltaTime;

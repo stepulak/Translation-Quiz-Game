@@ -14,43 +14,22 @@ public class InputForm extends UIElement {
     private static final float SPACE_HEIGHT_IN_BUTTONS = 0.2f;
     private static final float SHAKE_ROTATION_VELOCITY = 360.f;
     private static final float SHAKE_ROTATION_TURN_TIME = 0.1f;
-    private static final int SHAKE_ROTATIONS = 5;
+    private static final int SHAKE_NUM_ROTATIONS = 5;
 
     private RectF body;
     private String translatedWord;
     private InputFormLine[] lines;
-    private boolean skipped;
+    private RotationAnimation shakeRotationAnimation;
+    private boolean wordSkipped;
 
     public InputForm(Translation translation, Bitmap button, Bitmap dash, RectF body) {
         this.body = body;
         this.translatedWord = translation.getTranslatedWordWithoutFormatting();
-
-        Word translatedWord = new Word(translation.getTranslatedWord());
-        List<Pair<String, Boolean>> components = translatedWord.getComponents();
-
-        float maxWidth = body.width();
-        float maxHeight = body.height();
-        float buttonWidth = maxWidth / WIDTH_IN_BUTTONS;
-        float buttonHeight = maxHeight / HEIGHT_IN_BUTTONS;
-        float y = body.top + (maxHeight - getHeight(translatedWord, buttonHeight)) / 2;
-
-        lines = new InputFormLine[components.size()];
-
-        for(int i = 0; i < components.size(); i++) {
-            Pair<String, Boolean> c = components.get(i);
-            float x = body.left + (maxWidth - c.first.length() * buttonWidth) / 2;
-
-            lines[i] = new InputFormLine(c.first, c.second, button, dash, x, y, buttonWidth, buttonHeight);
-            y += buttonHeight;
-
-            if (!c.second) {
-                y += SPACE_HEIGHT_IN_BUTTONS * buttonHeight;
-            }
-        }
+        setup(translation, button, dash);
     }
 
     public boolean isAnimating() {
-        if (shakeRotationEnabled) {
+        if (shakeRotationAnimation != null) {
             return true;
         }
         for (InputFormLine line : lines) {
@@ -83,10 +62,14 @@ public class InputForm extends UIElement {
         if (isAnimating()) {
             return;
         }
-        shakeAnimation = new ShakeAnimation();
+        shakeRotationAnimation = new RotationAnimation(SHAKE_ROTATION_VELOCITY, SHAKE_ROTATION_TURN_TIME, SHAKE_NUM_ROTATIONS);
     }
 
-    public boolean isFilled() {
+    public boolean isWordSkipped() {
+        return wordSkipped;
+    }
+
+    public boolean isFilledWithCharacters() {
         for (InputFormLine line : lines) {
             if (!line.isFilledWithCharacters()) {
                 return false;
@@ -103,18 +86,6 @@ public class InputForm extends UIElement {
         return builder.toString().equals(translatedWord);
     }
 
-    public void fillWithCorrectWord() {
-        clear();
-        skipped = true;
-        for (char c : translatedWord.toCharArray()) {
-            insertCharacter(c);
-        }
-    }
-
-    public boolean isSkipped() {
-        return skipped;
-    }
-
     public void insertCharacter(char c) {
         for (InputFormLine line : lines) {
             if (line.insertCharacter(c)) {
@@ -123,8 +94,16 @@ public class InputForm extends UIElement {
         }
     }
 
+    public void skipWordAndFillResult() {
+        clear();
+        for (char c : translatedWord.toCharArray()) {
+            insertCharacter(c);
+        }
+        wordSkipped = true;
+    }
+
     public void clear() {
-        if (isAnimating() || isSkipped()) {
+        if (isAnimating() || isWordSkipped()) {
             return;
         }
         for (InputFormLine line : lines) {
@@ -134,7 +113,7 @@ public class InputForm extends UIElement {
 
     @Override
     public boolean click(float x, float y) {
-        if (isAnimating()) {
+        if (isAnimating() || isWordSkipped()) {
             return false;
         }
         for (InputFormLine line : lines) {
@@ -150,16 +129,19 @@ public class InputForm extends UIElement {
         for (InputFormLine line : lines) {
             line.update(deltaTime);
         }
-        if (shakeRotationEnabled) {
-            updateShakeRotation(deltaTime);
+        if (shakeRotationAnimation != null) {
+            shakeRotationAnimation.update(deltaTime);
+            if (shakeRotationAnimation.expired()) {
+                shakeRotationAnimation = null;
+            }
         }
     }
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
         canvas.save();
-        if (shakeRotationEnabled) {
-            canvas.rotate(shakeRotationAngle, body.centerX(), body.centerY());
+        if (shakeRotationAnimation != null) {
+            canvas.rotate(shakeRotationAnimation.getRotationAngle(), body.centerX(), body.centerY());
         }
         for (InputFormLine line : lines) {
             line.draw(canvas, paint);
@@ -167,16 +149,39 @@ public class InputForm extends UIElement {
         canvas.restore();
     }
 
-    private static float getHeight(Word word, float buttonHeight) {
+    private static float getHeight(List<Pair<String, Boolean>> wordComponents, float buttonHeight) {
         float actualHeight = 0.f;
-
-        for(Pair<String, Boolean> c :  word.getComponents()) {
+        for(Pair<String, Boolean> c : wordComponents) {
             actualHeight += buttonHeight;
             if (!c.second) {
                 actualHeight += SPACE_HEIGHT_IN_BUTTONS * buttonHeight;
             }
         }
-
         return actualHeight;
+    }
+
+    private void setup(Translation translation, Bitmap button, Bitmap dash) {
+        List<Pair<String, Boolean>> components = Translation.decomposeTranslatedString(translation.getTranslatedWord());
+        lines = new InputFormLine[components.size()];
+
+        float maxWidth = body.width();
+        float maxHeight = body.height();
+        float buttonWidth = maxWidth / WIDTH_IN_BUTTONS;
+        float buttonHeight = maxHeight / HEIGHT_IN_BUTTONS;
+        float y = body.top + (maxHeight - getHeight(components, buttonHeight)) / 2;
+
+        for(int i = 0; i < components.size(); i++) {
+            Pair<String, Boolean> component = components.get(i);
+            String str = component.first;
+            boolean endWithDash = component.second;
+            float x = body.left + (maxWidth - str.length() * buttonWidth) / 2;
+
+            lines[i] = new InputFormLine(str, endWithDash, button, dash, x, y, buttonWidth, buttonHeight);
+
+            if (!endWithDash) {
+                y += SPACE_HEIGHT_IN_BUTTONS * buttonHeight;
+            }
+            y += buttonHeight;
+        }
     }
 }

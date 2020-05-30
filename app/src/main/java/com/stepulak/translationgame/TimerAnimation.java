@@ -1,6 +1,6 @@
 package com.stepulak.translationgame;
 
-public class TimerAnimation<AnimationType> extends Animation<AnimationType> {
+public class TimerAnimation<AnimationType> extends AnimationWithType<AnimationType> {
     private float expireTime;
     private float timer = 0f;
     private ParameterCallback updateCallback;

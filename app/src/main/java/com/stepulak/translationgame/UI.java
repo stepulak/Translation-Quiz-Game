@@ -64,7 +64,7 @@ public class UI {
         uiManager.<Button>get(UIElementType.SKIP_BUTTON).setClickCallback(new Callback() {
             @Override
             public void apply() {
-                inputForm.fillWithCorrectWord();
+                inputForm.skipWordAndFillResult();
             }
         });
     }
@@ -138,5 +138,7 @@ public class UI {
         uiManager.set(UIElementType.QUIT_BUTTON, new Button(quitButtonBitmap, quitButtonPosition));
         uiManager.set(UIElementType.SKIP_BUTTON, new Button(skipButtonBitmap, skipButtonPosition));
         uiManager.set(UIElementType.CLEAR_BUTTON, new Button(clearButtonBitmap, clearButtonPosition));
+
+
     }
 }
