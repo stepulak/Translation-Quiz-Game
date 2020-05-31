@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-import androidx.core.util.Consumer;
-
 import static com.stepulak.translationgame.MyUIConstants.*;
 
 // This class holds UI
@@ -16,6 +14,7 @@ public class UI {
     private MyBitmaps bitmaps;
     private float screenWidth;
     private float screenHeight;
+    private boolean quit;
 
     public UI(Resources resources, float scrWidth, float scrHeight) {
         bitmaps = new MyBitmaps(resources);
@@ -38,6 +37,10 @@ public class UI {
 
     public float getScreenHeight() {
         return screenHeight;
+    }
+
+    public boolean toQuit() {
+        return quit;
     }
 
     public void createUIForTranslation(Translation translation) {
@@ -139,6 +142,15 @@ public class UI {
         uiManager.set(UIElementType.SKIP_BUTTON, new Button(skipButtonBitmap, skipButtonPosition));
         uiManager.set(UIElementType.CLEAR_BUTTON, new Button(clearButtonBitmap, clearButtonPosition));
 
+        uiManager.<Button>get(UIElementType.QUIT_BUTTON).setClickCallback(new Callback() {
+            @Override
+            public void apply() {
+                quit = true;
+            }
+        });
 
+        float timerCounterFontSize = screenHeight * TIMER_COUNTER_FONT_SIZE_RATIO;
+        float timerLabelFontSize = screenHeight * TIMER_LABEL_FONT_SIZE_RATIO;
+        uiManager.set(UIElementType.TIMER, new Timer(Timer.DEFAULT_TIME_SECONDS, 0.f, 0.f, timerCounterFontSize, timerLabelFontSize));
     }
 }

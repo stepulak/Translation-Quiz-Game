@@ -15,15 +15,13 @@ import com.example.translationgame.R;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Game game;
-    long lastUpdateTime = -1;
-    float clickX = -1;
-    float clickY = -1;
+    private long lastUpdateTime = -1;
+    private float clickX = -1;
+    private float clickY = -1;
 
     public GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
-
-        thread = new MainThread(getHolder(), this);
         setFocusable(true);
 
         Point screenSize = getScreenSize();
@@ -37,7 +35,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 }
             }
         });
-
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -56,6 +53,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        if (thread != null) {
+            surfaceDestroyed(holder);
+        }
+        thread = new MainThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
     }
@@ -65,8 +66,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         boolean retry = true;
         while (retry) {
             try {
-                thread.setRunning(false);
-                thread.join();
+                if (thread != null) {
+                    thread.setRunning(false);
+                    thread.join();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -87,6 +90,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             game.update(deltaTime);
         }
         lastUpdateTime = time;
+    }
+
+    public void pause() {
+        if (thread != null) {
+            thread.setRunning(false);
+        }
+    }
+
+    public boolean toQuit() {
+        return game.toQuit();
     }
 
     private Point getScreenSize() {

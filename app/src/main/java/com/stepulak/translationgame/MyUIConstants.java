@@ -17,4 +17,6 @@ public class MyUIConstants {
     public static final float LABEL_WIDTH_RATIO = 0.9f;
     public static final float LABEL_HEIGHT_RATIO = 0.08f;
     public static final float LABEL_HEIGHT_OFFSET_RATIO = 0.009f;
+    public static final float TIMER_COUNTER_FONT_SIZE_RATIO = 0.04f;
+    public static final float TIMER_LABEL_FONT_SIZE_RATIO = 0.025f;
 }

@@ -22,7 +22,7 @@ public class Button extends UIElement {
     // Use String, not Character for single letter text because of canvas.drawText
     private String text;
     private AnimationType animationType = AnimationType.NONE;
-    private float animationTimer = 0f;
+    private float animationTimer = 0.f;
 
     private Callback clickCallback;
 
@@ -86,7 +86,6 @@ public class Button extends UIElement {
     }
 
     public void draw(Canvas canvas, Paint paint, float globalAlpha) {
-        // TODO MOVE COLORS TO SEPARATE CLASS
         paint.setColor(MyColors.LABEL_COLOR);
 
         float localAlpha = (animationType == AnimationType.CLICK) ? 0.2f + 0.8f * animationTimer/CLICK_ANIMATION_TIME : 1.f;

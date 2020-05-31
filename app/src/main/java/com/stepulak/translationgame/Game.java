@@ -7,14 +7,15 @@ import android.util.Log;
 import java.security.Key;
 
 public class Game {
-    private static final float FETCH_NEXT_WORD_TIME = 2.f;
+    private static final float FETCH_NEXT_WORD_WAIT_TIME = 2.f;
 
     private Dictionary dictionary;
     private UI ui;
 
     // Game logic variables
     private float gameLoadTime = 0.5f;
-    private boolean inputFormFillHandled;
+    private boolean wordSkipHandled;
+    private boolean userFillHandled;
     private boolean fetchNextWord;
     private float fetchNextWordTimer;
 
@@ -22,6 +23,10 @@ public class Game {
         dictionary = new Dictionary(resources.obtainTypedArray(dictionaryDescriptor));
         ui = new UI(resources, scrWidth, scrHeight);
         ui.createUIForTranslation(dictionary.getTranslation());
+    }
+
+    public boolean toQuit() {
+        return ui.toQuit();
     }
 
     public void click(float x, float y) {
@@ -55,32 +60,24 @@ public class Game {
         Keyboard keyboard = manager.get(UIElementType.KEYBOARD);
         InputForm inputForm = manager.get(UIElementType.INPUT_FORM);
 
-        if (inputForm.isFilledWithCharacters() && !inputForm.isAnimating()) {
-            if (inputForm.isFilledCorrectly()) {
-                fetchNextWordTimer = inputForm.isWordSkipped() ? FETCH_NEXT_WORD_TIME : .001f;
-                inputFormFillHandled = true;
-            } else {
-                inputForm.startShakeAnimation();
-            }
-        } else {
-            inputFormFillHandled = false;
-        }
-        /*
-        if (inputForm.isFilledWithCharacters()) {
-            if (!inputFormFillHandled || (inputForm.isWordSkipped()) {
+        if (!wordSkipHandled && inputForm.isWordSkipped()) {
+            fetchNextWordTimer = FETCH_NEXT_WORD_WAIT_TIME;
+            wordSkipHandled = true;
+        } else if (!wordSkipHandled && inputForm.isFilledWithCharacters()) {
+            if (!userFillHandled) {
                 if (inputForm.isFilledCorrectly()) {
-                    fetchNextWordTimer = inputForm.isWordSkipped() ? FETCH_NEXT_WORD_TIME : .001f;
+                    fetchNextWordTimer = .001f;
                 } else {
                     inputForm.startShakeAnimation();
                 }
+                userFillHandled = true;
             }
         } else {
-            inputFormFillHandled = false;
-        }*/
+            userFillHandled = false;
+        }
 
         if (fetchNextWordTimer > 0.f) {
             fetchNextWordTimer -= deltaTime;
-
             if (fetchNextWordTimer <= 0.f) {
                 keyboard.destroyButtonLabels();
                 inputForm.startExitAnimation(ui.getScreenWidth());
@@ -91,7 +88,8 @@ public class Game {
         if (fetchNextWord && keyboard.areLabelsDestroyed() && !inputForm.isAnimating()) {
             dictionary.next();
             ui.createUIForTranslation(dictionary.getTranslation());
-            inputFormFillHandled = false;
+            userFillHandled = false;
+            wordSkipHandled = false;
             fetchNextWord = false;
         }
     }

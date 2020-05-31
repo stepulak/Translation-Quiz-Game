@@ -9,5 +9,6 @@ public enum UIElementType {
     WORD_LABEL,
     QUIT_BUTTON,
     SKIP_BUTTON,
-    CLEAR_BUTTON
+    CLEAR_BUTTON,
+    TIMER
 }
