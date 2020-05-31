@@ -15,6 +15,7 @@ public class UI {
     private float screenWidth;
     private float screenHeight;
     private boolean quit;
+    private boolean restart;
 
     public UI(Resources resources, float scrWidth, float scrHeight) {
         bitmaps = new MyBitmaps(resources);
@@ -43,6 +44,8 @@ public class UI {
         return quit;
     }
 
+    public boolean toRestart() { return restart; }
+
     public void createUIForTranslation(Translation translation) {
         Label label = new Label(translation.getOriginalWord(), paint, getLabelPosition());
 
@@ -70,6 +73,17 @@ public class UI {
                 inputForm.skipWordAndFillResult();
             }
         });
+    }
+
+    public void showEndScreen(int correctWords, int skippedWords) {
+        EndScreen endScreen = new EndScreen(screenWidth, screenHeight, correctWords, skippedWords, 0);
+        endScreen.setClickCallback(new Callback() {
+            @Override
+            public void apply() {
+                restart = true;
+            }
+        });
+        uiManager.set(UIElementType.END_SCREEN, endScreen);
     }
 
     private RectF getKeyboardPosition() {

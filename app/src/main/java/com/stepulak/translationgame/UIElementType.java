@@ -10,5 +10,6 @@ public enum UIElementType {
     QUIT_BUTTON,
     SKIP_BUTTON,
     CLEAR_BUTTON,
-    TIMER
+    TIMER,
+    END_SCREEN
 }

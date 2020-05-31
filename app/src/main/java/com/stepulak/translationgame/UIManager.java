@@ -25,8 +25,10 @@ public class UIManager {
 
     public void clickFirst(float x, float y) {
         for (UIElement element : elements.values()) {
-            if (element.click(x, y)) {
-                return;
+            if (element instanceof ClickableElement) {
+                if (((ClickableElement)element).click(x, y)) {
+                    return;
+                }
             }
         }
     }

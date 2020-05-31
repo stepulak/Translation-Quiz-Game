@@ -8,12 +8,11 @@ import android.graphics.RectF;
 import androidx.core.util.Consumer;
 
 
-public class Button extends UIElement {
+public class Button extends ClickableElement {
     private enum AnimationType {
         NONE,
         CLICK,
     }
-
     private static final float SIZE_RATIO = 0.9f;
     private static final float CLICK_ANIMATION_TIME = 0.1f;
 
@@ -23,8 +22,6 @@ public class Button extends UIElement {
     private String text;
     private AnimationType animationType = AnimationType.NONE;
     private float animationTimer = 0.f;
-
-    private Callback clickCallback;
 
     public Button(Bitmap b, RectF body) {
         bitmap = b;
@@ -44,10 +41,6 @@ public class Button extends UIElement {
         );
     }
 
-    public void setClickCallback(Callback callback) {
-        clickCallback = callback;
-    }
-
     public void setCharacter(Character c) {
         text = c != null ? Character.toString(c) : null;
     }
@@ -63,9 +56,7 @@ public class Button extends UIElement {
         }
         animationType = AnimationType.CLICK;
         animationTimer = CLICK_ANIMATION_TIME;
-        if (clickCallback != null) {
-            clickCallback.apply();
-        }
+        invokeClickCallback();
         return true;
     }
 

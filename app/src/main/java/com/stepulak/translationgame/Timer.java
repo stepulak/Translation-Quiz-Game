@@ -1,16 +1,31 @@
 package com.stepulak.translationgame;
 
-public class Timer extends StatsElement {
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
+public class Timer extends UIElement {
     public static final int DEFAULT_TIME_SECONDS = 20;
-    public static final int CORRECT_WORD_ADD_TIME = 8;
+    public static final int CORRECT_WORD_ADD_TIME = 12;
     public static final int SKIP_WORD_SUBTRACT_TIME = -3;
 
+    private String counter;
+    private String label;
+    private float x;
+    private float y;
+    private float counterTextSize;
+    private float labelTextSize;
     private float remainingTime;
     private float nextLabelUpdateTime;
     private boolean frozen;
 
+    private String counterDiff;
+    private int remainingTimeDiff;
+
     Timer(int remainingTime, float x, float y, float counterTextSize, float labelTextSize) {
-        super(x, y, counterTextSize, labelTextSize);
+        this.x = x;
+        this.y = y;
+        this.counterTextSize = counterTextSize;
+        this.labelTextSize = labelTextSize;
         this.remainingTime = remainingTime;
         nextLabelUpdateTime = remainingTime - 1.f;
         updateLabels();
@@ -25,7 +40,8 @@ public class Timer extends StatsElement {
     }
 
     public void addTime(int seconds) {
-        remainingTime += seconds;
+        remainingTimeDiff = seconds;
+        counterDiff = (seconds >= 0 ? " +" : " ") + seconds;
     }
 
     public boolean hasExceeded() {
@@ -37,20 +53,42 @@ public class Timer extends StatsElement {
         if (frozen) {
             return;
         }
-        remainingTime = Math.max(remainingTime - deltaTime, 0.f);
-        if (remainingTime <= nextLabelUpdateTime) {
+        if (remainingTimeDiff != 0 && counterDiff != null) {
+            remainingTime += remainingTimeDiff;
+            nextLabelUpdateTime = remainingTime - 1.f;
+            remainingTimeDiff = 0;
+            counterDiff = null;
             updateLabels();
-            nextLabelUpdateTime -= 1.f;
         }
+        remainingTime -= deltaTime;
+        if (remainingTime < 0.f) {
+            remainingTime = 0.f;
+        }
+        if (remainingTime <= nextLabelUpdateTime) {
+            nextLabelUpdateTime -= 1.f;
+            updateLabels();
+        }
+    }
+
+    @Override
+    public void draw(Canvas canvas, Paint paint) {
+        paint.setTextSize(counterTextSize);
+        canvas.drawText(counter, x, y + counterTextSize, paint);
+        if (counterDiff != null) {
+            canvas.drawText(counterDiff, x, y + counterTextSize * 2f, paint);
+        }
+        float counterTextWidth = paint.measureText(counter);
+        paint.setTextSize(labelTextSize);
+        canvas.drawText(label, x + counterTextWidth, y + counterTextSize, paint);
     }
 
     private void updateLabels() {
         int remainingTimeInSeconds = (int)remainingTime;
-        setCounter(Integer.toString(remainingTimeInSeconds));
+        counter = Integer.toString(remainingTimeInSeconds);
         if (remainingTimeInSeconds == 1) {
-            setLabel(" second remaining");
+            label = " second remaining";
         } else {
-            setLabel(" seconds remaining");
+            label = " seconds remaining";
         }
     }
 }

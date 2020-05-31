@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Keyboard extends UIElement {
+public class Keyboard extends ClickableElement {
     private enum AnimationType {
         BUTTON_LABELS_FADE_IN,
         BUTTON_LABELS_FADE_OUT

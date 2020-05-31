@@ -25,7 +25,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
 
         Point screenSize = getScreenSize();
-        game = new Game(context.getResources(), R.array.czech_german, screenSize.x, screenSize.y);
+        game = new Game(context, R.array.czech_german, screenSize.x, screenSize.y);
 
         this.setOnClickListener(new OnClickListener() {
             @Override
