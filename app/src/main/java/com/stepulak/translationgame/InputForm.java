@@ -9,8 +9,8 @@ import android.util.Pair;
 import java.util.List;
 
 public class InputForm extends ClickableElement {
-    private static final float WIDTH_IN_BUTTONS = 7f;
-    private static final float HEIGHT_IN_BUTTONS = 4.6f;
+    private static final float WIDTH_IN_BUTTONS = 8f;
+    private static final float HEIGHT_IN_BUTTONS = 3.4f;
     private static final float SPACE_HEIGHT_IN_BUTTONS = 0.2f;
     private static final float SHAKE_ROTATION_VELOCITY = 360.f;
     private static final float SHAKE_ROTATION_TURN_TIME = 0.1f;

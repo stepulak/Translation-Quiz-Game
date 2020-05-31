@@ -24,9 +24,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         setFocusable(true);
 
-        Point screenSize = getScreenSize();
-        game = new Game(context, R.array.czech_german, screenSize.x, screenSize.y);
-
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +42,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 return false;
             }
         });
+
+        newGame();
     }
 
     @Override
@@ -90,6 +89,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             game.update(deltaTime);
         }
         lastUpdateTime = time;
+
+        if (game.toRestart()) {
+            newGame();
+        }
     }
 
     public void pause() {
@@ -108,5 +111,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         Point size = new Point();
         display.getSize(size);
         return size;
+    }
+
+    private void newGame() {
+        Point screenSize = getScreenSize();
+        game = new Game(getContext(), R.array.czech_german, screenSize.x, screenSize.y);
     }
 }

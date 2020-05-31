@@ -76,7 +76,7 @@ public class UI {
     }
 
     public void showEndScreen(int correctWords, int skippedWords) {
-        EndScreen endScreen = new EndScreen(screenWidth, screenHeight, correctWords, skippedWords, 0);
+        EndScreen endScreen = new EndScreen(paint, screenWidth, screenHeight, correctWords, skippedWords);
         endScreen.setClickCallback(new Callback() {
             @Override
             public void apply() {

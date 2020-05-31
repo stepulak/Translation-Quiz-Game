@@ -4,13 +4,13 @@
         <item>AUTO;DAS AUTO</item>
         <item>PODVODNÍK;DER UNTER~WASSER MANN</item>
         <item>PALAČINKA;DIE PFANN~KUCHEN</item>
-        <item>POUTA;DIE HANDSC~HELLEN</item>
-        <item>UČITELKA;DIE LEHRE~RIN</item>
+        <item>POUTA;DIE HAND~SCHELLEN</item>
+        <item>UČITELKA;DIE LEHRERIN</item>
         <item>HUDBA;DIE MUSIK</item>
-        <item>KLÁVESNICE;DIE TAS~TATUR</item>
-        <item>ŘÍZEK;DAS SCHNI~TZEL</item>
-        <item>PSÁT;SCHRE~IBEN</item>
-        <item>MLUVIT;SPRE~CHEN</item>
+        <item>KLÁVESNICE;DIE TASTATUR</item>
+        <item>ŘÍZEK;DAS SCHNITZ~EL</item>
+        <item>PSÁT;SCHREIB~EN</item>
+        <item>MLUVIT;SPRECH~EN</item>
         <item>SLYŠET;HÖREN</item>
         <item>RODINA;DIE FAMILIE</item>
         <item>DŮM;DAS HAUS</item>
@@ -18,5 +18,19 @@
         <item>ŠKOLA;DIE SCHULE</item>
         <item>PRÁCE;DIE ARBEIT</item>
         <item>KLOBÁSKA;DIE WURST</item>
+        <item>UŠNÍ ČERVÍK;DER OHRWURM</item>
+        <item>SMUTNÁ SLANINA;DER KUMMER~SPECK</item>
+        <item>OMRZELÝ ŽIVOTEM;LEBEN~SMÜDE</item>
+        <item>ZADEK;DER HINTERN</item>
+        <item>PRSA;DER BUSEN</item>
+        <item>CHTÍT;WOLLEN</item>
+        <item>VZÍT;NEHMEN</item>
+        <item>SPÁT;SCHLAFEN</item>
+        <item>POVÍDAT;REDEN</item>
+        <item>HEZKÝ;HÜBSCH</item>
+        <item>VÁŠNIVÝ;LEIDEN~SCHAFT~LICH</item>
+        <item>SILNÝ;STARK</item>
+        <item>CHYTRÝ;KLUG</item>
+        <item>PILNÝ;FLEISSIG</item>
     </string-array>
 </resources>

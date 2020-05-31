@@ -1,12 +1,8 @@
 package com.stepulak.translationgame;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.os.Vibrator;
-import android.util.Log;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class Game {
     private static final float FETCH_NEXT_WORD_WAIT_TIME = 2.f;
@@ -94,7 +90,7 @@ public class Game {
             skippedWordCounter++;
             timer.addTime(Timer.SKIP_WORD_SUBTRACT_TIME);
             timer.freeze();
-            //vibrate(SKIP_WORD_VIBRATION_TIME);
+            vibrate(SKIP_WORD_VIBRATION_TIME);
             return;
         }
         if (!wordSkipHandled && inputForm.isFilledWithCharacters()) {
