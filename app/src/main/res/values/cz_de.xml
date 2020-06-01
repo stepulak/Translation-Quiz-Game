@@ -2,7 +2,6 @@
 <resources>
     <string-array name="czech_german">
         <item>AUTO;DAS AUTO</item>
-        <item>PODVODNÍK;DER UNTER~WASSER MANN</item>
         <item>PALAČINKA;DIE PFANN~KUCHEN</item>
         <item>POUTA;DIE HAND~SCHELLEN</item>
         <item>UČITELKA;DIE LEHRERIN</item>

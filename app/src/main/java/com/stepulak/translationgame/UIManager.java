@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import java.util.EnumMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class UIManager {
@@ -23,14 +24,9 @@ public class UIManager {
         elements.put(elementType, element);
     }
 
+    // Click first element but in reverse order, so actually last :-)
     public void clickFirst(float x, float y) {
-        for (UIElement element : elements.values()) {
-            if (element instanceof ClickableElement) {
-                if (((ClickableElement)element).click(x, y)) {
-                    return;
-                }
-            }
-        }
+        clickRecursive(elements.values().iterator(), x, y);
     }
 
     public void updateAll(float deltaTime) {
@@ -43,5 +39,19 @@ public class UIManager {
         for (UIElement element : elements.values()) {
             element.draw(canvas, paint);
         }
+    }
+
+    private static boolean clickRecursive(Iterator<UIElement> iterator, float x, float y) {
+        if (!iterator.hasNext()) {
+            return false;
+        }
+        UIElement element = iterator.next();
+        if (clickRecursive(iterator, x, y)) {
+            return true;
+        }
+        if (element instanceof ClickableElement) {
+            return ((ClickableElement)element).click(x, y);
+        }
+        return false;
     }
 }
