@@ -4,8 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.example.translationgame.R;
-
 import java.util.EnumMap;
 import java.util.Map;
 

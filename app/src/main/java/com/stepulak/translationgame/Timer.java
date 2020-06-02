@@ -26,7 +26,7 @@ public class Timer extends UIElement {
         this.y = y;
         this.counterTextSize = counterTextSize;
         this.labelTextSize = labelTextSize;
-        this.remainingTime = remainingTime;
+        this.remainingTime = remainingTime - 0.0001f;
         nextLabelUpdateTime = remainingTime - 1.f;
         updateLabels();
     }
