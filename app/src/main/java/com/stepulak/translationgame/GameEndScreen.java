@@ -1,59 +1,77 @@
 package com.stepulak.translationgame;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-public class EndScreen extends ClickableElement {
-    private float SWIPE_ANIMATION_VELOCITY_RATIO = 2.f;
-    private float END_LABEL_WIDTH_RATIO = 0.8f;
-    private float END_LABEL_HEIGHT_RATIO = 0.1f;
-    private float END_LABEL_VERTICAL_POSITION_RATIO = 0.25f;
-    private float STAT_LABEL_WIDTH_RATIO = 0.8f;
-    private float STAT_LABEL_HEIGHT_RATIO = 0.1f;
-    private float CORRECT_WORDS_LABEL_VERTICAL_POSITION_RATIO = 0.5f;
-    private float SKIPPED_WORDS_LABEL_VERTICAL_POSITION_RATIO = 0.6f;
-    private float TAP_TO_PLAY_LABEL_WIDTH_RATIO = 0.5f;
-    private float TAP_TO_PLAY_LABEL_HEIGHT_RATIO = 0.05f;
-    private float TAP_TO_PLAY_LABEL_VERTICAL_POSITION_RATIO = 0.85f;
+public class GameEndScreen extends GameRunnable {
+    private static final float GAME_END_VIBRATION_TIME = 500f; // in ms
+    private static float END_LABEL_WIDTH_RATIO = 0.8f;
+    private static float END_LABEL_HEIGHT_RATIO = 0.1f;
+    private static float END_LABEL_VERTICAL_POSITION_RATIO = 0.25f;
+    private static float STAT_LABEL_WIDTH_RATIO = 0.8f;
+    private static float STAT_LABEL_HEIGHT_RATIO = 0.1f;
+    private static float CORRECT_WORDS_LABEL_VERTICAL_POSITION_RATIO = 0.5f;
+    private static float SKIPPED_WORDS_LABEL_VERTICAL_POSITION_RATIO = 0.6f;
+    private static float TAP_TO_PLAY_LABEL_WIDTH_RATIO = 0.5f;
+    private static float TAP_TO_PLAY_LABEL_HEIGHT_RATIO = 0.05f;
+    private static float TAP_TO_PLAY_LABEL_VERTICAL_POSITION_RATIO = 0.85f;
 
+    private Dictionary dictionary;
+    private boolean restartGame;
+
+    // UI
     private Background background;
     private Label theEndLabel;
     private Label correctWordsLabel;
     private Label skippedWordsLabel;
     private Label tapToPlayLabel;
-    private TranslationAnimation animation;
 
-    public EndScreen(Paint paint, float screenWidth, float screenHeight, int correctWords, int skippedWords) {
-        float animationVelocity = SWIPE_ANIMATION_VELOCITY_RATIO * screenHeight;
-        animation = new TranslationAnimation(null, -screenHeight, 0.f, animationVelocity, 0.f);
-        setup(paint, screenWidth, screenHeight, correctWords, skippedWords);
+    public GameEndScreen(Context context, float screenWidth, float screenHeight, Dictionary dictionary, int correctWords, int skippedWords) {
+        super(context, screenWidth, screenHeight);
+        this.dictionary = dictionary;
+        vibrate(GAME_END_VIBRATION_TIME);
     }
 
     @Override
-    public boolean click(float x, float y) {
-        if (!animation.expired()) {
-            return false;
-        }
-        invokeClickCallback();
-        return true;
+    public GameRunnable createNextGameRunnable() {
+        return null;
+    }
+
+    @Override
+    public GameRunnable createPreviousGameRunnable() {
+        return new Game(getContext(), getScreenWidth(), getScreenHeight(), dictionary);
+    }
+
+    @Override
+    public boolean moveToPreviousGameRunnable() {
+        return restartGame;
+    }
+
+    @Override
+    public boolean moveToNextGameRunnable() {
+        return false;
+    }
+
+    @Override
+    public void click(float x, float y) {
+        restartGame = true;
     }
 
     @Override
     public void update(float deltaTime) {
-        animation.update(deltaTime);
+
     }
 
     @Override
-    public void draw(Canvas canvas, Paint paint) {
-        canvas.save();
-        canvas.translate(0.f, animation.getCurrentPosition());
+    public void draw(Canvas canvas) {
+        Paint paint = getPaint();
         background.draw(canvas, paint);
         theEndLabel.draw(canvas, paint);
         correctWordsLabel.draw(canvas, paint);
         skippedWordsLabel.draw(canvas, paint);
         tapToPlayLabel.draw(canvas, paint);
-        canvas.restore();
     }
 
     private void setup(Paint paint, float screenWidth, float screenHeight, int correctWords, int skippedWords) {

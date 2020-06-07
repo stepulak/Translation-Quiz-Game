@@ -11,37 +11,27 @@ import android.view.View;
 import android.view.WindowManager;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
-    private MainThread thread;
-    private Game game;
+    private static float NEXT_RUNNABLE_ANIMATION_VELOCITY_RATIO = 0.5f;
+
+    private float screenWidth;
+    private float screenHeight;
     private long lastUpdateTime = -1;
     private float clickX = -1;
     private float clickY = -1;
+
+    private MainThread thread;
+    private GameRunnable currentGameRunnable;
+    private GameRunnable nextGameRunnable;
+    private TranslationAnimation nextGameRunnableAnimation;
 
     public GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
         setFocusable(true);
+        setupClickListeners();
+        setupScreenSize();
 
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (clickX >= 0f && clickY >= 0f) {
-                    game.click(clickX, clickY);
-                }
-            }
-        });
-        this.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    clickX = motionEvent.getX();
-                    clickY = motionEvent.getY();
-                }
-                return false;
-            }
-        });
-
-        newGame();
+        currentGameRunnable = new GameMenu(context, screenWidth, screenHeight);
     }
 
     @Override
@@ -77,20 +67,29 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        game.draw(canvas);
+        if (currentGameRunnable != null) {
+            currentGameRunnable.draw(canvas);
+            if (nextGameRunnableAnimation != null && nextGameRunnable != null) {
+                canvas.save();
+                canvas.translate(0.f, nextGameRunnableAnimation.getCurrentPosition());
+                nextGameRunnable.draw(canvas);
+                canvas.restore();
+            }
+        }
+    }
+
+    public boolean toQuit() {
+        return currentGameRunnable == null;
     }
 
     public void update() {
         long time = System.currentTimeMillis();
-        if (lastUpdateTime > 0) {
+        if (currentGameRunnable != null && lastUpdateTime > 0) {
             float deltaTime = (time - lastUpdateTime) / 1000.0f;
-            game.update(deltaTime);
+            currentGameRunnable.update(deltaTime);
+            updateGameRunnableSwitching(deltaTime);
         }
         lastUpdateTime = time;
-
-        if (game.toRestart()) {
-            newGame();
-        }
     }
 
     public void pause() {
@@ -99,20 +98,59 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public boolean toQuit() {
-        return game.toQuit();
+    private void switchGameRunnable(GameRunnable nextRunnable) {
+        if (nextGameRunnableAnimation != null) {
+            return;
+        }
+        float animationVelocity = NEXT_RUNNABLE_ANIMATION_VELOCITY_RATIO * screenHeight;
+        nextGameRunnableAnimation = new TranslationAnimation(null, -screenHeight, 0.f, animationVelocity, 0.f);
+        nextGameRunnable = nextRunnable;
     }
 
-    private Point getScreenSize() {
+    private void updateGameRunnableSwitching(float deltaTime) {
+        if (currentGameRunnable.moveToNextGameRunnable()) {
+            switchGameRunnable(currentGameRunnable.createNextGameRunnable());
+        } else if (currentGameRunnable.moveToPreviousGameRunnable()) {
+            switchGameRunnable(currentGameRunnable.createPreviousGameRunnable());
+        }
+
+        if (nextGameRunnableAnimation != null) {
+            nextGameRunnableAnimation.update(deltaTime);
+            if (nextGameRunnableAnimation.expired()) {
+                currentGameRunnable = nextGameRunnable;
+                nextGameRunnable = null;
+                nextGameRunnableAnimation = null;
+            }
+        }
+    }
+
+    private void setupClickListeners() {
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentGameRunnable != null && clickX >= 0f && clickY >= 0f) {
+                    currentGameRunnable.click(clickX, clickY);
+                }
+            }
+        });
+        this.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    clickX = motionEvent.getX();
+                    clickY = motionEvent.getY();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void setupScreenSize() {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        return size;
-    }
-
-    private void newGame() {
-        Point screenSize = getScreenSize();
-        game = new Game(getContext(), R.array.czech_german, screenSize.x, screenSize.y);
+        screenWidth = size.x;
+        screenHeight = size.y;
     }
 }

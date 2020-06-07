@@ -7,17 +7,16 @@ import android.graphics.RectF;
 
 import static com.stepulak.translationgame.MyUIConstants.*;
 
-// This class holds UI
-public class UI {
+// This class holds GameUI
+public class GameUI {
     private Paint paint = new Paint();
     private UIManager uiManager = new UIManager();
     private MyBitmaps bitmaps;
     private float screenWidth;
     private float screenHeight;
-    private boolean quit;
-    private boolean restart;
+    private boolean quitButtonPressed;
 
-    public UI(Resources resources, float scrWidth, float scrHeight) {
+    public GameUI(Resources resources, float scrWidth, float scrHeight) {
         bitmaps = new MyBitmaps(resources);
         screenWidth = scrWidth;
         screenHeight = scrHeight;
@@ -36,15 +35,9 @@ public class UI {
         return screenWidth;
     }
 
-    public float getScreenHeight() {
-        return screenHeight;
+    public boolean isQuitButtonPressed() {
+        return quitButtonPressed;
     }
-
-    public boolean toQuit() {
-        return quit;
-    }
-
-    public boolean toRestart() { return restart; }
 
     public void createUIForTranslation(Translation translation) {
         Label label = new Label(translation.getOriginalWord(), paint, getLabelPosition());
@@ -73,17 +66,6 @@ public class UI {
                 inputForm.skipWordAndFillResult();
             }
         });
-    }
-
-    public void showEndScreen(int correctWords, int skippedWords) {
-        EndScreen endScreen = new EndScreen(paint, screenWidth, screenHeight, correctWords, skippedWords);
-        endScreen.setClickCallback(new Callback() {
-            @Override
-            public void apply() {
-                restart = true;
-            }
-        });
-        uiManager.set(UIElementType.END_SCREEN, endScreen);
     }
 
     private RectF getKeyboardPosition() {
@@ -159,7 +141,7 @@ public class UI {
         uiManager.<Button>get(UIElementType.QUIT_BUTTON).setClickCallback(new Callback() {
             @Override
             public void apply() {
-                quit = true;
+                quitButtonPressed = true;
             }
         });
 

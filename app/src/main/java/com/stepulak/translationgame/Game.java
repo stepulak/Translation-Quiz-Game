@@ -2,62 +2,72 @@ package com.stepulak.translationgame;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.os.Vibrator;
 
-public class Game {
-    private static final float FETCH_NEXT_WORD_WAIT_TIME = 2.f;
-    private static final float SKIP_WORD_VIBRATION_TIME = 100f;
-    private static final float GAME_END_VIBRATION_TIME = 500f;
+public class Game extends GameRunnable {
+    private static final float FETCH_NEXT_WORD_WAIT_TIME = 2.f; // in sec
+    private static final float SKIP_WORD_VIBRATION_TIME = 100f; // in ms
 
-    private Context context;
     private Dictionary dictionary;
-    private UI ui;
+    private GameUI ui;
 
     // Game logic variables
-    private float gameLoadTime = 0.5f;
     private boolean wordSkipHandled;
     private boolean userFillHandled;
-    private boolean showEndScreenHandled;
     private boolean getNextWord;
     private float getNextWordTimer;
+
+    // Counter
     private int correctWordCounter;
     private int skippedWordCounter;
 
-    public Game(Context context, int dictionaryDescriptor, float scrWidth, float scrHeight) {
-        this.context = context;
-        dictionary = new Dictionary(context.getResources().obtainTypedArray(dictionaryDescriptor));
-        dictionary.shuffle();
-        ui = new UI(context.getResources(), scrWidth, scrHeight);
+    public Game(Context context, float screenWidth, float screenHeight, Dictionary dictionary) {
+        super(context, screenWidth, screenHeight);
+        this.dictionary = dictionary;
+        ui = new GameUI(context.getResources(), screenWidth, screenHeight);
         ui.createUIForTranslation(dictionary.getTranslation());
     }
 
-    public boolean toQuit() {
-        return ui.toQuit();
+    @Override
+    public boolean moveToPreviousGameRunnable() {
+        return ui.isQuitButtonPressed();
     }
 
-    public boolean toRestart() {
-        return ui.toRestart();
+    @Override
+    public boolean moveToNextGameRunnable() {
+        return ui.getUIManager().<Timer>get(UIElementType.TIMER).hasExceeded();
     }
 
+    @Override
+    public GameRunnable createNextGameRunnable() {
+        return new GameEndScreen(getContext(), getScreenWidth(), getScreenHeight(), dictionary, correctWordCounter, skippedWordCounter);
+    }
+
+    @Override
+    public GameRunnable createPreviousGameRunnable() {
+        return new GameMenu(getContext(), getScreenWidth(), getScreenHeight());
+    }
+
+    @Override
     public void click(float x, float y) {
         ui.getUIManager().clickFirst(x, y);
-        handleAfterClickLogic();
+        handleAfterClick();
     }
 
+    @Override
     public void update(float deltaTime) {
-        if (gameLoadTime > 0.f) {
-            gameLoadTime -= deltaTime;
-            return;
-        }
         ui.getUIManager().updateAll(deltaTime);
-        handleAfterUpdateLogic(deltaTime);
+        handleAfterUpdate(deltaTime);
     }
 
+    @Override
     public void draw(Canvas canvas) {
         ui.getUIManager().drawAll(canvas, ui.getPaint());
     }
 
-    private void handleAfterClickLogic() {
+    //
+    // Game logic methods
+    //
+    private void handleAfterClick() {
         UIManager manager = ui.getUIManager();
         Character character = manager.<Keyboard>get(UIElementType.KEYBOARD).getLastClickedCharacter();
         if (character != null) {
@@ -65,20 +75,11 @@ public class Game {
         }
     }
 
-    private void handleAfterUpdateLogic(float deltaTime) {
-        UIManager manager = ui.getUIManager();
-        Keyboard keyboard = manager.get(UIElementType.KEYBOARD);
-        InputForm inputForm = manager.get(UIElementType.INPUT_FORM);
-        Timer timer = manager.get(UIElementType.TIMER);
-
+    private void handleAfterUpdate(float deltaTime) {
+        Keyboard keyboard = ui.getUIManager().get(UIElementType.KEYBOARD);
+        InputForm inputForm = ui.getUIManager().get(UIElementType.INPUT_FORM);
         inputFormUpdate(inputForm);
         getNextWordUpdate(deltaTime, keyboard, inputForm);
-
-        if (!showEndScreenHandled && timer.hasExceeded()) {
-            ui.showEndScreen(correctWordCounter, skippedWordCounter);
-            showEndScreenHandled = true;
-            vibrate(GAME_END_VIBRATION_TIME);
-        }
     }
 
     private void inputFormUpdate(InputForm inputForm) {
@@ -125,13 +126,6 @@ public class Game {
             userFillHandled = false;
             wordSkipHandled = false;
             getNextWord = false;
-            Timer timer = ui.getUIManager().get(UIElementType.TIMER);
-            timer.unfreeze();
         }
-    }
-
-    private void vibrate(float time) {
-        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate((int)time);
     }
 }
