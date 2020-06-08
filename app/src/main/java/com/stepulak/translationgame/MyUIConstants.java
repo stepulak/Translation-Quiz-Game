@@ -19,4 +19,14 @@ public class MyUIConstants {
     public static final float LABEL_HEIGHT_OFFSET_RATIO = 0.04f;
     public static final float TIMER_COUNTER_FONT_SIZE_RATIO = 0.04f;
     public static final float TIMER_LABEL_FONT_SIZE_RATIO = 0.025f;
+    public static final float END_LABEL_WIDTH_RATIO = 0.8f;
+    public static final float END_LABEL_HEIGHT_RATIO = 0.1f;
+    public static final float END_LABEL_VERTICAL_POSITION_RATIO = 0.25f;
+    public static final float STAT_LABEL_WIDTH_RATIO = 0.8f;
+    public static final float STAT_LABEL_HEIGHT_RATIO = 0.1f;
+    public static final float CORRECT_WORDS_LABEL_VERTICAL_POSITION_RATIO = 0.5f;
+    public static final float SKIPPED_WORDS_LABEL_VERTICAL_POSITION_RATIO = 0.6f;
+    public static final float TAP_TO_PLAY_LABEL_WIDTH_RATIO = 0.5f;
+    public static final float TAP_TO_PLAY_LABEL_HEIGHT_RATIO = 0.05f;
+    public static final float TAP_TO_PLAY_LABEL_VERTICAL_POSITION_RATIO = 0.85f;
 }

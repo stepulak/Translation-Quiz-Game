@@ -8,14 +8,20 @@ import java.util.Collections;
 import java.util.List;
 
 public class Dictionary {
+    private String name;
     private List<Translation> translations;
     private int index = 0;
 
-    public Dictionary(TypedArray resource) {
+    public Dictionary(TypedArray resource, String name) {
         if (resource.length() <= 0) {
             throw new InvalidParameterException("Given resource is empty!");
         }
+        this.name = name;
         translations = parseTranslations(resource);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Translation getTranslation() {

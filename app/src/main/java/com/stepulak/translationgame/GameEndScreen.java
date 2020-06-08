@@ -5,18 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import static com.stepulak.translationgame.MyUIConstants.*;
+
 public class GameEndScreen extends GameRunnable {
     private static final float GAME_END_VIBRATION_TIME = 500f; // in ms
-    private static float END_LABEL_WIDTH_RATIO = 0.8f;
-    private static float END_LABEL_HEIGHT_RATIO = 0.1f;
-    private static float END_LABEL_VERTICAL_POSITION_RATIO = 0.25f;
-    private static float STAT_LABEL_WIDTH_RATIO = 0.8f;
-    private static float STAT_LABEL_HEIGHT_RATIO = 0.1f;
-    private static float CORRECT_WORDS_LABEL_VERTICAL_POSITION_RATIO = 0.5f;
-    private static float SKIPPED_WORDS_LABEL_VERTICAL_POSITION_RATIO = 0.6f;
-    private static float TAP_TO_PLAY_LABEL_WIDTH_RATIO = 0.5f;
-    private static float TAP_TO_PLAY_LABEL_HEIGHT_RATIO = 0.05f;
-    private static float TAP_TO_PLAY_LABEL_VERTICAL_POSITION_RATIO = 0.85f;
 
     private Dictionary dictionary;
     private boolean restartGame;
@@ -31,6 +23,7 @@ public class GameEndScreen extends GameRunnable {
     public GameEndScreen(Context context, float screenWidth, float screenHeight, Dictionary dictionary, int correctWords, int skippedWords) {
         super(context, screenWidth, screenHeight);
         this.dictionary = dictionary;
+        setup(correctWords, skippedWords);
         vibrate(GAME_END_VIBRATION_TIME);
     }
 
@@ -61,7 +54,11 @@ public class GameEndScreen extends GameRunnable {
 
     @Override
     public void update(float deltaTime) {
-
+        background.update(deltaTime);
+        theEndLabel.update(deltaTime);
+        correctWordsLabel.update(deltaTime);
+        skippedWordsLabel.update(deltaTime);
+        tapToPlayLabel.update(deltaTime);
     }
 
     @Override
@@ -74,12 +71,14 @@ public class GameEndScreen extends GameRunnable {
         tapToPlayLabel.draw(canvas, paint);
     }
 
-    private void setup(Paint paint, float screenWidth, float screenHeight, int correctWords, int skippedWords) {
+    private void setup(int correctWords, int skippedWords) {
         String theEndString = "THE END!";
         String correctWordsString = "Correct words: " + correctWords;
         String skippedWordsString = "Skipped words: " + skippedWords;
         String tapToPlayString = "Press TAP to play again!";
 
+        float screenWidth = getScreenWidth();
+        float screenHeight = getScreenHeight();
         float centerX = screenWidth / 2.f;
         float endLabelY = screenHeight * END_LABEL_VERTICAL_POSITION_RATIO;
         float endLabelWidth = screenWidth * END_LABEL_WIDTH_RATIO;
@@ -116,6 +115,7 @@ public class GameEndScreen extends GameRunnable {
                 centerX + tapToPlayLabelWidth / 2.f,
                 tapToPlayLabelY + tapToPlayLabelHeight
         );
+        Paint paint = getPaint();
 
         theEndLabel = new Label(theEndString, paint, theEndBody);
         correctWordsLabel = new Label(correctWordsString, paint, correctWordsBody);

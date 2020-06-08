@@ -23,6 +23,7 @@ public class Game extends GameRunnable {
     public Game(Context context, float screenWidth, float screenHeight, Dictionary dictionary) {
         super(context, screenWidth, screenHeight);
         this.dictionary = dictionary;
+        dictionary.shuffle();
         ui = new GameUI(context.getResources(), screenWidth, screenHeight);
         ui.createUIForTranslation(dictionary.getTranslation());
     }
@@ -126,6 +127,7 @@ public class Game extends GameRunnable {
             userFillHandled = false;
             wordSkipHandled = false;
             getNextWord = false;
+            ui.getUIManager().<Timer>get(UIElementType.TIMER).unfreeze();
         }
     }
 }
