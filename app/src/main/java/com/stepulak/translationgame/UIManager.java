@@ -3,12 +3,13 @@ package com.stepulak.translationgame;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import androidx.arch.core.util.Function;
+
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class UIManager {
-
     private Map<UIElementType, UIElement> elements = new EnumMap<>(UIElementType.class);
 
     @SuppressWarnings("unchecked")
@@ -24,9 +25,28 @@ public class UIManager {
         elements.put(elementType, element);
     }
 
-    // Click first element but in reverse order, so actually last :-)
-    public void clickFirst(float x, float y) {
-        clickRecursive(elements.values().iterator(), x, y);
+    public void clickFirst(final float x, final float y) {
+        applyLastRecursive(elements.values().iterator(), new Function<UIElement, Boolean>() {
+            @Override
+            public Boolean apply(UIElement element) {
+                if (element instanceof ClickableElement) {
+                    return ((ClickableElement)element).click(x, y);
+                }
+                return false;
+            }
+        });
+    }
+
+    public void motionTouchFirst(final float touchOrigX, final float touchOrigY, final float motionX, final float motionY) {
+        applyLastRecursive(elements.values().iterator(), new Function<UIElement, Boolean>() {
+            @Override
+            public Boolean apply(UIElement element) {
+                if (element instanceof MotionElement) {
+                    return ((MotionElement)element).motionTouch(touchOrigX, touchOrigY, motionX, motionY);
+                }
+                return false;
+            }
+        });
     }
 
     public void updateAll(float deltaTime) {
@@ -41,17 +61,14 @@ public class UIManager {
         }
     }
 
-    private static boolean clickRecursive(Iterator<UIElement> iterator, float x, float y) {
+    private static boolean applyLastRecursive(Iterator<UIElement> iterator, Function<UIElement, Boolean> applyFunc) {
         if (!iterator.hasNext()) {
             return false;
         }
         UIElement element = iterator.next();
-        if (clickRecursive(iterator, x, y)) {
+        if (applyLastRecursive(iterator, applyFunc)) {
             return true;
         }
-        if (element instanceof ClickableElement) {
-            return ((ClickableElement)element).click(x, y);
-        }
-        return false;
+        return applyFunc.apply(element);
     }
 }

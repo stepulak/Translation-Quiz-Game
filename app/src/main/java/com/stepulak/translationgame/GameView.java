@@ -3,7 +3,7 @@ package com.stepulak.translationgame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.util.Log;
+import android.graphics.PointF;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -13,14 +13,14 @@ import android.view.WindowManager;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private static float NEXT_RUNNABLE_ANIMATION_VELOCITY_RATIO = 2.f;
+    private static float MOTION_OR_CLICK_TIMER = 0.5f;
 
     private float screenWidth;
     private float screenHeight;
-    private float touchX = -1f;
-    private float touchY = -1f;
-    private float motionX = 0f;
-    private float motionY = 0f;
-    private boolean touchDown;
+    private PointF currentTouchPosition;
+    private PointF originalTouchPosition;
+    private PointF motion;
+    private float motionTimer;
     private long lastUpdateTime = -1;
 
     private MainThread thread;
@@ -34,6 +34,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
         setupClickListeners();
         setupScreenSize();
+        MyBitmaps.setup(context.getResources());
         currentGameRunnable = new GameMenu(context, screenWidth, screenHeight);
     }
 
@@ -89,10 +90,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         long time = System.currentTimeMillis();
         if (currentGameRunnable != null && lastUpdateTime > 0) {
             float deltaTime = (time - lastUpdateTime) / 1000.0f;
-            currentGameRunnable.update(deltaTime);
-            currentGameRunnable.touch(motionX, motionY);
-            motionX = motionY = 0.f;
-            updateGameRunnableSwitching(deltaTime);
+            updateLogic(deltaTime);
         }
         lastUpdateTime = time;
     }
@@ -103,6 +101,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    private void updateLogic(float deltaTime) {
+        currentGameRunnable.update(deltaTime);
+        if (motion != null) {
+            currentGameRunnable.motionTouch(originalTouchPosition.x, originalTouchPosition.y, motion.x, motion.y);
+            motion.set(0.f, 0.f);
+            motionTimer += deltaTime;
+        }
+        updateGameRunnableSwitching(deltaTime);
+    }
     private void switchGameRunnable(GameRunnable nextRunnable) {
         float animationVelocity = NEXT_RUNNABLE_ANIMATION_VELOCITY_RATIO * screenHeight;
         nextGameRunnableAnimation = new TranslationAnimation(null, -screenHeight, 0.f, animationVelocity, 0.f);
@@ -110,7 +117,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void updateGameRunnableSwitching(float deltaTime) {
-        if (nextGameRunnable == null) {
+        if (nextGameRunnable == null && nextGameRunnableAnimation == null) {
             if (currentGameRunnable.moveToNextGameRunnable()) {
                 switchGameRunnable(currentGameRunnable.createNextGameRunnable());
             } else if (currentGameRunnable.moveToPreviousGameRunnable()) {
@@ -131,8 +138,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentGameRunnable != null && touchX >= 0f && touchY >= 0f) {
-                    currentGameRunnable.click(touchX, touchY);
+                if (currentGameRunnable != null
+                        && originalTouchPosition != null
+                        && motionTimer <= MOTION_OR_CLICK_TIMER) {
+                    currentGameRunnable.click(originalTouchPosition.x, originalTouchPosition.y);
+                    originalTouchPosition = null;
                 }
             }
         });
@@ -141,16 +151,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 float currentTouchX = motionEvent.getX();
                 float currentTouchY = motionEvent.getY();
-                if (touchDown && touchX >= 0f && touchX >= 0f) {
-                    motionX += currentTouchX - touchX;
-                    motionY += currentTouchY - touchY;
+                if (currentTouchPosition != null && motion != null) {
+                    motion.x += currentTouchX - currentTouchPosition.x;
+                    motion.y += currentTouchY - currentTouchPosition.y;
+                    currentTouchPosition.x = currentTouchX;
+                    currentTouchPosition.y = currentTouchY;
                 }
-                touchX = currentTouchX;
-                touchY = currentTouchY;
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    touchDown = true;
+                    originalTouchPosition = new PointF(currentTouchX, currentTouchY);
+                    currentTouchPosition = new PointF(currentTouchX, currentTouchY);
+                    motion = new PointF(0.f, 0.f);
+                    motionTimer = 0.f;
                 } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    touchDown = false;
+                    currentTouchPosition = null;
+                    motion = null;
                 }
                 return false;
             }

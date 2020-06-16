@@ -15,14 +15,17 @@ public class GameEndScreen extends GameRunnable {
 
     // UI
     private Background background;
-    private Label theEndLabel;
-    private Label correctWordsLabel;
-    private Label skippedWordsLabel;
-    private Label tapToPlayLabel;
+    private CenteredLabel theEndLabel;
+    private CenteredLabel correctWordsLabel;
+    private CenteredLabel skippedWordsLabel;
+    private CenteredLabel tapToPlayLabel;
 
     public GameEndScreen(Context context, float screenWidth, float screenHeight, Dictionary dictionary, int correctWords, int skippedWords) {
         super(context, screenWidth, screenHeight);
         this.dictionary = dictionary;
+        if (PhoneMemory.putBestScore(dictionary.getName(), correctWords)) {
+            // TODO BEST SCORE!
+        }
         setup(correctWords, skippedWords);
         vibrate(GAME_END_VIBRATION_TIME);
     }
@@ -117,10 +120,10 @@ public class GameEndScreen extends GameRunnable {
         );
         Paint paint = getPaint();
 
-        theEndLabel = new Label(theEndString, paint, theEndBody);
-        correctWordsLabel = new Label(correctWordsString, paint, correctWordsBody);
-        skippedWordsLabel = new Label(skippedWordsString, paint, skippedWordsBody);
-        tapToPlayLabel = new Label(tapToPlayString, paint, tapToPlayBody);
+        theEndLabel = new CenteredLabel(theEndString, paint, theEndBody);
+        correctWordsLabel = new CenteredLabel(correctWordsString, paint, correctWordsBody);
+        skippedWordsLabel = new CenteredLabel(skippedWordsString, paint, skippedWordsBody);
+        tapToPlayLabel = new CenteredLabel(tapToPlayString, paint, tapToPlayBody);
         background = new Background(screenWidth, screenHeight);
     }
 }

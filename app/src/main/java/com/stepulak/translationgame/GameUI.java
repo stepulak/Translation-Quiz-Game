@@ -11,13 +11,11 @@ import static com.stepulak.translationgame.MyUIConstants.*;
 public class GameUI {
     private Paint paint = new Paint();
     private UIManager uiManager = new UIManager();
-    private MyBitmaps bitmaps;
     private float screenWidth;
     private float screenHeight;
     private boolean quitButtonPressed;
 
     public GameUI(Resources resources, float scrWidth, float scrHeight) {
-        bitmaps = new MyBitmaps(resources);
         screenWidth = scrWidth;
         screenHeight = scrHeight;
         createBaseUI();
@@ -40,11 +38,11 @@ public class GameUI {
     }
 
     public void createUIForTranslation(Translation translation) {
-        Label label = new Label(translation.getOriginalWord(), paint, getLabelPosition());
+        CenteredLabel label = new CenteredLabel(translation.getOriginalWord(), paint, getLabelPosition());
 
         final InputForm inputForm = new InputForm(translation,
-            bitmaps.get(MyBitmaps.BitmapType.LABEL_BUTTON),
-            bitmaps.get(MyBitmaps.BitmapType.DASH),
+            MyBitmaps.get(MyBitmaps.BitmapType.LABEL_BUTTON),
+            MyBitmaps.get(MyBitmaps.BitmapType.DASH),
             getInputFormPosition()
         );
         inputForm.startEnterAnimation(screenWidth);
@@ -127,10 +125,10 @@ public class GameUI {
         RectF skipButtonPosition = getSkipButtonPosition();
         RectF clearButtonPosition = getClearButtonPosition();
 
-        Bitmap keyboardBitmap = bitmaps.get(MyBitmaps.BitmapType.LABEL_BUTTON);
-        Bitmap quitButtonBitmap = bitmaps.get(MyBitmaps.BitmapType.QUIT_BUTTON);
-        Bitmap skipButtonBitmap = bitmaps.get(MyBitmaps.BitmapType.SKIP_BUTTON);
-        Bitmap clearButtonBitmap = bitmaps.get(MyBitmaps.BitmapType.CLEAR_BUTTON);
+        Bitmap keyboardBitmap = MyBitmaps.get(MyBitmaps.BitmapType.LABEL_BUTTON);
+        Bitmap quitButtonBitmap = MyBitmaps.get(MyBitmaps.BitmapType.QUIT_BUTTON);
+        Bitmap skipButtonBitmap = MyBitmaps.get(MyBitmaps.BitmapType.SKIP_BUTTON);
+        Bitmap clearButtonBitmap = MyBitmaps.get(MyBitmaps.BitmapType.CLEAR_BUTTON);
 
         uiManager.set(UIElementType.BACKGROUND, new Background(screenWidth, screenHeight));
         uiManager.set(UIElementType.KEYBOARD, new Keyboard(keyboardBitmap, keyboardPosition));

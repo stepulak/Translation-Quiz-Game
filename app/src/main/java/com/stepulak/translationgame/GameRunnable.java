@@ -25,7 +25,7 @@ public abstract class GameRunnable {
     public abstract void update(float deltaTime);
     public abstract void draw(Canvas canvas);
 
-    public void touch(float motionX, float motionY) {
+    public void motionTouch(float touchOrigX, float touchOrigY, float motionX, float motionY) {
     }
 
     protected float getScreenWidth() {
