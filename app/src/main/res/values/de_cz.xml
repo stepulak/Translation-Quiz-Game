@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="german_czech">
+        <item>DAS AUTO;AUTO</item>
+        <item>DIE PFANNKUCHEN;PALA~ČINKA</item>
+        <item>DIE HANDSCHELLEN;POUTA</item>
+        <item>DIE LEHRERIN;UČI~TELKA</item>
+        <item>DIE MUSIK;HUDBA</item>
+        <item>DIE TASTATUR;KLÁVES~NICE</item>
+        <item>DAS SCHNITZEL;ŘÍZEK</item>
+        <item>SCHREIBEN;PSÁT</item>
+        <item>SPRECHEN;MLUVIT</item>
+        <item>HÖREN;SLYŠET</item>
+        <item>DIE FAMILIE;RODINA</item>
+        <item>DAS HAUS;DŮM</item>
+        <item>DAS ESSEN;JÍDLO</item>
+        <item>DIE SCHULE;ŠKOLA</item>
+        <item>DIE ARBEIT;PRÁCE</item>
+        <item>DIE WURST;KLOBÁSKA</item>
+        <item>DER OHRWURM;UŠNÍ ČERVÍK</item>
+        <item>DER KUMMERSPECK;SMUTNÁ SLANINA</item>
+        <item>LEBENSMÜDE;OMRZELÝ ŽIVOTEM</item>
+        <item>DER HINTERN;ZADEK</item>
+        <item>DER BUSEN;PRSA</item>
+        <item>WOLLEN;CHTÍT</item>
+        <item>NEHMEN;VZÍT</item>
+        <item>SCHLAFEN;SPÁT</item>
+        <item>REDEN;POVÍDAT</item>
+        <item>HÜBSCH;HEZKÝ</item>
+        <item>LEIDENSCHAFTLICH;VÁŠNIVÝ</item>
+        <item>STARK;SILNÝ</item>
+        <item>KLUG;CHYTRÝ</item>
+        <item>FLEISSIG;PILNÝ</item>
+        <item>DIE SCHOKOLADE;ČOKOLÁDA</item>
+        <item>DAS BROT;CHLEBA</item>
+        <item>DER PANZERWAGEN;TANK</item>
+        <item>DIE STADT;MĚSTO</item>
+        <item>DER ZUG;VLAK</item>
+        <item>DIE AUTOBAHN;DÁLNICE</item>
+        <item>DIE SONNERBRILLE;SLUNEČNÍ BRÝLE</item>
+        <item>DAS FRAGEZEICHEN;OTAZNÍK</item>
+        <item>DER MONITOR;MONITOR</item>
+        <item>DER COMPUTER;POČÍTAČ</item>
+        <item>DER MAURER;ZEDNÍK</item>
+        <item>DER ARZT;LÉKAŘ</item>
+        <item>DAS WEIHNACHTSLIED;VÁNOČNÍ KOLEDA</item>
+        <item>DER AUSFLUG;VÝLET</item>
+        <item>DIE STRAßE;SILNICE</item>
+        <item>DIE BUSHALTESTELLE;ZASTÁVKA</item>
+        <item>DER AUTOBUS;AUTOBUS</item>
+        <item>DAS THEATER;DIVADLO</item>
+        <item>KRANK;NEMOCNÝ</item>
+        <item>HUNGRIG;HLADOVÝ</item>
+        <item>WITZIG;VTIPNÝ</item>
+        <item>GUT;HODNÝ</item>
+        <item>DER SCHLÄGER;RAKETA</item>
+        <item>DAS WASSER;VODA</item>
+        <item>DER HUND;PES</item>
+        <item>LACHEN;SMÁT SE</item>
+        <item>WEINEN;PLAKAT</item>
+        <item>GEHEN;CHODIT</item>
+        <item>ATMEN;DÝCHAT</item>
+        <item>TURNEN;CVIČIT</item>
+        <item>GRÜSSEN;ZDRAVIT</item>
+        <item>DAS BETT;POSTEL</item>
+        <item>TRINKEN;NAPÍT SE</item>
+        <item>DER STAU;DOPRAVNÍ ZÁCPA</item>
+        <item>DIE AMPEL;SEMAFOR</item>
+        <item>WÜTEN;VZTEKAT SE</item>
+        <item>STREICHELN;POHLADIT</item>
+    </string-array>
+</resources>

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -13,9 +14,21 @@ import java.util.Map;
 import static com.stepulak.translationgame.MyUIConstants.*;
 
 public class GameMenu extends GameRunnable {
-    private static List<String> GAME_MENU_TITLES = Arrays.asList("Translation", "Quiz Game");
+    private class DictionaryEntity {
+        String alphabet;
+        int resourceDescriptor;
 
-    private Map<String, Integer> dictionaries = new HashMap<>();
+        public DictionaryEntity(String alphabet, int resourceDescriptor) {
+            this.alphabet = alphabet;
+            this.resourceDescriptor = resourceDescriptor;
+        }
+    }
+
+    private static final List<String> GAME_MENU_TITLES = Arrays.asList("Translation", "Quiz Game");
+    private static final String GERMAN_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß";
+    private static final String CZECH_ALPHABET = "AÁBCČDĎEÉĚFGHIÍJKLMNŇOÓPQRŘSŠTŤUÚŮVWXYÝZŽ";
+
+    private Map<String, DictionaryEntity> dictionaryEntities = new HashMap<>();
     private UIManager uiManager;
     private boolean toQuit;
 
@@ -30,13 +43,14 @@ public class GameMenu extends GameRunnable {
         GameMenuElement element = (GameMenuElement)uiManager
                         .<VerticalMenu>get(UIElementType.VERTICAL_MENU)
                         .getLastClickedElement();
+
         if (element == null) {
             return null;
         }
         String dictionaryName = element.getDictionaryName();
-        int dictionaryDescriptor = dictionaries.get(dictionaryName);
-        TypedArray array = getContext().getResources().obtainTypedArray(dictionaryDescriptor);
-        Dictionary dictionary = new Dictionary(array, dictionaryName);
+        DictionaryEntity entity = dictionaryEntities.get(dictionaryName);
+        TypedArray array = getContext().getResources().obtainTypedArray(entity.resourceDescriptor);
+        Dictionary dictionary = new Dictionary(array, dictionaryName, entity.alphabet);
 
         return new Game(getContext(), getScreenWidth(), getScreenHeight(), dictionary);
     }
@@ -77,7 +91,8 @@ public class GameMenu extends GameRunnable {
     }
 
     private void setupDictionaries() {
-        dictionaries.put("Czech - German", R.array.czech_german);
+        dictionaryEntities.put("Czech - German", new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german));
+        dictionaryEntities.put("German - Czech", new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech));
     }
 
     private void setupUI() {
@@ -101,8 +116,8 @@ public class GameMenu extends GameRunnable {
         RectF verticalMenuArea = new RectF(x, y, x + width, startY + height);
         VerticalMenu menu = new VerticalMenu(verticalMenuArea, height / VerticalMenu.VERTICAL_MENU_NUM_ELEMENTS_PER_SCREEN_DEFAULT);
 
-        for (Map.Entry<String, Integer> dictionary : dictionaries.entrySet()) {
-            GameMenuElement element = new GameMenuElement(dictionary.getKey(), getPaint());
+        for (String dictionaryName : dictionaryEntities.keySet()) {
+            GameMenuElement element = new GameMenuElement(dictionaryName, getPaint());
             menu.addElement(element);
         }
 
@@ -132,7 +147,7 @@ public class GameMenu extends GameRunnable {
     private float setupVersionLabel() {
         float fontSize = getScreenHeight() * VERSION_LABEL_HEIGHT_RATIO;
 
-        Label versionLabel = new Label("version: 0.1", 0.f, 0.f, fontSize);
+        Label versionLabel = new Label("version: " + BuildConfig.VERSION_NAME, 0.f, 0.f, fontSize);
         uiManager.set(UIElementType.VERSION_LABEL, versionLabel);
 
         return fontSize;

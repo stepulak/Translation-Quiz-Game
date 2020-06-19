@@ -18,7 +18,6 @@ public class Keyboard extends ClickableElement {
     private static final int BUTTONS_PER_WIDTH = 6;
     private static final int BUTTONS_PER_HEIGHT = 4;
     private static final float ANIMATION_EXPIRE_TIME = 0.5f;
-    private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß";
 
     private Button[][] buttons;
     private boolean labelsDestroyed;
@@ -41,7 +40,7 @@ public class Keyboard extends ClickableElement {
         }
     }
 
-    public void generateButtonLabels(Translation translation) {
+    public void generateButtonLabels(Translation translation, String alphabet) {
         // Generate labels for buttons
         ArrayList<Character> chars = new ArrayList<>();
         for (Character c : translation.getTranslatedWordWithoutFormatting().toCharArray()) {
@@ -52,7 +51,7 @@ public class Keyboard extends ClickableElement {
         int totalChars = BUTTONS_PER_WIDTH * BUTTONS_PER_HEIGHT;
         Random random = new Random();
         while (chars.size() < totalChars) {
-            chars.add(ALPHABET.charAt(random.nextInt(ALPHABET.length())));
+            chars.add(alphabet.charAt(random.nextInt(alphabet.length())));
         }
 
         // Shuffle it and fill buttons labels

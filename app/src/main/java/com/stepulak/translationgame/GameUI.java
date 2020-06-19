@@ -37,7 +37,7 @@ public class GameUI {
         return quitButtonPressed;
     }
 
-    public void createUIForTranslation(Translation translation) {
+    public void createUIForTranslation(Translation translation, String alphabet) {
         CenteredLabel label = new CenteredLabel(translation.getOriginalWord(), paint, getLabelPosition());
 
         final InputForm inputForm = new InputForm(translation,
@@ -49,7 +49,7 @@ public class GameUI {
 
         uiManager.set(UIElementType.INPUT_FORM, inputForm);
         uiManager.set(UIElementType.WORD_LABEL, label);
-        uiManager.<Keyboard>get(UIElementType.KEYBOARD).generateButtonLabels(translation);
+        uiManager.<Keyboard>get(UIElementType.KEYBOARD).generateButtonLabels(translation, alphabet);
 
         uiManager.<Button>get(UIElementType.CLEAR_BUTTON).setClickCallback(new Callback() {
             @Override

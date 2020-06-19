@@ -25,7 +25,7 @@ public class Game extends GameRunnable {
         this.dictionary = dictionary;
         dictionary.shuffle();
         ui = new GameUI(context.getResources(), screenWidth, screenHeight);
-        ui.createUIForTranslation(dictionary.getTranslation());
+        ui.createUIForTranslation(dictionary.getTranslation(), dictionary.getAlphabet());
     }
 
     @Override
@@ -123,7 +123,7 @@ public class Game extends GameRunnable {
         }
         if (getNextWord && keyboard.areLabelsDestroyed() && !inputForm.isAnimating()) {
             dictionary.next();
-            ui.createUIForTranslation(dictionary.getTranslation());
+            ui.createUIForTranslation(dictionary.getTranslation(), dictionary.getAlphabet());
             userFillHandled = false;
             wordSkipHandled = false;
             getNextWord = false;

@@ -31,5 +31,41 @@
         <item>SILNÝ;STARK</item>
         <item>CHYTRÝ;KLUG</item>
         <item>PILNÝ;FLEISSIG</item>
+        <item>ČOKOLÁDA;DIE SCHOKOLADE</item>
+        <item>CHLEBA;DAS BROT</item>
+        <item>TANK;DER PANZERWAGEN</item>
+        <item>MĚSTO;DIE STADT</item>
+        <item>VLAK;DER ZUG</item>
+        <item>DÁLNICE;DIE AUTOBAHN</item>
+        <item>SLUNEČNÍ BRÝLE;DIE SONNER~BRILLE</item>
+        <item>OTAZNÍK;DAS FRAGE~ZEICHEN</item>
+        <item>MONITOR;DER MONITOR</item>
+        <item>POČÍTAČ;DER COMPUTER</item>
+        <item>ZEDNÍK;DER MAURER</item>
+        <item>LÉKAŘ;DER ARZT</item>
+        <item>VÝLET;DER AUSFLUG</item>
+        <item>SILNICE;DIE STRAßE</item>
+        <item>ZASTÁVKA;DIE BUSHALTE~STELLE</item>
+        <item>AUTOBUS;DER AUTOBUS</item>
+        <item>DIVADLO;DAS THEATER</item>
+        <item>NEMOCNÝ;KRANK</item>
+        <item>HLADOVÝ;HUNGRIG</item>
+        <item>VTIPNÝ;WITZIG</item>
+        <item>HODNÝ;GUT</item>
+        <item>RAKETA;DER SCHLÄGER</item>
+        <item>VODA;DAS WASSER</item>
+        <item>PES;DER HUND</item>
+        <item>SMÁT SE;LACHEN</item>
+        <item>PLAKAT;WEINEN</item>
+        <item>CHODIT;GEHEN</item>
+        <item>DÝCHAT;ATMEN</item>
+        <item>CVIČIT;TURNEN</item>
+        <item>ZDRAVIT;GRÜSSEN</item>
+        <item>POSTEL;DAS BETT</item>
+        <item>NAPÍT SE;TRINKEN</item>
+        <item>DOPRAVNÍ ZÁCPA;DER STAU</item>
+        <item>SEMAFOR;DIE AMPEL</item>
+        <item>VZTEKAT SE;WÜTEN</item>
+        <item>POHLADIT;STREICH~ELN</item>
     </string-array>
 </resources>
