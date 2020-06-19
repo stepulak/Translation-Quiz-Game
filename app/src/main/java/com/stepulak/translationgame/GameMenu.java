@@ -78,11 +78,6 @@ public class GameMenu extends GameRunnable {
 
     private void setupDictionaries() {
         dictionaries.put("Czech - German", R.array.czech_german);
-        dictionaries.put("Czech - German2", R.array.czech_german);
-        dictionaries.put("Czech - German3", R.array.czech_german);
-        dictionaries.put("Czech - German4", R.array.czech_german);
-        dictionaries.put("Czech - German5", R.array.czech_german);
-        dictionaries.put("Czech - German6", R.array.czech_german);
     }
 
     private void setupUI() {

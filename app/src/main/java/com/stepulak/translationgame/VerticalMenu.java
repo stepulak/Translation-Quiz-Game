@@ -53,7 +53,7 @@ public class VerticalMenu extends MotionElement {
         if (!clipArea.contains(x, y)) {
             return false;
         }
-        x += verticalOffset;
+        y += verticalOffset;
         for (MenuElement element : elements) {
             if (element.click(x, y)) {
                 lastClickedElement = element;

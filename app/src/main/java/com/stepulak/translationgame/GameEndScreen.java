@@ -23,10 +23,8 @@ public class GameEndScreen extends GameRunnable {
     public GameEndScreen(Context context, float screenWidth, float screenHeight, Dictionary dictionary, int correctWords, int skippedWords) {
         super(context, screenWidth, screenHeight);
         this.dictionary = dictionary;
-        if (PhoneMemory.putBestScore(dictionary.getName(), correctWords)) {
-            // TODO BEST SCORE!
-        }
-        setup(correctWords, skippedWords);
+        boolean newRecord = PhoneMemory.putBestScore(dictionary.getName(), correctWords);
+        setup(correctWords, skippedWords, newRecord);
         vibrate(GAME_END_VIBRATION_TIME);
     }
 
@@ -74,8 +72,8 @@ public class GameEndScreen extends GameRunnable {
         tapToPlayLabel.draw(canvas, paint);
     }
 
-    private void setup(int correctWords, int skippedWords) {
-        String theEndString = "THE END!";
+    private void setup(int correctWords, int skippedWords, boolean newRecord) {
+        String theEndString = newRecord ? "NEW RECORD!" : "THE END!";
         String correctWordsString = "Correct words: " + correctWords;
         String skippedWordsString = "Skipped words: " + skippedWords;
         String tapToPlayString = "Press TAP to play again!";
