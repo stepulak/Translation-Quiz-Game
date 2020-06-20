@@ -5,11 +5,11 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 public class GameMenuElement extends MenuElement {
-    private static float ELEMENT_CLICK_WIDTH_RATIO = 0.6f;
+    private static float ELEMENT_CLICK_WIDTH_RATIO = 0.85f;
     private static float DICTIONARY_NAME_LABEL_HEIGHT_RATIO_ORIG = 0.5f;
-    private static float DICTIONARY_NAME_LABEL_HEIGHT_RATIO = 0.64f;
+    private static float DICTIONARY_NAME_LABEL_HEIGHT_RATIO = 0.75f;
     private static float BEST_SCORE_LABEL_HEIGHT_RATIO_ORIG = 0.3f;
-    private static float BEST_SCORE_LABEL_HEIGHT_RATIO = 0.36f;
+    private static float BEST_SCORE_LABEL_HEIGHT_RATIO = 0.25f;
 
     private String dictionaryName;
     private CenteredLabel dictionaryNameLabel;
@@ -68,7 +68,7 @@ public class GameMenuElement extends MenuElement {
 
     private void setupBestScoreLabel() {
         int bestScore = PhoneMemory.getBestScore(dictionaryName);
-        String labelString = bestScore >= 0 ? "Best streak of correct words: " + bestScore : "Not played yet";
+        String labelString = bestScore > 0 ? "Best streak of correct words: " + bestScore : "Not scored yet";
         RectF area = getArea();
         float bestScoreLabelHeight = area.height() * BEST_SCORE_LABEL_HEIGHT_RATIO;
         RectF bestScoreLabelRect = new RectF(area.left, area.bottom - bestScoreLabelHeight, area.right, area.bottom);

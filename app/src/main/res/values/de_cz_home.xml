@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="german_czech_home">
+        <item>DŮM;DAS HAUS</item>
+        <item>DAS DACH;STŘECHA</item>
+        <item>DAS FENSTER;OKNO</item>
+        <item>DIE TÜR;DVEŘE</item>
+        <item>DIE KLINKE;KLIKA</item>
+        <item>DIE KLINGEL;ZVONEK</item>
+        <item>DAS BETT;POSTEL</item>
+        <item>DAS BADEZIMMER;KOUPELNA</item>
+        <item>DIE BADEWANNE;VANA</item>
+        <item>DIE DUSCHE;SPRCHA</item>
+        <item>DER KELLER;SKLEP</item>
+        <item>DER TEPPICH;KOBEREC</item>
+        <item>DIE DECKE;STROP</item>
+        <item>DER DACHBODEN;PŮDA</item>
+        <item>DER BETON;BETON</item>
+        <item>DER GESCHIRRSPÜLER;MYČKA</item>
+        <item>DER TROCKNER;SUŠIČKA</item>
+        <item>DIE WASCHMASCHINE;PRAČKA</item>
+        <item>DER KÜHLSCHRANK;LEDNIČKA</item>
+        <item>DIE GARDINE;ZÁCLONY</item>
+        <item>DAS ESSZIMMER;JÍDELNA</item>
+        <item>DIE HUNDEHÜTTE;PSÍ BOUDA</item>
+        <item>DIE TREPPE;SCHO~DIŠTĚ</item>
+        <item>DER HAARTROCKNER;FÉN</item>
+        <item>DAS ZIMMER;POKOJ</item>
+        <item>DAS WOHNZIMMER;OBÝVACÍ POKOJ</item>
+        <item>DIE KÜCHE;KUCHYŇ</item>
+        <item>DAS SCHLAFZIMMER;LOŽNICE</item>
+        <item>DAS KINDERZIMMER;DĚTSKÝ POKOJ</item>
+        <item>DER FUßBODEN;PODLAHA</item>
+        <item>DAS TOR;BRÁNA</item>
+        <item>DIE HALLE;SÍŇ</item>
+        <item>DER SCHLÜSSEL;KLÍČ</item>
+        <item>DIE LEITER;ŽEBŘÍK</item>
+        <item>DAS LICHT;SVĚTLO</item>
+        <item>DAS SCHLOSS;ZÁMEK</item>
+        <item>DER BRIEFKASTEN;POŠTOVNÍ SCHRÁNKA</item>
+        <item>DAS BILD;OBRAZ</item>
+        <item>DAS SOFA;POHOVKA</item>
+        <item>DER TISCH;STŮL</item>
+        <item>DER STUHL;ŽIDLE</item>
+        <item>DIE MIKROWELLE;MIKRO~VLNNÁ TROUBA</item>
+        <item>DER KÜCHENHERD;SPORÁK</item>
+        <item>DER TOPF;HRNEC</item>
+        <item>DER TELLER;TALÍŘ</item>
+        <item>DER LÖFFEL;LŽÍCE</item>
+        <item>DAS BESTECK;PŘÍBOR</item>
+        <item>DAS SCHWIMMBECKEN;BAZÉN</item>
+        <item>DAS SPÜLBECKEN;DŘEZ</item>
+        <item>DER SCHRANK;SKŘÍŇ</item>
+        <item>DIE TOILETTE;TOALETA</item>
+        <item>DER ABFALLEIMER;ODPAD~KOVÝ KOŠ</item>
+        <item>DIE VASE;VÁZA</item>
+        <item>DIE PFANNE;PÁNVIČKA</item>
+        <item>DER WASSERKOCHER;RYCHLO~VARNÁ KONVICE</item>
+        <item>DIE WAND;ZEĎ</item>
+    </string-array>
+</resources>

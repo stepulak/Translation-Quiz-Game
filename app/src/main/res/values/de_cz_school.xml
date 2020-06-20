@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="german_czech_school">
+        <item>DER LEHRER;UČITEL</item>
+        <item>DIE LEHRERIN;UČITELKA</item>
+        <item>DER SCHÜLER;STUDENT</item>
+        <item>DIE SCHÜLERIN;STUDENT~KA</item>
+        <item>DIE FEDER;PERO</item>
+        <item>DER KULI;PROPISKA</item>
+        <item>DAS HEFT;SEŠIT</item>
+        <item>DAS ETUI;POUZDRO</item>
+        <item>DAS LEHRBUCH;UČEBNICE</item>
+        <item>DIE TAFEL;TABULE</item>
+        <item>DIE SCHULBANK;ŠKOLNÍ LAVICE</item>
+        <item>DER STUHL;ŽIDLE</item>
+        <item>DIE PRÜFUNG;ZKOUŠKA</item>
+        <item>DAS ZEUGNIS;VYSVĚD~ČENÍ</item>
+        <item>DAS ABITUR;MATURITA</item>
+        <item>DIE PAUSE;PŘESTÁV~KA</item>
+        <item>DER UNTERRICHT;VÝUKA</item>
+        <item>DIE MATHEMATIK;MATEMA~TIKA</item>
+        <item>DIE FREMDSPRACHE;CIZÍ JAZYK</item>
+        <item>DIE GESCHICHTE;DĚJEPIS</item>
+        <item>DIE ERDKUNDE;ZEMĚPIS</item>
+        <item>DIE BIOLOGIE;BIOLOGIE</item>
+        <item>DER SPORT;TĚLOCVIK</item>
+        <item>DIE PHYSIK;FYZIKA</item>
+        <item>DIE CHEMIE;CHEMIE</item>
+        <item>DIE MUSIK;HUDEBNÍ VÝCHOVA</item>
+        <item>AUFPASSEN;DÁVAT POZOR</item>
+        <item>MELDEN;HLÁSIT SE</item>
+        <item>SCHREIBEN;PSÁT</item>
+        <item>SPRECHEN;MLUVIT</item>
+        <item>DAS PAUSENBROT;SVAČINA</item>
+        <item>DAS MITTAGESSEN;OBĚD</item>
+        <item>DAS BUCH;KNIHA</item>
+        <item>DER TASCHENRECHNER;KALKU~LAČKA</item>
+        <item>DER KALENDER;KALENDÁŘ</item>
+        <item>DER COMPUTER;POČÍTAČ</item>
+        <item>DIE KLASSE;TŘÍDA</item>
+        <item>DAS WÖRTERBUCH;SLOVNÍK</item>
+        <item>DER ATLAS;ATLAS</item>
+        <item>DIE HAUSAUFGABE;DOMÁCÍ ÚLOHA</item>
+        <item>DIE TASTATUR;KLÁVES~NICE</item>
+        <item>DIE KLUGHEIT;CHYTROST</item>
+        <item>DER LAPTOP;LAPTOP</item>
+        <item>DIE KARTE;MAPA</item>
+        <item>DAS QUIZ;KVÍZ</item>
+        <item>DAS PAPIER;PAPÍR</item>
+        <item>DER DRUCKER;TISKÁRNA</item>
+        <item>DAS LINEAL;PRAVÍTKO</item>
+        <item>DIE SCHERE;NŮŽKY</item>
+        <item>DIE WISSENSCHAFT;VĚDA</item>
+    </string-array>
+</resources>

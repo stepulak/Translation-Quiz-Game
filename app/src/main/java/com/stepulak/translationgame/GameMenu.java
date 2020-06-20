@@ -5,11 +5,10 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static com.stepulak.translationgame.MyUIConstants.*;
 
@@ -28,7 +27,7 @@ public class GameMenu extends GameRunnable {
     private static final String GERMAN_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß";
     private static final String CZECH_ALPHABET = "AÁBCČDĎEÉĚFGHIÍJKLMNŇOÓPQRŘSŠTŤUÚŮVWXYÝZŽ";
 
-    private Map<String, DictionaryEntity> dictionaryEntities = new HashMap<>();
+    private Map<String, DictionaryEntity> dictionaryEntities = new TreeMap<>();
     private UIManager uiManager;
     private boolean toQuit;
 
@@ -91,8 +90,22 @@ public class GameMenu extends GameRunnable {
     }
 
     private void setupDictionaries() {
-        dictionaryEntities.put("Czech - German", new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german));
-        dictionaryEntities.put("German - Czech", new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech));
+        dictionaryEntities.put("CZE-GER: School",
+                new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_school));
+        dictionaryEntities.put("GER-CZE: School",
+                new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_school));
+        dictionaryEntities.put("CZE-GER: Home",
+                new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_home));
+        dictionaryEntities.put("GER-CZE: Home",
+                new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_home));
+        dictionaryEntities.put("CZE-GER: Irregular verbs",
+                new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_irregular_verbs));
+        dictionaryEntities.put("GER-CZE: Irregular verbs",
+                new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_irregular_verbs));
+        dictionaryEntities.put("CZE-GER: Mixed",
+                new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german));
+        dictionaryEntities.put("GER-CZE: Mixed",
+                new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech));
     }
 
     private void setupUI() {

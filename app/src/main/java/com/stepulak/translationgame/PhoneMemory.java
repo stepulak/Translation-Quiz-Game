@@ -24,6 +24,6 @@ public class PhoneMemory {
     }
 
     public static int getBestScore(String dictionaryName) {
-        return sharedPreferences.getInt(dictionaryName, -1);
+        return sharedPreferences.getInt(dictionaryName, 0);
     }
 }
