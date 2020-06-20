@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="german_czech_irregular_verbs">
+        <item>BACKEN;PÉCI</item>
+        <item>BEDÜRFEN;POTŘE~BOVAT</item>
+        <item>BEFEHLEN;ROZKA~ZOVAT</item>
+        <item>BEGINNEN;ZAČÍT</item>
+        <item>BEIßEN;KOUSAT</item>
+        <item>BERGEN;SKRÝT</item>
+        <item>BERSTEN;PUKNOUT</item>
+        <item>BETRÜGEN;PODVÁDĚT</item>
+        <item>BEWEGEN;DONUTIT</item>
+        <item>BIEGEN;OHÝBAT</item>
+        <item>BIETEN;NABÍZET</item>
+        <item>BINDEN;VÁZAT</item>
+        <item>BITTEN;PROSIT</item>
+        <item>BLASEN;FOUKAT</item>
+        <item>BLEIBEN;ZŮSTAT</item>
+        <item>BRATEN;PÉCI</item>
+        <item>BRECHEN;ZLOMIT</item>
+        <item>BRENNEN;HOŘET</item>
+        <item>BRINGEN;DONÉST</item>
+        <item>DENKEN;MYSLET</item>
+        <item>DRESCHEN;MLÁTIT</item>
+        <item>DRINGEN;NALÉHAT</item>
+        <item>DÜRFEN;SMĚT</item>
+        <item>EMPFANGEN;PŘIJMOUT</item>
+        <item>EMPFEHLEN;DOPO~RUČIT</item>
+        <item>EMPFINDEN;POCÍTIT</item>
+        <item>ERKLIMMEN;VYŠPLHAT</item>
+        <item>ERLÖSCHEN;UHASNOUT</item>
+        <item>ERWÄGEN;UVAŽOVAT</item>
+        <item>ESSEN;JÍST</item>
+        <item>FAHREN;JET</item>
+        <item>FALLEN;SPADNOUT</item>
+        <item>FANGEN;CHYTAT</item>
+        <item>FECHTEN;ŠERMOVAT</item>
+        <item>FINDEN;NAJÍT</item>
+        <item>FLECHTEN;PLÉST</item>
+        <item>FLIEGEN;LETĚT</item>
+        <item>FLIEHEN;PRCHAT</item>
+        <item>FLIEßEN;TÉCT</item>
+        <item>FRESSEN;ŽRÁT</item>
+        <item>FRIEREN;MRZNOUT</item>
+        <item>GÄREN;KVASIT</item>
+        <item>GEBÄREN;RODIT</item>
+        <item>GEBEN;DÁT</item>
+        <item>GEDEIHEN;DAŘIT SE</item>
+        <item>GEHEN;JÍT</item>
+        <item>GELINGEN;PODAŘIT SE</item>
+        <item>GELTEN;PLATIT</item>
+        <item>GENESEN;UZDRAVIT SE</item>
+        <item>GENIEßEN;VYCHUT~NÁVAT</item>
+        <item>GERATEN;OCTNOUT SE</item>
+        <item>GESCHEHEN;STÁT SE</item>
+        <item>GEWINNEN;VYHRÁT</item>
+        <item>GIEßEN;LÍT</item>
+        <item>GLEICHEN;ROVNAT SE</item>
+        <item>GLEITEN;KLOUZAT SE</item>
+        <item>GLIMMEN;DOUTNAT</item>
+        <item>GRABEN;KOPAT</item>
+        <item>GREIFEN;MÍT</item>
+        <item>HABEN;MÍT</item>
+        <item>HALTEN;DRŽET</item>
+        <item>HÄNGEN;VISET</item>
+        <item>HAUEN;SEKAT</item>
+        <item>HEBEN;ZDVÍHAT</item>
+        <item>HEIßEN;JMENOVAT SE</item>
+        <item>HELFEN;POMOCI</item>
+        <item>KENNEN;ZNÁT</item>
+        <item>KLINGEN;ZNÍT</item>
+        <item>KNEIFEN;SKŘÍP~NOUT SE</item>
+        <item>KOMMEN;PŘIJÍT</item>
+        <item>KÖNNEN;MOCI</item>
+        <item>KRIECHEN;LÉZT</item>
+        <item>LADEN;NAKLÁDAT</item>
+        <item>LASSEN;NECHAT</item>
+        <item>LAUFEN;BĚŽET</item>
+        <item>LEIDEN;TRPĚT</item>
+        <item>LEIHEN;PŮJČIT</item>
+        <item>LESEN;ČÍST</item>
+        <item>LIEGEN;LEŽET</item>
+        <item>LÜGEN;LHÁT</item>
+        <item>MAHLEN;MLÍT</item>
+        <item>MEIDEN;VYVA~ROVAT SE</item>
+        <item>MELKEN;DOJÍT</item>
+        <item>MESSEN;MĚŘIT</item>
+        <item>MISSLINGEN;NEDAŘIT SE</item>
+        <item>MÖGEN;CHTÍT</item>
+        <item>MÜSSEN;MUSET</item>
+        <item>NEHMEN;VZÍT</item>
+        <item>NENNEN;JMENOVAT</item>
+        <item>PFEIFEN;PÍSKAT</item>
+        <item>PREISEN;VELEBIT</item>
+        <item>QUELLEN;PRÝŠTIT</item>
+        <item>RATEN;RADIT</item>
+        <item>REIBEN;TŘÍT</item>
+        <item>REIßEN;TRHAT</item>
+        <item>RENNEN;BĚŽET</item>
+        <item>RIECHEN;VONĚT</item>
+        <item>RINGEN;ZÁPASIT</item>
+        <item>RINNEN;TÉCI</item>
+        <item>RUFEN;VOLAT</item>
+        <item>SALZEN;SOLIT</item>
+        <item>SAUFEN;CHLASTAT</item>
+        <item>SAUGEN;SÁT</item>
+        <item>SCHAFFEN;TVOŘIT</item>
+        <item>SCHEIDEN;ODDĚLIT SE</item>
+        <item>SCHEINEN;SVÍTIT</item>
+        <item>SCHIEBEN;SUNOUT</item>
+        <item>SCHIEßEN;STŘÍLET</item>
+        <item>SCHINDEN;STAHOVAT</item>
+        <item>SCHLAFEN;SPÁT</item>
+        <item>SCHLAGEN;BÍT</item>
+        <item>SCHLEICHEN;PLÍŽIT SE</item>
+        <item>SCHLEIFEN;BROUSIT</item>
+        <item>SCHLIEßEN;ZAVŘÍT</item>
+        <item>SCHLINGEN;POLYKAT</item>
+        <item>SCHMEIßEN;HÁZET</item>
+        <item>SCHMELZEN;TÁT</item>
+        <item>SCHNEIDEN;ŘEZAT</item>
+        <item>SCHREIBEN;PSÁT</item>
+        <item>SCHREIEN;KŘIČET</item>
+        <item>SCHREITEN;KRÁČET</item>
+        <item>SCHWEIGEN;MLČET</item>
+        <item>SCHWELLEN;BOBTNAT</item>
+        <item>SCHWIMMEN;PLAVAT</item>
+        <item>SCHWINDEN;MIZET</item>
+        <item>SCHWINGEN;MÁVAT</item>
+        <item>SCHWÖREN;PŘÍSAHAT</item>
+        <item>SEHEN;VIDĚT</item>
+        <item>SEIN;BÝT</item>
+        <item>SENDEN;POSÍLAT</item>
+        <item>SINGEN;ZPÍVAT</item>
+        <item>SINKEN;KLESAT</item>
+        <item>SINNEN;PŘEMÝŠ~LET</item>
+        <item>SITZEN;SEDĚT</item>
+        <item>SPALTEN;ŠTÍPAT</item>
+        <item>SPEIEN;PLIVAT</item>
+        <item>SPINNEN;PŘÍST</item>
+        <item>SPRECHEN;MLUVIT</item>
+        <item>SPRIEßEN;VYRAZIT</item>
+        <item>SPRINGEN;SKÁKAT</item>
+        <item>STECHEN;PÍCHAT</item>
+        <item>STECKEN;VĚZET</item>
+        <item>STEHEN;STÁT</item>
+        <item>STEHLEN;KRÁST</item>
+        <item>STEIGEN;STOUPAT</item>
+        <item>STERBEN;ZEMŘÍT</item>
+        <item>STINKEN;PÁCHNOUT</item>
+        <item>STOßEN;STRKAT</item>
+        <item>STREICHEN;HLADIT SE</item>
+        <item>STREITEN;HÁDAT SE</item>
+        <item>TRAGEN;NOSIT</item>
+        <item>TREFFEN;POTKAT</item>
+        <item>TREIBEN;HNÁT</item>
+        <item>TRETEN;ŠLÁPNOUT</item>
+        <item>TRINKEN;PÍT</item>
+        <item>TRÜGEN;KLAMAT</item>
+        <item>TUN;DĚLAT</item>
+        <item>VERDERBEN;KAZIT SE</item>
+        <item>VERDRIEßEN;MRZET</item>
+        <item>VERGESSEN;ZAPO~MENOUT</item>
+        <item>VERLIEREN;ZTRATIT SE</item>
+        <item>VERLÖSCHEN;ZHASNOUT</item>
+        <item>VERZEIHEN;ODPUSTIT</item>
+        <item>WACHSEN;RŮST</item>
+        <item>WÄGEN;VÁŽIT</item>
+        <item>WASCHEN;PRÁT</item>
+        <item>WEBEN;TKÁT</item>
+        <item>WEICHEN;USTOUPIT</item>
+        <item>WEISEN;UKÁZAT</item>
+        <item>WENDEN;OBRÁTIT</item>
+        <item>WERBEN;NAJMOUT</item>
+        <item>WERDEN;STÁT SE</item>
+        <item>WERFEN;HODIT</item>
+        <item>WIEGEN;VÁŽIT</item>
+        <item>WINDEN;VINOUT SE</item>
+        <item>WISSEN;VĚDĚT</item>
+        <item>WOLLEN;CHTÍT</item>
+        <item>ZIEHEN;TAHAT</item>
+        <item>ZWINGEN;NUTIT</item>
+    </string-array>
+</resources>
