@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="english_czech_computers">
+        <item>COMPUTER;POČÍTAČ</item>
+        <item>APPLICATION;APLIKACE</item>
+        <item>ALGORITHM;ALGO~RITMUS</item>
+        <item>ARRAY;POLE</item>
+        <item>BYTE;BAJT</item>
+        <item>BROWSER;PROH~LÍŽEČ</item>
+        <item>BUFFER;ZÁSOBNÍK</item>
+        <item>BINARY;BINÁRNÍ</item>
+        <item>COMPILER;KOMPI~LÁTOR</item>
+        <item>COPY;KOPÍ~ROVAT</item>
+        <item>COMPUTER PROGRAM;POČÍTA~ČOVÝ PROGRAM</item>
+        <item>CYBERSPACE;KYBER~PROSTOR</item>
+        <item>MOTHERBOARD;ZÁKLADNÍ DESKA</item>
+        <item>DOWNLOAD;STÁHNOUT</item>
+        <item>DATABASE;DATABÁZE</item>
+        <item>DIGITAL;DIGI~TÁLNÍ</item>
+        <item>ENCRYPT;ZAŠIF~ROVAT</item>
+        <item>DECRYPT;DEŠIF~ROVAT</item>
+        <item>FRAME;RÁMEC</item>
+        <item>FILE;SOUBOR</item>
+        <item>DIRECTORY;SLOŽKA</item>
+        <item>GRAPHICS CARD;GRAFICKÁ KARTA</item>
+        <item>MONITOR;MONITOR</item>
+        <item>COMPUTER CASE;POČÍTA~ČOVÁ SKŘÍŇ</item>
+        <item>KEYBOARD;KLÁVES~NICE</item>
+        <item>MOUSE;MYŠ</item>
+        <item>ELECTRICITY;ELEKT~ŘINA</item>
+        <item>INTERFACE;ROZHRANÍ</item>
+        <item>ADDRESS;ADRESA</item>
+        <item>INTEGER;CELÉ ČÍSLO</item>
+        <item>KERNEL;JÁDRO</item>
+        <item>KEYWORD;KLÍČOVÉ SLOVO</item>
+        <item>MEDIA;MÉDIA</item>
+        <item>NETWORK;SÍŤ</item>
+        <item>NODE;UZEL</item>
+        <item>OPERATING SYSTEM;OPERAČNÍ SYSTÉM</item>
+        <item>PASSWORD;HESLO</item>
+        <item>PASTE;VLOŽIT</item>
+        <item>PATH;CESTA</item>
+        <item>PROGRAMMER;PROGRA~MÁTOR</item>
+        <item>PRINT;VYTISK~NOUT</item>
+        <item>QUEUE;FRONTA</item>
+        <item>ROUTER;SMĚROVAČ</item>
+        <item>SAVE;ULOŽIT</item>
+        <item>SCRIPT;SKRIPT</item>
+        <item>SCREEN;OBRA~ZOVKA</item>
+        <item>SOFTWARE;SOFTWARE</item>
+        <item>HARDWARE;HARDWARE</item>
+        <item>TEXT EDITOR;TEXTOVÝ EDITOR</item>
+        <item>COMPUTER VIRUS;POČÍTA~ČOVÝ VIRUS</item>
+        <item>WORKSTATION;PRACOVNÍ STANICE</item>
+        <item>WORM;ČERV</item>
+        <item>TROJAN HORSE;TROJSKÝ KŮŇ</item>
+        <item>INPUT;VSTUP</item>
+        <item>OUTPUT;VÝSTUP</item>
+        <item>LOGIC;LOGIKA</item>
+        <item>LINK;ODKAZ</item>
+    </string-array>
+</resources>

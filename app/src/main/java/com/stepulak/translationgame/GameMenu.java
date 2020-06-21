@@ -25,6 +25,7 @@ public class GameMenu extends GameRunnable {
 
     private static final List<String> GAME_MENU_TITLES = Arrays.asList("Translation", "Quiz Game");
     private static final String GERMAN_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß";
+    private static final String ENGLISH_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String CZECH_ALPHABET = "AÁBCČDĎEÉĚFGHIÍJKLMNŇOÓPQRŘSŠTŤUÚŮVWXYÝZŽ";
 
     private Map<String, DictionaryEntity> dictionaryEntities = new TreeMap<>();
@@ -106,6 +107,10 @@ public class GameMenu extends GameRunnable {
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german));
         dictionaryEntities.put("GER-CZE: Mixed",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech));
+        dictionaryEntities.put("CZE-ENG: Computers",
+                new DictionaryEntity(ENGLISH_ALPHABET, R.array.czech_english_computers));
+        dictionaryEntities.put("ENG-CZE: Computers",
+                new DictionaryEntity(CZECH_ALPHABET, R.array.english_czech_computers));
     }
 
     private void setupUI() {
