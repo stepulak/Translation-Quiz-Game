@@ -128,7 +128,7 @@ public class GameMenu extends GameRunnable {
         float screenWidth = getScreenWidth();
         float screenHeight = getScreenHeight();
         float width = screenWidth * VERTICAL_MENU_WIDTH_RATIO;
-        float height = screenHeight * VERTICAL_MENU_HEIGHT_RATIO;
+        float height = screenHeight - startY;
         float x = (screenWidth - width) / 2f;
         float y = startY + screenHeight * VERTICAL_MENU_HEIGHT_OFFSET_RATIO;
         RectF verticalMenuArea = new RectF(x, y, x + width, startY + height);

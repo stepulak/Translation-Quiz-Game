@@ -30,7 +30,6 @@ public class MyUIConstants {
     public static final float TAP_TO_PLAY_LABEL_HEIGHT_RATIO = 0.05f;
     public static final float TAP_TO_PLAY_LABEL_VERTICAL_POSITION_RATIO = 0.85f;
     public static final float VERTICAL_MENU_WIDTH_RATIO = 1.f;
-    public static final float VERTICAL_MENU_HEIGHT_RATIO = 0.55f;
     public static final float VERTICAL_MENU_HEIGHT_OFFSET_RATIO = 0.025f;
     public static final float GAME_MENU_TITLE_LABELS_HEIGHT_RATIO = 0.22f;
     public static final float GAME_MENU_TITLE_LABELS_HEIGHT_OFFSET_RATIO = 0.05f;
