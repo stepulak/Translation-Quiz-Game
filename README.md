@@ -2,7 +2,7 @@
 
 Trivia quiz-like game created for my girlfriend.
 Try to create word translation from given letters in the shortest time.
-Your translation must not run out.
+Your timer must not run out.
 
 Available at: https://play.google.com/store/apps/details?id=com.stepulak.translationgame
 
