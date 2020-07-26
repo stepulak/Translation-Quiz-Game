@@ -7,9 +7,9 @@
         <item>KUŘE;DAS HÄHNCHEN</item>
         <item>ŠUNKA;DER SCHINKEN</item>
         <item>PÁREK;DIE WURST</item>
-        <item>RYBA;DAS FISCH</item>
+        <item>RYBA;DER FISCH</item>
         <item>OVOCE;DIE FRUCHT</item>
-        <item>JABLKO;DIE APFEL</item>
+        <item>JABLKO;DER APFEL</item>
         <item>POMERANČ;DIE ORANGE</item>
         <item>BANÁN;DIE BANANE</item>
         <item>JAHODA;DIE ERDBEERE</item>
@@ -17,19 +17,19 @@
         <item>HROZNY;DIE TRAUBEN</item>
         <item>ZELENINA;DAS GEMÜSE</item>
         <item>RAJČE;DIE TOMATE</item>
-        <item>BRAMBORA;DIE KARTOFFEL</item>
-        <item>MRKEV;DIE KARROTTEN</item>
+        <item>BRAMBORA;DIE KARTOFF~EL</item>
+        <item>MRKEV;DIE KARROTE</item>
         <item>HRÁCH;DIE ERBSE</item>
         <item>FAZOLE;DIE BOHNE</item>
         <item>CIBULE;DIE ZWIEBEL</item>
         <item>OŘÍŠEK;DIE NUSS</item>
-        <item>MOUKA;DER MEHL</item>
+        <item>MOUKA;DAS MEHL</item>
         <item>RÝŽE;DER REIS</item>
         <item>SÝR;DER KÄSE</item>
         <item>PIZZA;DIE PIZZA</item>
         <item>HRANOLKY;DIE POMMES</item>
         <item>ZMRZLINA;DAS EIS</item>
-        <item>DORT;DER KUCHEN</item>
+        <item>KOLÁČ;DER KUCHEN</item>
         <item>CHLÉB;DAS BROT</item>
         <item>SALÁT;DER SALAT</item>
         <item>SŮL; DAS SALZ</item>
@@ -37,7 +37,7 @@
         <item>OMÁČKA;DIE SOßE</item>
         <item>MÁSLO;DIE BUTTER</item>
         <item>MED;DER HONIG</item>
-        <item>KRÉM;DIE SAHNE</item>
+        <item>SMETANA;DIE SAHNE</item>
         <item>CURK;DER ZUCKER</item>
         <item>NÁPOJ;DAS GETRÄNK</item>
         <item>VODA;DAS WASSER</item>

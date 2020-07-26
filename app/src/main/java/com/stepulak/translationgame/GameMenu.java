@@ -104,9 +104,13 @@ public class GameMenu extends GameRunnable {
         dictionaryEntities.put("GER-CZE: Irregular verbs",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_irregular_verbs));
         dictionaryEntities.put("CZE-GER: Mathematics",
-                new DictionaryEntity(CZECH_ALPHABET, R.array.czech_german_mathematics));
+                new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_mathematics));
         dictionaryEntities.put("GER-CZE: Mathematics",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_mathematics));
+        dictionaryEntities.put("CZE-GER: Food",
+                new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_food));
+        dictionaryEntities.put("GER-CZE: Food",
+                new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_food));
         dictionaryEntities.put("CZE-GER: Mixed",
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german));
         dictionaryEntities.put("GER-CZE: Mixed",

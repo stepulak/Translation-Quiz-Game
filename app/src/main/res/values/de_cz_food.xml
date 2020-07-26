@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="german_czech_food">
+        <item>DAS ESSEN;JÍDLO</item>
+        <item>DAS FLEISCH;MASO</item>
+        <item>DAS STEAK;STEAK</item>
+        <item>DAS HÄHNCHEN;KUŘE</item>
+        <item>DER SCHINKEN;ŠUNKA</item>
+        <item>DIE WURST;PÁREK</item>
+        <item>DER FISCH;RYBA</item>
+        <item>DIE FRUCHT;OVOCE</item>
+        <item>DER APFEL;JABLKO</item>
+        <item>DIE ORANGE;POMERANČ</item>
+        <item>DIE BANANE;BANÁN</item>
+        <item>DIE ERDBEERE;JAHODA</item>
+        <item>DIE HIMBEERE;MALINA</item>
+        <item>DIE TRAUBEN;HROZNY</item>
+        <item>DAS GEMÜSE;ZELENINA</item>
+        <item>DIE TOMATE;RAJČE</item>
+        <item>DIE KARTOFFEL;BRAMBORA</item>
+        <item>DIE KARROTE;MRKEV</item>
+        <item>DIE ERBSE;HRÁCH</item>
+        <item>DIE BOHNE;FAZOLE</item>
+        <item>DIE ZWIEBEL;CIBULE</item>
+        <item>DIE NUSS;OŘÍŠEK</item>
+        <item>DAS MEHL;MOUKA</item>
+        <item>DER REIS;RÝŽE</item>
+        <item>DER KÄSE;SÝR</item>
+        <item>DIE PIZZA;PIZZA</item>
+        <item>DIE POMMES;HRANOLKY</item>
+        <item>DAS EIS;ZMRZLINA</item>
+        <item>DER KUCHEN;KOLÁČ</item>
+        <item>DAS BROT;CHLÉB</item>
+        <item>DER SALAT;SALÁT</item>
+        <item> DAS SALZ;SŮL</item>
+        <item>DER PFEFFER;PEPŘ</item>
+        <item>DIE SOßE;OMÁČKA</item>
+        <item>DIE BUTTER;MÁSLO</item>
+        <item>DER HONIG;MED</item>
+        <item>DIE SAHNE;SMETANA</item>
+        <item>DER ZUCKER;CURK</item>
+        <item>DAS GETRÄNK;NÁPOJ</item>
+        <item>DAS WASSER;VODA</item>
+        <item>DER KAFFEE;KÁVA</item>
+        <item>DER TEE;ČAJ</item>
+        <item>DER SAFT;DŽUS</item>
+        <item>DIE MILCH;MLÉKO</item>
+        <item>DIE LIMONADE;LIMONÁDA</item>
+        <item>DER WEIN;VÍNO</item>
+        <item>DAS BIER;PIVO</item>
+        <item>BITTER;HOŘKÝ</item>
+        <item>SALZIG;SLANÝ</item>
+        <item>SAUER;KYSELÝ</item>
+        <item>SCHARF;SPICY</item>
+        <item>SÜß;SLADKÝ</item>
+        <item>FRISCH;ČERSTVÝ</item>
+        <item>ROH;SYROVÝ</item>
+        <item>KOCHEN;VAŘIT</item>
+        <item>BACKEN;PÉCT</item>
+        <item>SPÜLEN;MÝT</item>
+    </string-array>
+</resources>
