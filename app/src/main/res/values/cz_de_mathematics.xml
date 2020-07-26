@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="czech_german_mathematics">
+        <item>ČÍSLICE;DIE ZIFFER</item>
+        <item>MATEMATIKA;DIE MATHE~MATIK</item>
+        <item>LICHÝ;UNGERADE</item>
+        <item>SUDÝ;GERADE</item>
+        <item>SČÍTÁNÍ;DIE ADDITION</item>
+        <item>ODČÍTÁNÍ;DIE SUB~TRAKTION</item>
+        <item>NÁSOBENÍ;DIE MULTIPLI~KATION</item>
+        <item>DĚLENÍ;DER DIVISION</item>
+        <item>PLUS;PLUS</item>
+        <item>MÍNUS;MINUS</item>
+        <item>KRÁT;MAL</item>
+        <item>DĚLIT;TEILEN</item>
+        <item>ROVNÁ SE;GLEICH</item>
+        <item>DESETINNÁ TEČKA;DER DEZIMAL~PUNKT</item>
+        <item>PROCENTO;DAS PROZENT</item>
+        <item>VZOREC;DIE FORMEL</item>
+        <item>ROVNICE;DIE GLEICH~UNG</item>
+        <item>PROMĚNNÁ;DIE VARIABLE</item>
+        <item>ŘEŠENÍ;DIE LÖSUNG</item>
+        <item>FUNKCE;DIE FUNKTION</item>
+        <item>VYPOČÍTAT;BERECH~NEN</item>
+        <item>POLOVINA;EIN HALB</item>
+        <item>TŘETINA;EIN DRITTEL</item>
+        <item>ČTVRTINA;EIN VIERTEL</item>
+        <item>PĚTINA;EIN FÜNFTEL</item>
+        <item>OSMINA;EIN ACHTEL</item>
+        <item>DESETINA;EIN ZEHNTEL</item>
+        <item>SETINA;EIN HUNDERTS~TEL</item>
+        <item>MOCNINA;DIE POTENZ</item>
+        <item>ODMOCNINA;DIE WURZEL</item>
+        <item>INTEGRÁL;DAS INTEGRAL</item>
+        <item>SINUS;DER SINUS</item>
+        <item>KOSINUS;DER KOSINUS</item>
+        <item>KALKULAČKA;DER TASCHEN~RECHNER</item>
+    </string-array>
+</resources>
