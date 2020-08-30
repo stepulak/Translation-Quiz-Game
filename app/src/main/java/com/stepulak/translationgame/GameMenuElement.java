@@ -6,7 +6,7 @@ import android.graphics.RectF;
 
 public class GameMenuElement extends MenuElement {
     private static float ELEMENT_CLICK_WIDTH_RATIO = 0.85f;
-    private static float DICTIONARY_NAME_LABEL_HEIGHT_RATIO_ORIG = 0.4f;
+    private static float DICTIONARY_NAME_LABEL_HEIGHT_RATIO_ORIG = 0.3f;
     private static float DICTIONARY_NAME_LABEL_HEIGHT_RATIO = 0.65f;
     private static float BEST_SCORE_LABEL_HEIGHT_RATIO_ORIG = 0.25f;
     private static float BEST_SCORE_LABEL_HEIGHT_RATIO = 0.3f;

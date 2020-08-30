@@ -11,4 +11,4 @@ Still in beta, one day it will be published publicly.
 Unique game idea, everything (including UI, animations, interactions etc.) developed by myself upon Android Canvas.
 No additional libraries were used.
 
-This game was developed only for joy and pleasure, I am not professional Android developer.
+This game was developed only for joy and pleasure mostly during long COVID-19 quarantine evenings. I am not professional Android/Java developer.

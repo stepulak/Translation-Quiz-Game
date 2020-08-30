@@ -31,6 +31,14 @@ public class TimerAnimation<AnimationType> extends AnimationWithType<AnimationTy
         return timer >= expireTime;
     }
 
+    public void setExpired() {
+        timer = expireTime;
+    }
+
+    public void reset() {
+        timer = 0.f;
+    }
+
     public void update(float deltaTime) {
         if (expired()) {
             return;

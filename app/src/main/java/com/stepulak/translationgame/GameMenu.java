@@ -91,33 +91,33 @@ public class GameMenu extends GameRunnable {
     }
 
     private void setupDictionaries() {
-        dictionaryEntities.put("CZE-GER: School",
+        dictionaryEntities.put("Czech-German: School",
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_school));
-        dictionaryEntities.put("GER-CZE: School",
+        dictionaryEntities.put("German-Czech: School",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_school));
-        dictionaryEntities.put("CZE-GER: Home",
+        dictionaryEntities.put("Czech-German: Home",
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_home));
-        dictionaryEntities.put("GER-CZE: Home",
+        dictionaryEntities.put("German-Czech: Home",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_home));
-        dictionaryEntities.put("CZE-GER: Irregular verbs",
+        dictionaryEntities.put("Czech-German: Irregular verbs",
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_irregular_verbs));
-        dictionaryEntities.put("GER-CZE: Irregular verbs",
+        dictionaryEntities.put("German-Czech: Irregular verbs",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_irregular_verbs));
-        dictionaryEntities.put("CZE-GER: Mathematics",
+        dictionaryEntities.put("Czech-German: Mathematics",
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_mathematics));
-        dictionaryEntities.put("GER-CZE: Mathematics",
+        dictionaryEntities.put("German-Czech: Mathematics",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_mathematics));
-        dictionaryEntities.put("CZE-GER: Food",
+        dictionaryEntities.put("Czech-German: Food",
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german_food));
-        dictionaryEntities.put("GER-CZE: Food",
+        dictionaryEntities.put("German-Czech: Food",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech_food));
-        dictionaryEntities.put("CZE-GER: Mixed",
+        dictionaryEntities.put("Czech-German: Mixed",
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.czech_german));
-        dictionaryEntities.put("GER-CZE: Mixed",
+        dictionaryEntities.put("German-Czech: Mixed",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.german_czech));
-        dictionaryEntities.put("CZE-ENG: Computers",
+        dictionaryEntities.put("Czech-English: Computers",
                 new DictionaryEntity(ENGLISH_ALPHABET, R.array.czech_english_computers));
-        dictionaryEntities.put("ENG-CZE: Computers",
+        dictionaryEntities.put("English-Czech: Computers",
                 new DictionaryEntity(CZECH_ALPHABET, R.array.english_czech_computers));
     }
 
