@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="english_german_dates">
+        <item>SPRING;DER FRÜHLING</item>
+        <item>AUTUMN;DER HERBST</item>
+        <item>WINTER;DER WINTER</item>
+        <item>SUMMER;DER SOMMER</item>
+        <item>JANUARY;DER JANUAR</item>
+        <item>FEBRUARY;DER FEBRUAR</item>
+        <item>MARCH;DER MÄRZ</item>
+        <item>APRIL;DER APRIL</item>
+        <item>MAY;DER MAI</item>
+        <item>JUNE;DER JUNI</item>
+        <item>JULY;DER JULI</item>
+        <item>AUGUST;DER AUGUST</item>
+        <item>SEPTEMBER;DER SEPTEM~BER</item>
+        <item>OCTOBER;DER OKTOBER</item>
+        <item>NOVEMBER;DER NOVEMBER</item>
+        <item>DECEMBER;DER DEZEMBER</item>
+        <item>MONDAY;DER MONTAG</item>
+        <item>TUESDAY;DER DIENSTAG</item>
+        <item>WEDNES~DAY;DER MITTWOCH</item>
+        <item>THURSDAY;DER DONNER~STAG</item>
+        <item>FRIDAY;DER FREITAG</item>
+        <item>SATURDAY;DER SAMSTAG</item>
+        <item>SUNDAY;DER SONNTAG</item>
+    </string-array>
+</resources>

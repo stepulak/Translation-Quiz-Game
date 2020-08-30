@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="german_english_business">
+        <item>DAS BÜRO;OFFICE</item>
+        <item>DAS UNTERNEHMEN;COMPANY</item>
+        <item>DER CHEF;BOSS</item>
+        <item>DAS GELD;MONEY</item>
+        <item>DER KOLLEGE;COL~LEAGUE</item>
+        <item>DAS GEHALT;SALARY</item>
+        <item>DER KUNDE;CUSTOMER</item>
+        <item>DER ARBEITGEBER;EMPLOYER</item>
+        <item>DER ARBEITNEHMER;EMPLOYEE</item>
+        <item>DAS PRODUKT;PRODUCT</item>
+        <item>DER SCHREIBTISCH;DESK</item>
+        <item>DER DRUCKER;PRINTER</item>
+        <item>DER ANZUG;SUIT</item>
+        <item>DIE KRAWATTE;TIE</item>
+        <item>DAS HEMD;SHIRT</item>
+        <item>DER BERUF;PROFES~SION</item>
+        <item>DIE KARRIERE;CAREER</item>
+        <item>DER PREIS;PRICE</item>
+        <item>DER ARBEITER;WORKER</item>
+        <item>DER KREDIT;LOAN</item>
+        <item>DIE MARKE;BRAND</item>
+        <item>DER BRIEFUMSCHLAG;ENVELOPE</item>
+        <item>DER BRIEF;LETTER</item>
+        <item>DIE VERSICHERUNG;IN~SURANCE</item>
+        <item>DER ANRUF;CALL</item>
+        <item>DIE ZAHLUNG;PAYMENT</item>
+        <item>DER VERTRAG;CONTRACT</item>
+        <item>DER AUFTRAG;ORDER</item>
+        <item>DIE INDUSTRIE;INDUSTRY</item>
+        <item>DIE DIENSTLEISTUNG;SERVICE</item>
+        <item>DAS KONTO;ACCOUNT</item>
+        <item>DER TERMIN;APPOINT~MENT</item>
+        <item>DER GEWINN;PROFIT</item>
+        <item>DER VERLUST;LOSS</item>
+        <item>DER UMSATZ;SALES</item>
+        <item>DIE ARBEIT;WORK</item>
+        <item>DER WERT;VALUE</item>
+        <item>DIE STEUER;TAX</item>
+        <item>DIE BEWERBUNG;JOB APPLI~CATION</item>
+        <item>DIE WÄHRUNG;CURRENCY</item>
+        <item>DAS WACHSTUM;GROWTH</item>
+        <item>DIE BANK;BANK</item>
+        <item>DIE NACHFRAGE;DEMAND</item>
+        <item>DIE MÖGLICHKEIT;OPPOR~TUNITY</item>
+        <item>DAS NETZWERK;NETWORK</item>
+        <item>VERDIENEN;EARN</item>
+        <item>KAUFEN;BUY</item>
+        <item>VERKAUFEN;SELL</item>
+        <item>BEZAHLEN;PAY</item>
+        <item>VERHANDELN;NEGO~TIATE</item>
+        <item>PRÄSENTIEREN;PRESENT</item>
+    </string-array>
+</resources>
