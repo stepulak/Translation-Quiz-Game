@@ -4,9 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 public class Timer extends UIElement {
-    public static final int DEFAULT_TIME_SECONDS = 40;
-    public static final int CORRECT_WORD_ADD_TIME = 15;
-    public static final int SKIP_WORD_SUBTRACT_TIME = -7;
+    public static final int DEFAULT_TIME_SECONDS = 35;
+    public static final int CORRECT_WORD_ADD_TIME = 13;
+    public static final int SKIP_WORD_SUBTRACT_TIME = -6;
 
     private String counter;
     private String label;

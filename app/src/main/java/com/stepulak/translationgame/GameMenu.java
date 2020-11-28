@@ -131,6 +131,14 @@ public class GameMenu extends GameRunnable {
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.english_german_business));
         dictionaryEntities.put("English-German: Body",
                 new DictionaryEntity(GERMAN_ALPHABET, R.array.english_german_body));
+        dictionaryEntities.put("English-German: Animals",
+                new DictionaryEntity(GERMAN_ALPHABET, R.array.english_german_animals));
+        dictionaryEntities.put("English-German: Vehicles",
+                new DictionaryEntity(GERMAN_ALPHABET, R.array.english_german_vehicles));
+        dictionaryEntities.put("German-English: Animals",
+                new DictionaryEntity(ENGLISH_ALPHABET, R.array.german_english_animals));
+        dictionaryEntities.put("German-English: Vehicles",
+                new DictionaryEntity(ENGLISH_ALPHABET, R.array.german_english_vehicles));
     }
 
     private void setupUI() {

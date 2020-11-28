@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="german_english_vehicles">
+        <item>DAS FAHRZEUG;VEHICLE</item>
+        <item>DAS AUTO;CAR</item>
+        <item>DAS FLUGZEUG;AIRPLANE</item>
+        <item>DER BUS;BUS</item>
+        <item>DAS MOTORRAD;MOTOR~CYCLE</item>
+        <item>DER ZUG;TRAIN</item>
+        <item>DIE RAKETE;ROCKET</item>
+        <item>DER MOTOR;ENGINE</item>
+        <item>DAS LENKRAD;STEERING WHEEL</item>
+        <item>DIE AUTOTÜR;CAR DOOR</item>
+        <item>DER SCHALTHEBEL;GEAR STICK</item>
+        <item>DER REIFEN;TYRE</item>
+        <item>REISEN;TRAVEL</item>
+        <item>FAHREN;DRIVE</item>
+        <item>FLIEGEN;FLY</item>
+        <item>PARKEN;PARK</item>
+        <item>DIE KAROSSERIE;CAR BODY</item>
+        <item>DAS FENSTER;WINDOW</item>
+        <item>DAS GASPEDAL;GAS PEDAL</item>
+        <item>DIE BREMSE;BRAKE</item>
+        <item>DER KOFFERRAUM;TRUNK</item>
+        <item>DER BLINKER;BLINKER</item>
+    </string-array>
+</resources>
