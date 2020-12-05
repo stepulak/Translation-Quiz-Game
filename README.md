@@ -6,8 +6,6 @@ Your timer must not run out.
 
 Available at: https://play.google.com/store/apps/details?id=com.stepulak.translationgame
 
-Still in beta, one day it will be published publicly.
-
 Unique game idea, everything (including UI, animations, interactions etc.) developed by myself upon Android Canvas.
 No additional libraries were used.
 
